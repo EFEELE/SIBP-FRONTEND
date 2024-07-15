@@ -1,0 +1,573 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/versions/bulma-no-dark-mode.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* You can add global styles to this file, and also import other style files */
+
+ /* bootstrap style toast
+ or import a bootstrap 4 alert styled design (SASS ONLY)
+ should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+ if you'd like to use it without importing all of bootstrap it requires */
+
+/* @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";*/
+
+
+:root{
+    --primary: #F36C39;
+}
+.ng-select.ng-select-single .ng-select-container {
+    height: 36px!important;
+    min-height: 36px!important;
+}
+.ng-select .ng-select-container .ng-value-container{
+    border-top: 0!important;
+}
+.ng-select .ng-select-container .ng-value-container .ng-input>input {
+    box-sizing: content-box;
+    background: none transparent;
+    border: 0 none!important;
+    box-shadow: none!important;
+    outline: none;
+    padding: 0;
+    cursor: default;
+    width: 100%;
+}
+ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+    padding-left: 3px!important;
+}
+.ng-select{
+    padding-bottom: 0!important;
+}
+
+
+.tab-content {
+    display: none!important;
+    &.is-active {
+        display: block!important;
+    }
+}
+
+h1.logo {
+    font-weight: 800!important;
+    color: #F36C39!important;
+    font-size: 2.5rem!important;
+}
+
+.navbar-brand {
+    align-items: center!important;
+    padding-top: 1rem;
+    padding-bottom: 1rem!important;
+}
+
+.form-wrapper {
+    max-width: 740px!important;
+    margin: 0 auto!important;
+    padding-top: 20px!important;
+}
+
+.control {
+    box-sizing: border-box!important;
+    clear: both!important;
+    font-size: 1rem!important;
+    position: relative!important;
+    text-align: left!important;
+}
+
+.hero .hero-body .form-wrapper .inner-form .column .input {
+    height: 50px!important;
+    transition: all .3s!important;
+    border-color: #ededed!important;
+    padding-left: 12px!important;
+    box-shadow: 0 15px 30px -10px rgba(24, 44, 86, 0.1)!important;
+    background-color: #EFF0EB!important;
+}
+
+.carnet {
+    max-width: 500px!important;
+}
+
+input#carnet {
+    border-top-right-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+    background-color: #EFF0EB!important;
+    box-shadow: none!important;
+}
+
+button#carnet-search {
+    border-top-left-radius: 0px!important;
+    border-bottom-left-radius: 0px!important;
+    font-weight: 600!important;
+}
+
+table.table.is-striped {
+    margin: 0 auto!important;
+}
+
+.tabs-content li {
+    display: none!important;
+    list-style: none!important;
+}
+
+.tabs-content li.is-active {
+    display: block!important;
+}
+
+.footer {
+    background-color: white!important;
+    padding: 4rem 1.5rem 2rem!important;
+    font-size: 16px!important;
+}
+
+span.datavalue {
+    font-weight: 600!important;
+}
+
+strong.data {
+    width: 190px!important;
+    display: inline-flex!important;
+    border-right: inset!important;
+    border-color: #F36C39!important;
+}
+
+.content blockquote {
+    background-color: #F36C3914!important;
+    border-left: 5px solid #F36C39!important;
+    padding: 1.25em 1.5em!important;
+}
+
+nav.navbar {
+    padding-left: 3rem!important;
+}
+
+i.logout:hover {
+    cursor: pointer!important;
+}
+
+.actived {
+    font-weight: 900!important;
+}
+
+.consulta {
+    max-width: 1200px!important;
+    margin: 0 auto!important;
+    background-color: #F9F9F9!important;
+    padding: 2rem!important;
+    border-left: 5px solid #2c281f!important;
+}
+
+span.alertForm {
+    background-color: #ff00000f!important;
+    color: #ff0000!important;
+    font-weight: 700!important;
+    font-size: .9rem!important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none!important;
+    margin: 0!important;
+}
+/* 
+html {
+    overflow-y: hidden;
+} */
+
+span,
+button {
+    font-family: "Karla", sans-serif;
+}
+
+.wrapper {
+    background-color: var(--primary);
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1.title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.login {
+    background-color: white;
+    width: 400px;
+    padding: 2rem 2rem 3rem 2rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+span.Big {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: block;
+    color: #2c281f;
+}
+
+.button {
+    width: 100%;
+    font-weight: 900;
+}
+
+.itemLeft {
+    
+    display: flex;
+    align-items: center;
+    padding-left: 3rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.confirmacion {
+    display: flex;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.itemRight {
+   
+    display: flex;
+    align-items: center;
+    float: right;
+    padding-right: 3rem;
+    color: hsl(0, 0%, 71%);
+}
+
+a.button {
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.button i {
+    font-size: 0.9rem;
+}
+
+a.button.is-outlined {
+    border: 1px solid;
+    font-weight: 500;
+}
+
+input {
+    border: 1px solid #d1d1d1!important;
+}
+
+select {
+    border: 1px solid #d1d1d1!important;
+}
+
+textarea {
+    border: 1px solid #d1d1d1!important;
+}
+
+hr.separator {
+    background-color: #E16D6F!important;
+}
+
+.label:not(:last-child) {
+    margin-bottom: 0.2em;
+}
+button.button.is-primary {
+    background-color: #2c281f!important;
+}
+.brcRumbCONTAINER {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    background: #F9F9F9;
+}
+
+
+/* HOME */
+
+.menuitems-efe {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    /* color: gray; */
+}
+
+.menuitems-efe a {
+    padding: 10px 25px;
+    color: gray;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.menuitems-efe a:hover {
+    color: black;
+}
+
+.menuitems-efe a.selectEfe {
+    color: black;
+    font-weight: 700;
+}
+
+.breadcrumb a {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #767676 !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0 0.75em;
+}
+
+nav.breadcrumb.menuNav li:before {
+    content: '' !important;
+}
+
+.breadcrumb a:hover {
+    color: #363636;
+}
+
+nav.breadcrumb.menuNav li {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.container-list {
+    width: 900px;
+    margin: 0 auto;
+}
+
+nav.breadcrumb.menuNav li a {
+    padding: 0 !important;
+}
+
+nav.breadcrumb.menuNav {
+    margin-bottom: 0rem !important;
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #F36C3917;
+}
+
+.backlogin {
+    background-color: #2c281f !important;
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute !important;
+    margin: 0;
+    top: 0 !important;
+
+}
+
+.button.is-primary {
+    background-color: #2c281f !important;
+}
+
+.menuNavTopNew {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: white !important;
+}
+
+.lIte {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.lIte a {
+    margin: 2rem;
+}
+
+.rItem i {
+    margin: 2rem;
+}
+
+.rItem {
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .lIte a {
+        margin: 1rem 2rem;
+    }
+
+    .rIte a {
+        margin: 1rem 2rem;
+    }
+}
+
+.brcRumbCONTAINER {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    background: #F9F9F9;
+}
+
+.efeeleParent {
+    width: 90%;
+    /* height: 900px; */
+    margin: 0 auto;
+}
+
+.ngx-datatable {
+    &.scroll-vertical {
+        height: 75vh;
+    }
+}
+
+.invoice-list-wrapper {
+    padding-top: 3rem;
+    background: #f9f9f9;
+    padding-bottom: 10rem;
+    padding-bottom: 4rem;
+}
+
+.column.is-2.select-efe {
+    display: flex;
+    flex-direction: column;
+}
+
+p.subtitle.is-label-efe {
+    margin: 0;
+    font-weight: 700;
+    color: #515151;
+    font-size: 12px;
+    margin-bottom: 3px;
+    margin-left: 4px;
+    height: 30px;
+display: flex;
+align-items: center;
+}
+
+.select.is-rounded.is-small select {
+    width: 100%;
+}
+
+.empty-efe {
+    font-size: 13px;
+    font-weight: 500;
+    color: #828282;
+}
+
+.ngx-datatable.material.striped .datatable-row-odd {
+    background: #f6f6f6;
+}
+
+ngx-datatable#excel-table {
+    border-radius: 15px;
+}
+
+.ngx-datatable.material {
+    background: #fff;
+    box-shadow: 0 5px 5px -3px #00000029, 0 8px 10px 1px #00000014, 0 3px 14px 2px #0000000d !important;
+}
+
+.normal-efe {
+    font-weight: 500;
+    color: #626262;
+}
+
+.bold-efe {
+    font-weight: 800;
+}
+
+.desc-efe {
+    font-size: 12px;
+    display: flex;
+    overflow-wrap: break-word;
+}
+
+span.datatable-header-cell-label {
+    font-weight: 800;
+}
+.controls-efe {
+background: white;
+border-radius: 15px;
+box-shadow: 0 5px 5px -3px #00000029, 0 8px 10px 1px #00000014, 0 3px 14px 2px #0000000d !important;
+margin-bottom: 25px;
+}
+.controls-efe .select{
+width: 100%;
+}
+.controls-efe .columns{
+justify-content: center;
+}
+p.subtitle.is-label-efe.efe-small-text {
+font-size: 10px;
+}
+label.checkbox {
+font-weight: 600;
+}
+.checkbox input{
+margin-right: 5px;
+}
+.header-controls {
+background: black;
+border-top-left-radius: 15px;
+border-top-right-radius: 15px;
+margin: 0 auto;
+text-align: center;
+padding: 6px;
+margin-bottom: 5px;
+color: white;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.header-controls h4 {
+font-weight: 800;
+}
+.brcRumbCONTAINER {
+margin-bottom: 0 !important;
+}
+.menuNavTopNew {
+display: none !important;
+}
+.content.has-text-centered {
+text-align: center;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+footer.footer {
+padding-top: 1rem !important;
+}
+h3.title.is-3 {
+font-weight: 700;
+text-transform: uppercase;
+font-size: 1.5rem;
+text-align: center;
+}
+input.invisible-Check {
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+opacity: 0;
+}

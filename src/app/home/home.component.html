@@ -1,0 +1,586 @@
+
+
+
+
+<!-- <div class="wrapper backlogin" *ngIf='!identity' style="z-index: 999;">
+    <div class="login">
+        <a [routerLink]="['/']" class="logoSystem">
+            <img src="../assets/img/SIBP.png" alt="" style="max-width: 150px;
+            ">
+            <br>
+          
+        </a>
+        <span class="Big">Iniciar sesión</span>
+        <div *ngIf="errorMessage" class="notification is-danger is-light">
+            <button class="delete"></button> {{errorMessage}}
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" #email="ngModel" [(ngModel)]="admin.email" name="email"
+                        placeholder="Correo" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="alertForm"
+                        *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email']?.touched">
+                        El correo es obligatorio
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="password" #password="ngModel" [(ngModel)]="admin.password"
+                        name="password" placeholder="Contraseña" required autocomplete="off">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <span class="alertForm"
+                        *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password']?.touched">
+                        La contraseña es obligatoria
+                    </span>
+                </p>
+            </div>
+
+            <div class="control">
+                <button class="button is-primary" value="Entrar">Iniciar Sesión</button>
+            </div>
+
+        </form>
+    </div>
+</div>  -->
+
+
+
+
+<div  class="table-container">
+
+
+
+    <section class="invoice-list-wrapper">
+
+
+        <div class="efeeleParent">
+        
+            <div class="columns">
+                <div class="column">
+                    <h3 class="title is-3">Bienes Muebles Tizayuca</h3>
+                    
+                </div>
+            </div>
+            <div class="controls-efe">
+               
+                <div class="header-controls"  style="cursor: pointer; ">
+                    <input class="invisible-Check" type="checkbox" [(ngModel)]="showMode">
+                    <h4>Filtros</h4> &nbsp;&nbsp; <i *ngIf="showMode" class="fa-solid fa-angle-up"></i><i *ngIf="!showMode" class="fa-solid fa-angle-down"></i>
+                </div>
+            <div [@fadeInOut]="showMode.toString()" >
+                <div class="columns" style="margin: 0;">
+                    <div class="column is-3">
+                        <form accept-charset="UTF-8" style="margin: 0;">
+                            <div class="columns inner-form">
+                                <div class="column is-four-fifths" style="padding-right: 0rem!important;">
+                                    <div class="control input-column">
+                                        <input spellcheck="false" aria-autocomplete="none" class="input is-small is-rounded"
+                                            [(ngModel)]="searchValue" name="searchValue" (keyup)="filterUpdate($event)"
+                                            (search)="filterUpdate($event)" type="search"
+                                            placeholder="Ingresa un número de inventario, por ejemplo.">
+                                    </div>
+                                </div>
+        
+                                <div class="column button-column" style="margin-left: -34px;">
+                                    <div class="control">
+        
+                                        <button aria-label="BUSCAR" name="buscar"
+                                            class="button is-small cta-button is-primary is-rounded search-button" id="search"
+                                            type="button" style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">BUSCAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="columns" style="margin: 0 auto;" *ngIf="!(aplicarFiltroSiniNV || aplicarFiltroduplicated || aplicarFiltroCostoCero || aplicarFiltroInt)">
+                    <!-- <div class="column is-1 select-efe">
+                        <p class="subtitle is-label-efe">TIPO DE ALTA</p>
+                                    <div class="select is-rounded is-small">
+                                        <select (change)="filterByTipoalta($event.target.value)">
+                                            <option value="">Todos</option>
+                                            <option *ngFor="let option of getUniqueTipoaltaOptions()" [value]="option">
+                                                {{ option }}</option>
+                                        </select>
+                                    </div>
+                    </div> -->
+                   <!--  <div class="column is-1 select-efe">
+                        <p class="subtitle is-label-efe">TIPO DE POSESIÓN</p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByTipo($event.target.value)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueTipoOptions()" [value]="option">{{
+                                    option }}</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="column is-1 select-efe">
+                        <p class="subtitle is-label-efe">AÑO</p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByYear($event)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueYearOptions()" [value]="option">{{
+                                    option }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-1 select-efe">
+                        <p class="subtitle is-label-efe efe-small-text">SUBCUENTA ARMONIZADA </p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterBySubcuenta($event)">
+                                <option value="">Todas</option>
+                                <option *ngFor="let option of getUniqueSubcuentaOptions()" [value]="option">
+                                    {{ option }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-1 select-efe">
+                        <p class="subtitle is-label-efe efe-small-text">CÓDIGO DE LA PARTIDA ESPECIFICA </p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByCodigo($event)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueCodigoOptions()" [value]="option">{{
+                                    option }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-2 select-efe">
+                        <p class="subtitle is-label-efe">ESTADO DEL BIEN</p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByEstado($event)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueEstadoOptions()" [value]="option">{{
+                                    option }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-2 select-efe">
+                        <p class="subtitle is-label-efe">AREA RESPONSABLE</p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByAreares($event)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueArearesOptions()" [value]="option">{{
+                                    option }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="column is-2 select-efe">
+                        <p class="subtitle is-label-efe">AREA PRESUPUESTAL</p>
+                        <div class="select is-rounded is-small">
+                            <select (change)="filterByAreaPres($event)">
+                                <option value="">Todos</option>
+                                <option *ngFor="let option of getUniqueAreaPresOptions()" [value]="option">
+                                    {{ option }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                   
+                </div>
+                <div class="columns" style="margin: 0 auto;">
+                    
+                    <div class="column is-2" style="text-align: center;" >
+                        <label class="checkbox" *ngIf="!aplicarFiltroSiniNV  && !aplicarFiltroCostoCero && !aplicarFiltroInt">
+                            <input type="checkbox" [(ngModel)]="aplicarFiltroduplicated"
+                                (change)="aplicarFiltroRepetidos()" />
+                            No. Inv Duplicados
+                        </label>
+                    </div>
+                    <div class="column is-2" style="text-align: center;" >
+                        <label class="checkbox" *ngIf=" !aplicarFiltroduplicated && !aplicarFiltroCostoCero && !aplicarFiltroInt">
+                            <input type="checkbox" [(ngModel)]="aplicarFiltroSiniNV"
+                                (change)="aplicarFiltroSNI()" />
+                            Sin No. Inventario
+                        </label>
+                    </div>
+                   
+                    <div class="column is-2" style="text-align: center;" >
+
+                        <label class="checkbox" *ngIf="!aplicarFiltroSiniNV && !aplicarFiltroduplicated && !aplicarFiltroCostoCero">
+                            <input type="checkbox" [(ngModel)]="aplicarFiltroInt"
+                                (change)="aplicarFiltroInterinato()" />
+                            Interinato
+                        </label>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-2">
+
+                        <button *ngIf="loadingExcel" class="button is-success is-rounded is-small"
+                            type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            Descargando...
+                        </button>
+                        <button *ngIf="!loadingExcel" class="button is-success is-rounded is-small"
+                            type="button" (click)="downloadExcel()">
+                            <i class="far fa-file-download"></i> &nbsp;
+                            Exportar a Excel Total
+                        </button>
+                    </div>
+                    <div class="column is-2">
+                        <button *ngIf="loadingExcel2" class="button is-primary  is-rounded is-small"
+                            type="button" disabled>
+                            <i class="far fa-file-download"></i> &nbsp;
+                            Descargando...
+                        </button>
+                        <button *ngIf="!loadingExcel2" class="button is-primary is-rounded is-small"
+                            type="button" (click)="exportexcel(table)">
+                            <i class="far fa-file-download"></i> &nbsp;
+                            Exportar a Excel Previo
+                        </button>
+                    </div>
+                </div>
+            </div>
+               
+
+            </div>
+            <ngx-datatable [columnMode]="ColumnMode.standard" [rows]="rows" [rowHeight]="50"
+                [loadingIndicator]="loadingIndicator" class="striped efeTableInv" [headerHeight]="50"
+                [footerHeight]="50" [scrollbarH]="true" [scrollbarV]="true" [class.dark]="darkMode"
+                [class.material]="hasMaterialClass" id="excel-table"
+                [messages]="{emptyMessage: 'Parece que no hay coincidencias con tu búsqueda...', totalMessage: 'total'}"
+                (activate)="onRowClick($event)">
+                
+                <!-- [sorts]="[{prop: 'report_date', dir: 'desc'}]"   (scroll)="loadMoreData()"-->
+                
+
+                <ngx-datatable-column name="SUBCUENTA ARMONIZADA" prop="subcuenta" [width]="93">
+                    <ng-template let-subcuenta="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="subcuenta">
+                            {{ subcuenta }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!subcuenta || subcuenta.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="CÓDIGO DE LA PARTIDA ESPECIFICA" prop="codigo" [width]="45">
+                    <ng-template let-codigo="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="codigo">
+                            {{ codigo }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!codigo || codigo.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="NÚM. DE INVENTARIO" prop="noinventario" [width]="200">
+                    <ng-template let-noinventario="value" ngx-datatable-cell-template>
+                        <div class="normal-efe bold-efe" *ngIf="noinventario">{{ noinventario }}</div>
+
+                        <div class="empty-efe" *ngIf="!noinventario || noinventario.trim() === '' || noinventario == null || noinventario == undefined">
+                            Sin Asignar
+                        </div>
+                       
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="TIPO DE POSESIÓN" prop="tipo" [width]="60">
+                    <ng-template let-tipo="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="tipo">
+                            {{ tipo }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!tipo || tipo.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="DESCRIPCIÓN" prop="desc" [width]="300">
+                    <ng-template let-desc="value" ngx-datatable-cell-template>
+                        <div class="desc-efe" *ngIf="desc">
+                            {{ desc }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!desc || desc.trim() === ''">
+                            Sin Descripción
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="MARCA" prop="marca" [width]="200">
+                    <ng-template let-marca="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="marca">
+                            {{ marca }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!marca || marca.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="MODELO" prop="modelo" [width]="200">
+                    <ng-template let-modelo="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="modelo">
+                            {{ modelo }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!modelo || modelo.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="NÚM. DE SERIE" prop="noserie" [width]="250">
+                    <ng-template let-noserie="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="noserie">
+                            {{ noserie }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!noserie || noserie.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="ESTADO DEL BIEN" prop="estado" [width]="60">
+                    <ng-template let-estado="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="estado">
+                            {{ estado }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!estado || estado.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="COSTO DE ADQUISICIÓN" prop="costo" [width]="60">
+                    <ng-template let-costo="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="costo" >
+                          {{ costo }}
+                       
+                        </div>
+                        <div class="empty-efe" *ngIf="!costo " >
+                           0
+                           
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="DEPRECIACIÓN ACUMULADA" prop="depreciacion" [width]="60">
+                    <ng-template let-depreciacion="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="depreciacion">
+                            {{ depreciacion }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!depreciacion || depreciacion.trim() === ''">
+                            0
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="VALOR EN LIBROS" prop="valorenlibros" [width]="60">
+                    <ng-template let-valorenlibros="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="valorenlibros">
+                            {{ valorenlibros }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!valorenlibros || valorenlibros.trim() === ''">
+                            0
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="PÓLIZA No." prop="poliza" [width]="60">
+                    <ng-template let-poliza="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="poliza">
+                            {{ poliza }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!poliza || poliza.trim() === ''">
+                            0
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="FECHA DE POLIZA" prop="fechapoliza" [width]="100">
+                    <ng-template let-fechapoliza="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fechapoliza">
+                            {{ fechapoliza  | date:'d/MM/yyyy':'UTC'}}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fechapoliza || fechapoliza.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="DOCUMENTO QUE AMPARE LA PROPIEDAD DEL BIEN" prop="DAPB">
+                    <ng-template let-DAPB="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="DAPB">
+                            {{ DAPB }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!DAPB || DAPB.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="FECHA DEL DOCUMENTO" prop="fechaDAPB" [width]="100">
+                    <ng-template let-fechaDAPB="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fechaDAPB">
+                            {{ fechaDAPB  | date:'d/MM/yyyy':'UTC'}}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fechaDAPB || fechaDAPB.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="AREA RESPONSABLE" prop="arearesponsable" [width]="200">
+                    <ng-template let-arearesponsable="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="arearesponsable">
+                            {{ arearesponsable }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!arearesponsable || arearesponsable.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="AREA PRESUPUESTAL" prop="areapresupuestal" [width]="200">
+                    <ng-template let-areapresupuestal="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="areapresupuestal">
+                            {{ areapresupuestal }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!areapresupuestal || areapresupuestal.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="FECHA DE ADQUISICION O ALTA" prop="fechaalta" [width]="100">
+                    <ng-template let-fechaalta="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fechaalta">
+                            {{ fechaalta | date:'d/MM/yyyy':'UTC' }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fechaalta || fechaalta.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="TIPO DE ALTA" prop="tipoalta" [width]="60">
+                    <ng-template let-tipoalta="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="tipoalta">
+                            {{ tipoalta }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!tipoalta || tipoalta.trim() === ''">
+                            S/A
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="RFC" prop="RFC" [width]="105">
+                    <ng-template let-RFC="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="RFC">
+                            {{ RFC }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!RFC || RFC.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="NOMBRE (S)" prop="nombrecompleto" [width]="250">
+                    <ng-template let-nombrecompleto="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="nombrecompleto">
+                            {{ nombrecompleto }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!nombrecompleto || nombrecompleto.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="FECHA DEL RESGUARDO" prop="fecharesguardo" [width]="100">
+                    <ng-template let-fecharesguardo="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fecharesguardo">
+                            {{ fecharesguardo | date:'d/MM/yyyy':'UTC' }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fecharesguardo || fecharesguardo.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="FECHA DE BAJA" prop="fechabaja" [width]="100">
+                    <ng-template let-fechabaja="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fechabaja">
+                            {{ fechabaja | date:'d/MM/yyyy':'UTC' }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fechabaja || fechabaja.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="TIPO DE BAJA" prop="tipobaja" [width]="60">
+                    <ng-template let-tipobaja="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="tipobaja">
+                            {{ tipobaja }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!tipobaja || tipobaja.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="DOCUMENTO QUE AMPARA LA BAJA" prop="DAB" [width]="60">
+                    <ng-template let-DAB="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="DAB">
+                            {{ DAB }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!DAB || DAB.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="PÓLIZA No." prop="polizanobaja" [width]="60">
+                    <ng-template let-polizanobaja="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="polizanobaja">
+                            {{ polizanobaja }}
+                        </div>
+                        <div class="empty-efe" *ngIf="!polizanobaja || polizanobaja.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="FECHA DE PÓLIZA" prop="fechapolizabaja" [width]="75">
+                    <ng-template let-fechapolizabaja="value" ngx-datatable-cell-template>
+                        <div class="normal-efe" *ngIf="fechapolizabaja">
+                            {{ fechapolizabaja | date:'d/MM/yyyy':'UTC'}}
+                        </div>
+                        <div class="empty-efe" *ngIf="!fechapolizabaja || fechapolizabaja.trim() === ''">
+                            ---
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+            </ngx-datatable>
+        </div>
+
+
+    </section>
+
+
+    
+</div>
+
+<footer class="footer" >
+    <div class="content has-text-centered">
+        <div class="lIte">
+            <a [routerLink]="['/']" style="display: flex;
+            align-items: center; ">
+               <img src="../assets/img/logoSIBP.png" alt="" style="max-height: 40px;"> 
+
+            </a>
+        </div>
+        <br>
+        <p>
+            <strong style="color: #2c281f; font-weight: 800;">SIBP</strong> by <a style="color: #7D99CF;"
+                [routerLink]="['https://devs.tizayuca.gob.mx']">Devs_Tiza</a>. SISTEMA DE INVENTARIO DE BIENES PÚBLICOS.
+        </p>
+    </div>
+
+</footer>
