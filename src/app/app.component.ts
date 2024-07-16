@@ -7,18 +7,23 @@ import { AdminService } from './services/admin.service';
 import { Admin } from './models/admin';
 import * as XLSX from 'xlsx';
 import { environment } from '../environments/environment';
-
-
-
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, FontAwesomeModule, RouterModule],
+  imports: [RouterOutlet, NgIf, FontAwesomeModule, CommonModule,RouterModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [AdminService]
 })
 export class AppComponent implements OnInit {
+
+  isMenuOpen = false;
+
+  
   prod = environment.production;
   baseUrl = environment.baseUrl;
 
@@ -58,7 +63,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
   ngOnInit() {
     this.identity = this._adminService.getIdentity();
     this.token = this._adminService.getToken();
@@ -100,7 +107,7 @@ export class AppComponent implements OnInit {
                     '',
                     '',
                     '',
-                    'ROLE_admin'
+                    ''
                   );
                   location.reload();
                 }
@@ -128,12 +135,15 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    window.location.reload();
+   
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     localStorage.clear();
     this.identity = null;
     this.token = null;
-    this._router.navigate(['/']);
+    
+   
   }
 
   exportexcel(): void

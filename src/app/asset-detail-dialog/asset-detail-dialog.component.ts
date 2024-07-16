@@ -8,20 +8,21 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf";
 import { CommonModule , NgIf} from '@angular/common';
 import { QrCodeModule } from 'ng-qrcode';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 @Component({
-  selector: 'app-asset-detail',
+  selector: 'app-asset-detail-dialog',
   standalone: true,
-  imports: [  RouterOutlet, CommonModule , NgIf,  RouterModule, QrCodeModule] ,
-  templateUrl: './asset-detail.component.html',
-  styleUrl: './asset-detail.component.css',
+  imports: [  RouterOutlet, CommonModule , NgIf,  RouterModule, QrCodeModule,MatDialogModule] ,
+  templateUrl: './asset-detail-dialog.component.html',
+  styleUrl: './asset-detail-dialog.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     AdminService,
     AssetService,
   ],
 })
-export class AssetDetailComponent implements OnInit {
+export class AssetDetailDialogComponent implements OnInit {
   public titulo: string;
   public asset: Asset;
   
@@ -29,12 +30,12 @@ export class AssetDetailComponent implements OnInit {
 
     showLightBox() {
         this.lightBoxVisible = true;
-  
+      
     }
 
     closeLightBox() {
         this.lightBoxVisible = false;
-        
+     
     }
   //public courses: Course[];
   //public sanction: Sanction;
@@ -45,8 +46,7 @@ export class AssetDetailComponent implements OnInit {
   public noinventario;
   public identity;
   public token;
-  prod = environment.production;
-  baseUrl = environment.baseUrl;
+  private baseUrl: string = environment.baseUrl;
   public errorMessage;
   public birth;
   public date_start;
@@ -62,7 +62,7 @@ export class AssetDetailComponent implements OnInit {
   totalImages: number = 2; // Cambiar al número total de imágenes en tu div
 
   constructor(
-
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private _route: ActivatedRoute,
     private _router: Router,
     private _adminService: AdminService,
@@ -76,7 +76,8 @@ export class AssetDetailComponent implements OnInit {
     this.token = this._adminService.getToken();
     this.downloadedCheck = true;
     this.baseUrl = environment.baseUrl;
-   
+    
+    this.id = data.id;
   }
   downloadAsImage() {
     const divElement = this.divToDownload.nativeElement;
@@ -109,29 +110,16 @@ export class AssetDetailComponent implements OnInit {
         link.href = imgData;
         link.click();
       }).catch(error => {
-        console.error('Error al capturar la imagen:', error);
+       
       });
     } else {
-      console.error('Error al obtener el contexto 2D del canvas.');
+     
     }
   }
 
-  // downloadAsImage() {
-  //   const divElement = this.divToDownload.nativeElement;
-
-  //   html2canvas(divElement).then(canvas => {
-      
-  //     const imgData = canvas.toDataURL('image/png', 1.0);
-  //     const link = document.createElement('a');
-  //     link.download = `${this.noinventario}_sticker.png`; 
-  //     link.href = imgData;
-  //     link.click();
-  //   });
-  // }
-
   downloadPDF() {
     this.downloadedCheck = false;
-    
+  
     // Extraemos el
     const DATA: any = document.getElementById('htmlData');
     const doc = new jsPDF('p', 'pt', 'a4');
@@ -186,13 +174,13 @@ export class AssetDetailComponent implements OnInit {
       .then((docResult) => {
         docResult.save(`${this.noinventario}_SIBP.pdf`);
         this.downloadedCheck = true;
-      
+        
       });
 
     }, 500); // Agregamos un retardo de 500 milisegundos (puedes ajustarlo según sea necesario)
   }
   ngOnInit() {
-   
+    
    // window.location.reload();
     //lamar al metodo de la api para sacar un artista en base a su id getAsset
     this.getAsset();
@@ -201,10 +189,8 @@ export class AssetDetailComponent implements OnInit {
   }
 
   getAsset() {
-    this._route.params.forEach((params: Params) => {
-      let id = params["id"];
-      this.id = id;
-      this._assetService.getAsset(id).subscribe(
+    
+      this._assetService.getAsset(this.id).subscribe(
         (response) => {
           if (!response.asset) {
             this._router.navigate(["/"]);
@@ -222,7 +208,7 @@ export class AssetDetailComponent implements OnInit {
           return errorMessage;
         }
       );
-    });
+    
   }
 
  

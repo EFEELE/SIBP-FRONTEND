@@ -1,42 +1,91 @@
 <style>
-  .menuNavTopNew{
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      background-color: white!important;
+  .menuNavTopNew {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: white !important;
   }
-  .lIte{
-      
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  }
-  .lIte a {
-  margin: 2rem;
-}
-.rItem i {
-  margin: 2rem;
-}
-  .rItem {
- 
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
 
-@media only screen and (max-width: 600px){
+  .lIte {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+  }
+
   .lIte a {
-  margin: 1rem 2rem;
-}
-.rIte a {
-  margin:  1rem 2rem;
-}
-}
+    margin: 2rem;
+  }
+
+  .rItem i {
+    margin: 2rem;
+  }
+
+  .rItem {
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .lIte a {
+      margin: 1rem 2rem;
+    }
+
+    .rIte a {
+      margin: 1rem 2rem;
+    }
+  }
 </style>
 
-<div *ngIf='identity'>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a [routerLink]="['/']" class="navbar-item" href="https://bulma.io">
+      <img src="./assets/img/logoSIBP.png" alt="" style="max-height: 40px;">
+
+    </a>
+
+    <a (click)="toggleMenu()" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div [ngClass]="{'is-active': isMenuOpen}" id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a  *ngIf="identity && identity.role === 'ROLE_admin'" [routerLink]="['/']" class="navbar-item">
+        TODOS
+      </a>
+
+      <a [routerLink]="['/valor-cero/']" class="navbar-item">
+        VALOR CERO
+      </a>
+
+     
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+
+          <a class="button is-light" *ngIf='identity' (click)="logout()">
+            Cerrar sesión &nbsp; <i class="fas fa-sign-out-alt logout"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- <div >
+  
   
   <div class="menuNavTopNew">
       <div class="lIte">
@@ -47,28 +96,16 @@
           </a>
       </div>
       <div class="rItem">
-           <i class="fas fa-sign-out-alt logout" (click)="logout()"></i>
-      </div>
-  </div>
-
-  </div>
- 
-
-
-  <!-- <div *ngIf='!identity'>
-  
-      <div class="menuNavTopNew">
-          <div class="lIte">
-              <a [routerLink]="['/']" style="display: flex;
-              align-items: center; ">
-                 <img src="../assets/img/logoSIBP.png" alt="" style="max-height: 40px;"> 
-  
-              </a>
-          </div>
+           <i *ngIf='identity' class="fas fa-sign-out-alt logout" (click)="logout()"></i>
+          
           
       </div>
-  
+  </div>
+
   </div> -->
+
+
+
 
 
 

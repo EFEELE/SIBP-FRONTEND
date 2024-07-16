@@ -1,0 +1,610 @@
+<style>
+    .menuNavTopNew {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        background-color: white !important;
+    }
+
+    .lIte {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+    }
+
+    .lIte a {
+        margin: 2rem;
+    }
+
+    .rItem i {
+        margin: 2rem;
+    }
+
+    .rItem {
+
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .lIte a {
+            margin: 1rem 2rem;
+        }
+
+        .rIte a {
+            margin: 1rem 2rem;
+        }
+    }
+
+    .brcRumbCONTAINER {
+        width: 100%;
+        padding: 1.5rem 2rem;
+        margin-bottom: 1rem;
+        background: #F9F9F9;
+    }
+
+    .sticker {
+        font-weight: 400;
+        display: flex;
+        width: 10.05cm;
+        height: 8.25cm;
+        /* background-image: url(../../assets/img/sticker.png);
+   background-size: 100% 100%; */
+        background-repeat: no-repeat;
+
+        position: relative;
+    }
+
+    .backSticker {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .backSticker img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .qrleft {
+        width: 4.1cm;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+        margin-left: 13px;
+        box-sizing: border-box;
+    }
+
+    .sticker .right {
+        text-align: center;
+        width: 5.9cm;
+        padding: 9px;
+        z-index: 99;
+        margin-left: 4.5cm;
+    }
+
+    .sticker hr {
+        margin: 5px;
+    }
+
+    .sticker .content {
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 0 !important;
+        margin-top: 3cm;
+        width: 5cm;
+        position: absolute;
+        height: 3cm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sticker h6 {
+        font-family: "Atkinson Hyperlegible", sans-serif;
+        color: white !important;
+        font-weight: 400;
+        font-size: 10px !important;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin: 3px;
+        /* margin-bottom: 6px; */
+        /* line-height: 7; */
+    }
+
+    .aclass {
+        width: 165px;
+        height: 165px;
+    }
+
+    .qrleft img {
+        height: 72px;
+        width: 72px;
+    }
+
+    .sticker h5 {
+        font-family: "Atkinson Hyperlegible", sans-serif;
+        font-size: 12px;
+    }
+
+    .sticker .right .logo img {
+        width: 100px;
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+    .breadcrumb a {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: #767676 !important;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        padding: 0 0.75em;
+    }
+
+    .breadcrumb a:hover {
+        color: #363636;
+    }
+
+    blockquote h5 {
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold !important;
+        font-weight: bold !important;
+        font-family: 'Montserrat';
+    }
+
+    .imagenBien {
+        width: 300px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        margin: 0 auto;
+        max-width: 350px;
+    }
+
+    .lightBoxEfe img {
+        max-width: 75%;
+        max-height: 75%;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px 6px black;
+    }
+
+    .lightBoxEfe {
+        position: fixed;
+        z-index: 100;
+        margin: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #2c281ff7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: .3s;
+    }
+
+    .missingData {
+        color: red;
+        /* o cualquier otro color que desees */
+    }
+
+    .zoomInpic {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+
+        color: white;
+    }
+
+    .closePic {
+        width: 50px;
+        height: 50px;
+        top: 75%;
+        background: #000000c4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        margin-top: -75px;
+        color: white;
+        font-size: 27px;
+        box-shadow: 0px 0px 12px 0px #00000057;
+    }
+
+    .zoomInpic a {
+        background: #000000ab;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 15px;
+        color: white;
+        box-shadow: 0px 0px 10px #000000bf;
+    }
+
+    .headerAsset span {
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .headerAsset h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #2c281f !important;
+        text-transform: uppercase;
+    }
+
+    .TitAsset {
+        display: flex;
+    }
+
+    .headerAsset p {
+        font-size: 1.1rem;
+    }
+
+    .fieldsAssetDouble {
+        display: flex;
+    }
+
+    .fieldsAssetDouble div {
+        display: flex;
+    }
+
+    .fieldsAssetDouble h5:first-child {
+        font-size: 1.1rem;
+        color: #2c281f;
+        font-weight: 800;
+        margin-right: 0.75rem;
+    }
+
+    .fieldsAssetDouble h5:last-child {
+        color: #646464;
+        margin-right: 0.75rem;
+        font-weight: 600;
+    }
+
+    .fieldsAsset {
+        display: flex;
+    }
+
+    .fieldsAsset h5:first-child {
+        font-size: 1.1rem;
+        color: #2c281f;
+        font-weight: 800;
+        margin-right: 0.75rem;
+    }
+
+    .fieldsAsset h5:last-child {
+        color: #646464;
+        margin-right: 0.75rem;
+        font-weight: 600;
+    }
+
+    h5.missingData {
+        color: #e6d3d3 !important;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        color: #473d27;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .headerAsset h2 {
+            font-size: 1rem;
+        }
+
+        .headerAsset span {
+            font-size: .7rem;
+        }
+
+        .headerAsset span {
+            font-size: 1rem;
+        }
+
+        .fieldsAssetDouble {
+            flex-direction: column;
+            font-size: 1rem !important;
+        }
+
+        .fieldsAssetDouble h5:first-child {
+            font-size: 1rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        .fieldsAsset h5 {
+            font-size: 1rem !important;
+        }
+
+        .largeElement {
+            flex-direction: column;
+            line-height: 1.1;
+            margin-bottom: .1rem;
+        }
+
+    }
+   
+    
+</style>
+
+
+<ng-container *ngIf='asset'>
+
+
+    <section class="container p-5" style="scrollbar-color: grey white;
+        scrollbar-width: thin; margin-top: 0rem; margin: 0 auto!important; overflow: auto; " >
+
+
+        <a *ngIf='identity' [mat-dialog-close] class="mb-5"
+            style="display: block; font-size:.9rem; color: #494949; font-weight: 600;"><i
+                class="fa-regular fa-circle-xmark" style="color: #9e9e9e; font-size: .8rem;"></i>&nbsp; CERRAR</a>
+
+
+        <div class="columns" style="
+    align-items: center;">
+           
+            <div class="column is-12 is-narrow" style="display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;">
+                <div class="sticker" id="htmlData" #divToDownload *ngIf='identity'>
+                    <div class="backSticker">
+                        <img src="../../assets/img/sticker.png" alt="">
+                    </div>
+
+                    <div class="qrleft">
+                        <!--  <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass"
+                            errorCorrectionLevel="L">
+                        </ngx-qrcode> -->
+                        <qr-code [value]="value" size="140" cssClass="aclass" errorCorrectionLevel="L" />
+                    </div>
+                    <div class="right">
+
+                        <div class="content">
+                            <h6>{{ asset.areapresupuestal }}</h6>
+                            <br>
+                            <h6>{{asset.arearesponsable}}</h6>
+                            <br>
+                            <h6>{{asset.noinventario}} </h6>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <button (click)="downloadAsImage()" class="button is-rounded" [disabled]="!downloadedCheck"
+                    *ngIf='identity'><span>Descargar etiqueta</span></button>
+                    <br>
+                    <span>Si la etiqueta se ve recortada, intenta descargarla desde una computadora.</span>
+
+
+
+
+
+
+            </div>
+            <div class="column is-half-desktop is-full-mobile is-full-tablet">
+
+                
+                <div *ngIf="asset.foto" class="imagenBien" style="background-image: url({{asset.foto}});">
+                    <div class="zoomInpic" (click)="showLightBox()">
+                        <a><i class="fa-regular fa-magnifying-glass-plus"></i></a>
+                    </div>
+                </div>
+
+                <div *ngIf="!asset.foto" class="imagenBien"
+                style="background-image: url('../../assets/img/default.webp');">
+                <div class="zoomInpic" (click)="showLightBox()">
+
+                </div>
+            </div>
+
+
+
+            </div>
+
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="columns" >
+
+            <div class="column is-full">
+                <div class="headerAsset">
+                    <div class="TitAsset">
+
+                        <h2>No. Inventario: {{asset.noinventario}} &nbsp; &nbsp;| &nbsp; &nbsp;</h2><span
+                            *ngIf='asset.estado == "Nuevo"' class="tag is-primary is-light">Nuevo</span>
+                        <span *ngIf='asset.estado == "Regular"' class="tag is-info is-light">Regular</span>
+                        <span *ngIf='asset.estado == "Bueno"' class="tag is-success is-light">Bueno</span>
+                        <span *ngIf='asset.estado == "Malo"' class="tag is-warning is-light">Malo</span>
+                        <span *ngIf='asset.estado == "Inservible"' class="tag is-danger is-light">Inservible</span>
+                    </div>
+                    <p>{{asset.desc}}</p>
+                </div>
+                <br>
+                <div class="fieldsAssetDouble">
+                    <div>
+                        <h5>Tipo de posesión: </h5>
+                        <h5 *ngIf='asset.tipo == "I"'>Inventariado (I)</h5>
+                        <h5 *ngIf='asset.tipo == "CO"'>Comodato (CO)</h5>
+                    </div>
+                    <div>
+                        <h5>No. Serie: </h5>
+                        <h5>{{asset.noserie}}</h5>
+                    </div>
+                    <div>
+                        <h5>Modelo: </h5>
+                        <h5>{{asset.modelo}}</h5>
+                    </div>
+                </div>
+
+                <div class="fieldsAssetDouble">
+                    <div>
+                        <h5>Marca: </h5>
+                        <h5>{{asset.marca}}</h5>
+                    </div>
+                    <div>
+                        <h5>Modelo: </h5>
+                        <h5>{{asset.modelo}}</h5>
+                    </div>
+                </div>
+                <hr>
+
+                <h3><i class="fa-sharp fa-regular fa-location-dot"></i> &nbsp;Localización del bien</h3>
+                <br>
+                <div class="fieldsAsset largeElement">
+                    <h5>Área responsable: </h5>
+                    <h5>{{asset.arearesponsable}}</h5>
+                </div>
+                <div class="fieldsAsset largeElement">
+                    <h5>Área presupuestal: </h5>
+                    <h5>{{asset.areapresupuestal}}</h5>
+                </div>
+
+
+                <ng-container *ngIf='identity'>
+                    <hr>
+
+                    <h3><i class="fa-regular fa-file-invoice-dollar"></i> &nbsp;Datos Financieros</h3>
+                    <br>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.costo}">Costo de Adquisición: </h5>
+                        <h5>{{asset.costo}}</h5>
+                    </div>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.depreciacion}">Depreciación acumulada: </h5>
+                        <h5>{{asset.depreciacion}}</h5>
+                    </div>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.valorenlibros}">Valor en libros: </h5>
+                        <h5>{{asset.valorenlibros}}</h5>
+                    </div>
+                    <div class="fieldsAssetDouble">
+                        <div>
+                            <h5 [ngClass]="{'missingData': !asset.poliza}">Póliza No.: </h5>
+                            <h5>{{asset.poliza}}</h5>
+                        </div>
+                        <div>
+                            <h5 [ngClass]="{'missingData': !asset.fechapoliza}">Fecha Póliza: </h5>
+                            <h5>{{asset.fechapoliza | date:'dd/MM/yyyy'}}</h5>
+                        </div>
+                    </div>
+                    <div class="fieldsAssetDouble">
+                        <div class="largeElement">
+                            <h5 [ngClass]="{'missingData': !asset.DAPB}">Documento que ampara la propiedad del bien:
+                            </h5>
+                            <h5 *ngIf='asset.DAPB == "CO"'>Contrato de comodato (CO)</h5>
+                            <h5 *ngIf='asset.DAPB == "CD"'>Contrato de donación (CD)</h5>
+                            <h5 *ngIf='asset.DAPB == "CFDI"'>CFDI</h5>
+                        </div>
+                        <div>
+                            <h5 [ngClass]="{'missingData': !asset.fechaDAPB}">Fecha del Documento: </h5>
+                            <h5>{{asset.fechaDAPB | date:'dd/MM/yyyy' }}</h5>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h3><i class="fa-regular fa-circle-plus"></i> &nbsp;Datos de adquisición o alta</h3>
+                    <br>
+                    <div class="fieldsAssetDouble">
+                        <div>
+                            <h5 [ngClass]="{'missingData': !asset.fechaalta}">Fecha Adquisición/Alta: </h5>
+                            <h5>{{asset.fechaalta | date:'dd/MM/yyyy'}}</h5>
+                        </div>
+                        <div>
+                            <h5 [ngClass]="{'missingData': !asset.tipoalta}">Tipo de Alta: </h5>
+                            <h5 *ngIf='asset.tipoalta == "DN"'>Donación (DN)</h5>
+                            <h5 *ngIf='asset.tipoalta == "CM"'>Compra (CM)</h5>
+                            <h5 *ngIf='asset.tipoalta == "CO"'>Comodato (CO)</h5>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h3><i class="fa-regular fa-user"></i> &nbsp;Datos del resguardante</h3>
+                    <br>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.RFC}">RFC: </h5>
+                        <h5>{{asset.RFC}}</h5>
+                    </div>
+                    <div class="fieldsAsset largeElement">
+                        <h5 [ngClass]="{'missingData': !asset.nombrecompleto}">Nombre completo: </h5>
+                        <h5>{{asset.nombrecompleto}}</h5>
+                    </div>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.fecharesguardo}">Fecha del resguardo: </h5>
+                        <h5>{{asset.fecharesguardo}}</h5>
+                    </div>
+                    <hr>
+
+                    <h3><i class="fa-regular fa-circle-xmark"></i> &nbsp;Datos de la baja</h3>
+                    <br>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.fechabaja}">Fecha de baja: </h5>
+                        <h5>{{asset.fechabaja | date:'dd/MM/yyyy'}}</h5>
+                    </div>
+                    <div class="fieldsAsset">
+                        <h5 [ngClass]="{'missingData': !asset.tipobaja}">Tipo de baja: </h5>
+                        <h5 *ngIf='asset.tipobaja == "RO"'>Robo (RO)</h5>
+                        <h5 *ngIf='asset.tipobaja == "S"'>Siniestro (S)</h5>
+                        <h5 *ngIf='asset.tipobaja == "P"'>Perdida (P)</h5>
+                        <h5 *ngIf='asset.tipobaja == "O"'>Obselescencia (O)</h5>
+                        <h5 *ngIf='asset.tipobaja == "V"'>Venta (V)</h5>
+                        <h5 *ngIf='asset.tipobaja == "DO"'>Donación (DO)</h5>
+                        <h5 *ngIf='asset.tipobaja == "TC"'>Terminó de Comodato (TC)</h5>
+                    </div>
+                    <div class="fieldsAsset largeElement">
+                        <h5 [ngClass]="{'missingData': !asset.DAB}">Documento que ampara la baja: </h5>
+                        <h5>{{asset.DAB}}</h5>
+                    </div>
+
+
+                </ng-container>
+
+
+            </div>
+
+            <br>
+        </div>
+        <br>
+
+
+
+    </section>
+
+</ng-container>

@@ -1,8 +1,6 @@
 
 
-
-
-<!-- <div class="wrapper backlogin" *ngIf='!identity' style="z-index: 999;">
+<div class="wrapper backlogin"  *ngIf="!identity" style="z-index: 999;">
     <div class="login">
         <a [routerLink]="['/']" class="logoSystem">
             <img src="../assets/img/SIBP.png" alt="" style="max-width: 150px;
@@ -18,7 +16,7 @@
 
             <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" #email="ngModel" [(ngModel)]="admin.email" name="email"
+                    <input class="input" type="email" #email="ngModel"  [(ngModel)]="admin.email" name="email"
                         placeholder="Correo" required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
@@ -34,7 +32,7 @@
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="password" #password="ngModel" [(ngModel)]="admin.password"
+                    <input class="input" type="password" #password="ngModel"[(ngModel)]="admin.password"
                         name="password" placeholder="Contraseña" required autocomplete="off">
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
@@ -52,12 +50,8 @@
 
         </form>
     </div>
-</div>  -->
-
-
-
-
-<div  class="table-container">
+</div> 
+<div  class="table-container" *ngIf='identity'>
 
 
 
@@ -68,17 +62,18 @@
         
             <div class="columns">
                 <div class="column">
+                  
                     <h3 class="title is-3">Bienes Muebles Tizayuca</h3>
                     
                 </div>
             </div>
-            <div class="controls-efe">
+          <!--   <div class="controls-efe">
                
                 <div class="header-controls"  style="cursor: pointer; ">
                     <input class="invisible-Check" type="checkbox" [(ngModel)]="showMode">
                     <h4>Filtros</h4> &nbsp;&nbsp; <i *ngIf="showMode" class="fa-solid fa-angle-up"></i><i *ngIf="!showMode" class="fa-solid fa-angle-down"></i>
                 </div>
-            <div [@fadeInOut]="showMode.toString()" >
+            <div [@fadeInOut]="showMode.toString()"  class="p-5">
                 <div class="columns" style="margin: 0;">
                     <div class="column is-3">
                         <form accept-charset="UTF-8" style="margin: 0;">
@@ -105,26 +100,8 @@
                     </div>
                 </div>
                 <div class="columns" style="margin: 0 auto;" *ngIf="!(aplicarFiltroSiniNV || aplicarFiltroduplicated || aplicarFiltroCostoCero || aplicarFiltroInt)">
-                    <!-- <div class="column is-1 select-efe">
-                        <p class="subtitle is-label-efe">TIPO DE ALTA</p>
-                                    <div class="select is-rounded is-small">
-                                        <select (change)="filterByTipoalta($event.target.value)">
-                                            <option value="">Todos</option>
-                                            <option *ngFor="let option of getUniqueTipoaltaOptions()" [value]="option">
-                                                {{ option }}</option>
-                                        </select>
-                                    </div>
-                    </div> -->
-                   <!--  <div class="column is-1 select-efe">
-                        <p class="subtitle is-label-efe">TIPO DE POSESIÓN</p>
-                        <div class="select is-rounded is-small">
-                            <select (change)="filterByTipo($event.target.value)">
-                                <option value="">Todos</option>
-                                <option *ngFor="let option of getUniqueTipoOptions()" [value]="option">{{
-                                    option }}</option>
-                            </select>
-                        </div>
-                    </div> -->
+                    
+                  
                     <div class="column is-1 select-efe">
                         <p class="subtitle is-label-efe">AÑO</p>
                         <div class="select is-rounded is-small">
@@ -215,8 +192,8 @@
                         </label>
                     </div>
                 </div>
-                <div class="columns">
-                    <div class="column is-2">
+                <div class="columns is-3">
+                    <div class="column is-4">
 
                         <button *ngIf="loadingExcel" class="button is-success is-rounded is-small"
                             type="button" disabled>
@@ -230,7 +207,7 @@
                             Exportar a Excel Total
                         </button>
                     </div>
-                    <div class="column is-2">
+                    <div class="column is-4">
                         <button *ngIf="loadingExcel2" class="button is-primary  is-rounded is-small"
                             type="button" disabled>
                             <i class="far fa-file-download"></i> &nbsp;
@@ -246,18 +223,201 @@
             </div>
                
 
+            </div> -->
+
+            
+<mat-expansion-panel [expanded]="step() === 0" (opened)="setStep(0)" class="controls-efe">
+    <mat-expansion-panel-header class="header-controls" style="cursor: pointer; ">
+       
+        <h4>Filtros</h4>
+    </mat-expansion-panel-header>
+    <div class="p-1">
+        <div class="columns" style="margin: 0;">
+            <div class="column is-3">
+                <form accept-charset="UTF-8" style="margin: 0;" class="search-field-efe">
+                    <div class="columns inner-form">
+                        <div class="column is-four-fifths" style="padding-right: 0rem!important;">
+                            <div class="control input-column">
+                                <input spellcheck="false" aria-autocomplete="none" class="input is-small is-rounded"
+                                    [(ngModel)]="searchValue" name="searchValue" (keyup)="filterUpdate($event)"
+                                    (search)="filterUpdate($event)" type="search"
+                                    placeholder="Ingresa un número de inventario, por ejemplo.">
+                            </div>
+                        </div>
+
+                        <div class="column button-column" style="margin-left: -34px;">
+                            <div class="control">
+
+                                <button aria-label="BUSCAR" name="buscar"
+                                    class="button is-small cta-button is-primary is-rounded search-button" id="search"
+                                    type="button"
+                                    style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;">BUSCAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
+        <div class="columns" style="margin: 0 auto;"
+            *ngIf="!(aplicarFiltroSiniNV || aplicarFiltroduplicated || aplicarFiltroCostoCero || aplicarFiltroInt)">
+            <!-- <div class="column is-1 select-efe">
+                    <p class="subtitle is-label-efe">TIPO DE ALTA</p>
+                                <div class="select is-rounded is-small">
+                                    <select (change)="filterByTipoalta($event.target.value)">
+                                        <option value="">Todos</option>
+                                        <option *ngFor="let option of getUniqueTipoaltaOptions()" [value]="option">
+                                            {{ option }}</option>
+                                    </select>
+                                </div>
+                </div> -->
+            <!--  <div class="column is-1 select-efe">
+                    <p class="subtitle is-label-efe">TIPO DE POSESIÓN</p>
+                    <div class="select is-rounded is-small">
+                        <select (change)="filterByTipo($event.target.value)">
+                            <option value="">Todos</option>
+                            <option *ngFor="let option of getUniqueTipoOptions()" [value]="option">{{
+                                option }}</option>
+                        </select>
+                    </div>
+                </div> -->
+            <div class="column is-1 select-efe">
+                <p class="subtitle is-label-efe">AÑO</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByYear($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueYearOptions()" [value]="option">{{
+                            option }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column is-1 select-efe">
+                <p class="subtitle is-label-efe efe-small-text">SUBCUENTA ARMONIZADA </p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterBySubcuenta($event)">
+                        <option value="">Todas</option>
+                        <option *ngFor="let option of getUniqueSubcuentaOptions()" [value]="option">
+                            {{ option }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column is-1 select-efe">
+                <p class="subtitle is-label-efe efe-small-text">CÓDIGO DE LA PARTIDA ESPECIFICA </p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByCodigo($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueCodigoOptions()" [value]="option">{{
+                            option }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column is-2 select-efe">
+                <p class="subtitle is-label-efe">ESTADO DEL BIEN</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByEstado($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueEstadoOptions()" [value]="option">{{
+                            option }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column is-2 select-efe">
+                <p class="subtitle is-label-efe">AREA RESPONSABLE</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByAreares($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueArearesOptions()" [value]="option">{{
+                            option }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="column is-2 select-efe">
+                <p class="subtitle is-label-efe">AREA PRESUPUESTAL</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByAreaPres($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueAreaPresOptions()" [value]="option">
+                            {{ option }}</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="columns" style="margin: 0 auto;">
+
+            <div class="column is-2" style="text-align: center;">
+                <label class="checkbox" *ngIf="!aplicarFiltroSiniNV  && !aplicarFiltroCostoCero && !aplicarFiltroInt">
+                    <input type="checkbox" [(ngModel)]="aplicarFiltroduplicated" (change)="aplicarFiltroRepetidos()" />
+                    No. Inv Duplicados
+                </label>
+            </div>
+            <div class="column is-2" style="text-align: center;">
+                <label class="checkbox"
+                    *ngIf=" !aplicarFiltroduplicated && !aplicarFiltroCostoCero && !aplicarFiltroInt">
+                    <input type="checkbox" [(ngModel)]="aplicarFiltroSiniNV" (change)="aplicarFiltroSNI()" />
+                    Sin No. Inventario
+                </label>
+            </div>
+
+            <div class="column is-2" style="text-align: center;">
+
+                <label class="checkbox"
+                    *ngIf="!aplicarFiltroSiniNV && !aplicarFiltroduplicated && !aplicarFiltroCostoCero">
+                    <input type="checkbox" [(ngModel)]="aplicarFiltroInt" (change)="aplicarFiltroInterinato()" />
+                    Interinato
+                </label>
+            </div>
+        </div>
+        <div class="columns is-3">
+            <div class="column is-4">
+
+                <button *ngIf="loadingExcel" class="button is-success is-rounded is-small" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Descargando...
+                </button>
+                <button *ngIf="!loadingExcel" class="button is-success is-rounded is-small" type="button"
+                    (click)="downloadExcel()">
+                    <i class="far fa-file-download"></i> &nbsp;
+                    Exportar a Excel Total
+                </button>
+            </div>
+            <div class="column is-4">
+                <button *ngIf="loadingExcel2" class="button is-primary  is-rounded is-small" type="button" disabled>
+                    <i class="far fa-file-download"></i> &nbsp;
+                    Descargando...
+                </button>
+                <button *ngIf="!loadingExcel2" class="button is-primary is-rounded is-small" type="button"
+                    (click)="exportexcel(table)">
+                    <i class="far fa-file-download"></i> &nbsp;
+                    Exportar a Excel Previo
+                </button>
+            </div>
+        </div>
+    </div>
+
+</mat-expansion-panel>
+<br>
+<br>
             <ngx-datatable [columnMode]="ColumnMode.standard" [rows]="rows" [rowHeight]="50"
                 [loadingIndicator]="loadingIndicator" class="striped efeTableInv" [headerHeight]="50"
                 [footerHeight]="50" [scrollbarH]="true" [scrollbarV]="true" [class.dark]="darkMode"
                 [class.material]="hasMaterialClass" id="excel-table"
                 [messages]="{emptyMessage: 'Parece que no hay coincidencias con tu búsqueda...', totalMessage: 'total'}"
-                (activate)="onRowClick($event)">
+               >
                 
                 <!-- [sorts]="[{prop: 'report_date', dir: 'desc'}]"   (scroll)="loadMoreData()"-->
                 
-
-                <ngx-datatable-column name="SUBCUENTA ARMONIZADA" prop="subcuenta" [width]="93">
+                <ngx-datatable-column name="ACCIONES" prop="actions" [width]="200">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button class="tag is-dark" (click)="openDialogPreView(row._id)">VER</button>&nbsp;
+                        <button class="tag is-dark" (click)="onOpenClick(row._id)">ABRIR</button>&nbsp;
+                        <button *ngIf="identity && identity.role == 'ROLE_admin'" class="tag is-black" (click)="openDialogEdit(row._id)">EDITAR</button>
+                        
+                      
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column  name="SUBCUENTA ARMONIZADA" prop="subcuenta" [width]="93">
                     <ng-template let-subcuenta="value" ngx-datatable-cell-template>
                         <div class="normal-efe" *ngIf="subcuenta">
                             {{ subcuenta }}

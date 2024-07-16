@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, ViewChild } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, ViewChild, signal } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { ColumnMode, DatatableComponent, NgxDatatableModule, } from '@swimlane/ngx-datatable';
 import { Asset } from '../models/asset';
@@ -7,21 +7,26 @@ import { AdminService } from '../services/admin.service';
 import { AssetService } from '../services/asset.service';
 import { environment } from '../../environments/environment';
 import { FormBuilder, FormsModule } from '@angular/forms';
-
 import * as XLSX from 'xlsx';
 import { CommonModule, NgIf } from '@angular/common';
-
 import localeEs from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es-MX');
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { AssetEditComponent } from '../asset-edit/asset-edit.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { AssetDetailDialogComponent } from '../asset-detail-dialog/asset-detail-dialog.component';
+import { provideNativeDateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgxDatatableModule, RouterOutlet, CommonModule, NgIf, FormsModule, RouterModule],
+
+  imports: [NgxDatatableModule, RouterOutlet, ReactiveFormsModule, CommonModule, NgIf, FormsModule, RouterModule, MatExpansionModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [AdminService, AssetService, { provide: LOCALE_ID, useValue: 'es-MX' }],
+  providers: [provideNativeDateAdapter(), AdminService, AssetService, { provide: LOCALE_ID, useValue: 'es-MX' }, MatDialogModule,],
 })
 
 
@@ -70,7 +75,7 @@ export class HomeComponent implements OnInit {
     private _adminService: AdminService,
     private _assetService: AssetService,
     private formBuilder: FormBuilder,
-
+    public dialog: MatDialog
   ) {
     this.titulo = 'Bienes';
     this.identity = this._adminService.getIdentity();
@@ -85,17 +90,109 @@ export class HomeComponent implements OnInit {
     email: [''],
     password: [''],
   });
+
+  step = signal(0);
+
+  setStep(index: number) {
+    this.step.set(index);
+  }
+
+  nextStep() {
+    this.step.update(i => i + 1);
+  }
+
+  prevStep() {
+    this.step.update(i => i - 1);
+  }
   changueMode() {
     this.darkMode = !this.darkMode;
     this.hasMaterialClass = !this.darkMode; // Cambia a false si darkMode es true
   }
-  onRowClick(event) {
-    if (event.type == 'click') {
-      this._router.navigate([`/bien-mueble/${event.row._id}`]);
-    }
-   
+  onViewClick(id: string): void {
+
+    this.openDialogPreView(id);
+
+  }
+  onEditClick(id: string): void {
+
+    this.openDialogEdit(id);
+
+  }
+  onOpenClick(id: string): void {
+
+    this._router.navigate([`/bien-mueble/${id}`])
+
+  }
+  resetFilters(): void {
+    // Reset the rows to the original data
+    this.rows = this.tempData;
+  
+    // Reset filter variables
+    this.previousStatusFilter = '';
+    this.previousUserFilter = '';
+    this.searchValue = '';
+  
+    // Reset any other filter toggles
+    this.aplicarFiltroSiniNV = false;
+    this.aplicarFiltroduplicated = false;
+    this.aplicarFiltroCostoCero = false;
+    this.aplicarFiltroInt = false;
+  
+    // Optionally, reset any select elements or other UI components related to filtering
+    // For example, if you're using form controls, you can reset them like this:
+    // this.loginForm.reset();
+  
+    // If you have dropdowns, you can set their values to the default as well
+    // Example: this.selectedUser = '';
+    // Example: this.selectedStatus = '';
   }
 
+  openDialogPreView(id: string): void {
+    const dialogRef = this.dialog.open(AssetDetailDialogComponent, {
+      height: '90vh',
+      width: '80vw',
+      maxHeight: '95vh',
+      maxWidth: '95vw',
+      panelClass: 'full-screen-modal',
+      data: { id: id },
+      enterAnimationDuration: 300,
+
+      exitAnimationDuration: 200,
+
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+      // puedes manejar el resultado aquí si lo necesitas
+    });
+  }
+  openDialogEdit(id: string): void {
+
+    const dialogRef = this.dialog.open(AssetEditComponent, {
+      height: '90vh',
+      width: '80vw',
+      maxHeight: '95vh',
+      maxWidth: '95vw',
+      panelClass: 'full-screen-modal',
+      data: { id: id },
+      enterAnimationDuration: 300,
+
+      exitAnimationDuration: 200,
+
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAssets();
+      this.resetFilters()
+      // puedes manejar el resultado aquí si lo necesitas
+    });
+  }
+
+  open(id: string): void {
+
+  }
   filterUpdate(event) {
     const val = event.target.value.toLowerCase(); // Convertir el valor de búsqueda a minúsculas
 
@@ -119,7 +216,7 @@ export class HomeComponent implements OnInit {
     this.tempFilterData = this.filterRows(filter, this.previousUserFilter);
     this.rows = this.tempFilterData;
 
-    //console.log('tpsf',filter)
+
   }
   filterByUser(event) {
     const filter = event ? event.value : '';
@@ -127,7 +224,7 @@ export class HomeComponent implements OnInit {
     this.tempFilterDataUser = this.filterRows(this.previousStatusFilter, filter);
     this.rows = this.tempFilterDataUser;
 
-    //console.log('tpsf',filter)
+
   }
   /**
    * Filter Rows
@@ -162,6 +259,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.identity = this._adminService.getIdentity();
     this.token = this._adminService.getToken();
+    // Redirigir según el rol
+    // Reemplaza con la ruta deseada
+    if (this.identity.role === 'ROLE_V0') {
+      this._router.navigate(['/valor-cero']); // O la ruta para usuarios normales
+    }
+
     this.getAssets();
 
 
@@ -193,7 +296,7 @@ export class HomeComponent implements OnInit {
             this.tempFilterDataUser = this.rows;
             this.tempFilterData = this.rows.length;
             this.tempFilterDataUser = this.rows.length;
-            console.log(this.rows, 'rows')
+
             setTimeout(() => {
               this.loadingIndicator = false;
             }, 1500);
@@ -548,7 +651,7 @@ export class HomeComponent implements OnInit {
 
   }
   aplicarFiltroInterinato() {
-    console.log('aplicar fecha')
+
     if (this.aplicarFiltroInt) {
       // Filtrar los elementos que tengan el campo 'noinventario' vacío y fechaalta igual al 15 de diciembre de 2020
       this.rows = this.tempData.filter(asset => this.esFechaAltaValida(asset.fechaalta));
@@ -706,6 +809,17 @@ export class HomeComponent implements OnInit {
                 // Crear elemento en local storage para tener el token disponible
                 localStorage.setItem('token', token);
 
+                console.log(this.identity.role)
+
+                // Redirigir según el rol
+                if (this.identity.role === 'ROLE_admin') {
+                  this._router.navigate(['/']); // Reemplaza con la ruta deseada
+                } else if (this.identity.role === 'ROLE_V0') {
+                  this._router.navigate(['/valor-cero']); // O la ruta para usuarios normales
+                }
+
+
+
                 this.admin = new Admin(
                   '',
                   '',
@@ -713,7 +827,7 @@ export class HomeComponent implements OnInit {
                   '',
                   '',
                   '',
-                  'ROLE_admin'
+                  ''
                 );
                 location.reload();
               }
@@ -740,12 +854,15 @@ export class HomeComponent implements OnInit {
 
   }
   logout() {
+    window.location.reload();
+
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     localStorage.clear();
     this.identity = null;
     this.token = null;
-    this._router.navigate(['/']);
+
+
   }
   onDeleteAsset(id) {
     this._assetService.deleteAsset(this.token, id).subscribe(

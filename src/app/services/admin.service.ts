@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID , Inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,9 @@ export class AdminService {
   public token: string | null = null;
   public identity: any = null;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   signup(admin_to_login: any, gethash: string | null = null): Observable<any> {
     if (gethash != null) {
@@ -31,15 +33,20 @@ export class AdminService {
   }
 
   getIdentity() {
-    const identity = JSON.parse(localStorage.getItem('identity') || '{}');
-    if (identity && identity !== 'undefined') {
-      this.identity = identity;
+    if (isPlatformBrowser(this.platformId)) {
+      const identity = JSON.parse(localStorage.getItem('identity') || '{}');
+      
+      // Solo asigna identity si tiene propiedades
+      this.identity = identity && Object.keys(identity).length > 0 ? identity : null;
+    
+      
     } else {
-      this.identity = null;
+      this.identity = null; // No crear un valor en SSR
     }
-
+  
     return this.identity;
   }
+  
 
   getToken() {
     const token = localStorage.getItem('token');

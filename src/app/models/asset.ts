@@ -23,20 +23,18 @@ export class Asset{
     public  tipoalta: string,
     public  RFC: string,
     public  nombrecompleto: string,
-    public  fecharesguardo: string,
-    public  fechabaja: string,
+    public  fecharesguardo: Date,
+    public  fechabaja: Date,
     public  tipobaja: string,
     public  DAB: string,
     public validated: boolean,
     public legend: string,
     public elDAB: string,
     public elDAPB: string,
-    public polizanobaja: string,
-    public fechapolizabaja: string,
- 
-
-    public _id: string,           // Añadir aquí
-    public status_report: string,   // Añadir aquí
-    public usrxgene: string // Añadir aquí
+    public polizanobaja: Date,
+    public fechapolizabaja: Date,
+    public _id: string,          
+    public status_report: string, 
+    public usrxgene: string 
   ){}
 }
