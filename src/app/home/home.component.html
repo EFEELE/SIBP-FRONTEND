@@ -51,6 +51,9 @@
         </form>
     </div>
 </div> 
+<div class="add-bien" *ngIf="identity"  (click)="onADDClick()">
+    <i class="fa-solid fa-circle-plus"></i>&nbsp;Agregar
+</div>
 <div  class="table-container" *ngIf='identity'>
 
 
@@ -450,6 +453,17 @@
                     </ng-template>
                 </ngx-datatable-column>
 
+                <ngx-datatable-column name="¿LOCALIZADO?" prop="localizado" [width]="150">
+                    <ng-template let-localizado="value" ngx-datatable-cell-template>
+                        <div *ngIf="localizado === 'localizado'" class="normal-efe bold-efe"  style="text-transform: uppercase;">{{ localizado }}</div>
+                        <div *ngIf="localizado === 'no localizado'" class="normal-efe bold-efe" style="text-transform: uppercase; color: #d54c4c">{{ localizado }}</div>
+                        <div class="empty-efe" *ngIf="!localizado || localizado.trim() === '' || localizado == null || localizado == undefined">
+                            Sin Asignar
+                        </div>
+                       
+                    </ng-template>
+                </ngx-datatable-column>
+
                 <ngx-datatable-column name="TIPO DE POSESIÓN" prop="tipo" [width]="60">
                     <ng-template let-tipo="value" ngx-datatable-cell-template>
                         <div class="normal-efe" *ngIf="tipo">
@@ -604,6 +618,17 @@
                         <div class="empty-efe" *ngIf="!areapresupuestal || areapresupuestal.trim() === ''">
                             S/A
                         </div>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="UBICACIÓN FÍSICA" prop="ubicacionfisica" [width]="150">
+                    <ng-template let-ubicacionfisica="value" ngx-datatable-cell-template>
+                        <div *ngIf="ubicacionfisica" class="normal-efe "  >{{ ubicacionfisica }}</div>
+                        
+                        <div class="empty-efe" *ngIf="!ubicacionfisica || ubicacionfisica.trim() === '' || ubicacionfisica == null || ubicacionfisica == undefined">
+                            Sin Asignar
+                        </div>
+                       
                     </ng-template>
                 </ngx-datatable-column>
 

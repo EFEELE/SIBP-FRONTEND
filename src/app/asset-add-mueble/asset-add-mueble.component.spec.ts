@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssetAddMuebleComponent } from './asset-add-mueble.component';
 
-describe('AssetAddMuebleComponent', () => {
+describe('AssetAddInmuebleComponent', () => {
   let component: AssetAddMuebleComponent;
   let fixture: ComponentFixture<AssetAddMuebleComponent>;
 

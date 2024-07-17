@@ -1,7 +1,7 @@
 import { Component, OnInit, LOCALE_ID, ViewChild, signal } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { ColumnMode, DatatableComponent, NgxDatatableModule, } from '@swimlane/ngx-datatable';
-import { Asset } from '../models/asset';
+import { AssetLIST } from '../models/asset';
 import { Admin } from '../models/admin';
 import { AdminService } from '../services/admin.service';
 import { AssetService } from '../services/asset.service';
@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { AssetDetailDialogComponent } from '../asset-detail-dialog/asset-detail-dialog.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { AssetAddMuebleComponent } from '../asset-add-mueble/asset-add-mueble.component';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
   baseUrl = environment.baseUrl;
 
   public titulo: string;
-  public assets: Asset[];
+  public assets: AssetLIST[];
   public identity;
   public token;
 
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit {
   public errorMessage;
   public mail;
   public admin: Admin;
-  public tempData: Asset[] = [];
+  public tempData: AssetLIST[] = [];
   public rows;
   public tempFilterData;
   public tempFilterDataUser;
@@ -123,6 +124,10 @@ export class HomeComponent implements OnInit {
     this._router.navigate([`/bien-mueble/${id}`])
 
   }
+
+  onADDClick(): void{
+    this.openDialogADD();
+  }
   resetFilters(): void {
     // Reset the rows to the original data
     this.rows = this.tempData;
@@ -156,6 +161,23 @@ export class HomeComponent implements OnInit {
       panelClass: 'full-screen-modal',
       data: { id: id },
       enterAnimationDuration: 300,
+      exitAnimationDuration: 200,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+      // puedes manejar el resultado aquí si lo necesitas
+    });
+  }
+  openDialogADD(): void {
+
+    const dialogRef = this.dialog.open(AssetAddMuebleComponent, {
+      height: '90vh',
+      width: '80vw',
+      maxHeight: '95vh',
+      maxWidth: '95vw',
+      panelClass: 'full-screen-modal',
+      enterAnimationDuration: 300,
 
       exitAnimationDuration: 200,
 
@@ -163,7 +185,8 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+      this.getAssets();
+      this.resetFilters()
       // puedes manejar el resultado aquí si lo necesitas
     });
   }
@@ -210,40 +233,6 @@ export class HomeComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  filterByStatus(event) {
-    const filter = event ? event.value : '';
-    this.previousStatusFilter = filter;
-    this.tempFilterData = this.filterRows(filter, this.previousUserFilter);
-    this.rows = this.tempFilterData;
-
-
-  }
-  filterByUser(event) {
-    const filter = event ? event.value : '';
-    this.previousUserFilter = filter;
-    this.tempFilterDataUser = this.filterRows(this.previousStatusFilter, filter);
-    this.rows = this.tempFilterDataUser;
-
-
-  }
-  /**
-   * Filter Rows
-   *
-   * @param statusFilter
-   */
-  filterRows(statusFilter, userFilter): any[] {
-    // Reset search on select change
-    this.searchValue = '';
-
-    statusFilter = statusFilter;
-    userFilter = userFilter;
-
-    return this.tempData.filter(row => {
-      const isPartialNameMatch = row.status_report.indexOf(statusFilter) !== -1 || !statusFilter;
-      const isPartialuserMatch = row.usrxgene.indexOf(userFilter) !== -1 || !userFilter;
-      return isPartialNameMatch && isPartialuserMatch;
-    });
-  }
 
 
   campoNoValido(campo: string) {
@@ -809,7 +798,7 @@ export class HomeComponent implements OnInit {
                 // Crear elemento en local storage para tener el token disponible
                 localStorage.setItem('token', token);
 
-                console.log(this.identity.role)
+              
 
                 // Redirigir según el rol
                 if (this.identity.role === 'ROLE_admin') {

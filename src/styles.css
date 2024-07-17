@@ -605,12 +605,14 @@ body {
 }
 
 
-.is-primary {
-    color: #fff;
-}
+
 
 .button {
     box-sizing: border-box;
+}
+
+button.is-primary {
+    color: #fff;
 }
 
 .mat-expansion-panel-header {
@@ -674,4 +676,51 @@ mat-expansion-panel {
         position: absolute;
         right: 0;
     }
+}
+
+span.actualvalue {
+    font-size: .9rem;
+    /* letter-spacing: -1px; */
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    line-height: 1;
+}
+.add-bien {
+    background: #48c78e;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    padding: .5rem 1rem;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    box-shadow: 0px 4px 14px 0px black;
+    cursor: pointer;
+    letter-spacing: 1px;
+    &:hover{
+        background-color: #2c281f;
+        color: rgb(222, 222, 222);
+        transition: .2s ease;
+    }
+}
+
+
+
+.previewfoto {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+}
+
+.field.photoadd {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #e1e1e1;
 }

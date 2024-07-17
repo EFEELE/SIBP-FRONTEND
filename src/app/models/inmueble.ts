@@ -32,7 +32,7 @@ export class Inmueble{
         public polizaBAJA: string,
         public comentario: string,
         public validated: boolean,
-        public legend: boolean
+       // public legend: boolean
     ){}
   }
   

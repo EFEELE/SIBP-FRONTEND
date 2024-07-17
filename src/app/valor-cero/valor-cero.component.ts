@@ -1,7 +1,7 @@
 import { Component, OnInit, LOCALE_ID, ViewChild, signal ,  Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { ColumnMode, DatatableComponent, NgxDatatableModule, } from '@swimlane/ngx-datatable';
-import { Asset } from '../models/asset';
+import { AssetLIST } from '../models/asset';
 import { Admin } from '../models/admin';
 import { AdminService } from '../services/admin.service';
 import { AssetService } from '../services/asset.service';
@@ -33,7 +33,7 @@ export class ValorCeroComponent {
   baseUrl = environment.baseUrl;
 
   public titulo: string;
-  public assets: Asset[];
+  public assets: AssetLIST[];
   public identity;
   public token;
 
@@ -43,7 +43,7 @@ export class ValorCeroComponent {
   public errorMessage;
   public mail;
   public admin: Admin;
-  public tempData: Asset[] = [];
+  public tempData: AssetLIST[] = [];
   public rows;
   public tempFilterData;
   public tempFilterDataUser;
@@ -215,39 +215,14 @@ export class ValorCeroComponent {
     this.table.offset = 0;
   }
 
-  filterByStatus(event) {
-    const filter = event ? event.value : '';
-    this.previousStatusFilter = filter;
-    this.tempFilterData = this.filterRows(filter, this.previousUserFilter);
-    this.rows = this.tempFilterData;
-
-   
-  }
-  filterByUser(event) {
-    const filter = event ? event.value : '';
-    this.previousUserFilter = filter;
-    this.tempFilterDataUser = this.filterRows(this.previousStatusFilter, filter);
-    this.rows = this.tempFilterDataUser;
-
-  }
+ 
+ 
   /**
    * Filter Rows
    *
    * @param statusFilter
    */
-  filterRows(statusFilter, userFilter): any[] {
-    // Reset search on select change
-    this.searchValue = '';
-
-    statusFilter = statusFilter;
-    userFilter = userFilter;
-
-    return this.tempData.filter(row => {
-      const isPartialNameMatch = row.status_report.indexOf(statusFilter) !== -1 || !statusFilter;
-      const isPartialuserMatch = row.usrxgene.indexOf(userFilter) !== -1 || !userFilter;
-      return isPartialNameMatch && isPartialuserMatch;
-    });
-  }
+  
 
 
   campoNoValido(campo: string) {
@@ -660,16 +635,20 @@ export class ValorCeroComponent {
       this.rows = this.tempData;
     }
   }
-
-  esFechaAltaValida(fechaalta: Date): boolean {
-    // Crear una nueva fecha con la fecha específica que deseas comparar (en formato ISO 8601)
+  esFechaAltaValida(fechaalta: Date | ""): boolean {
+    // Crear una nueva fecha con la fecha específica que deseas comparar
     const fechaFiltro = new Date('2020-12-15T00:00:00Z');
-    // Convertir la cadena de fechaalta en un objeto Date
-    const fechaaltaDate = new Date(fechaalta);
-    // Verificar si las fechas son iguales (solo comparando el año, el mes y el día)
-    return fechaaltaDate.getFullYear() === fechaFiltro.getFullYear() &&
-      fechaaltaDate.getMonth() === fechaFiltro.getMonth() &&
-      fechaaltaDate.getDate() === fechaFiltro.getDate();
+  
+    // Verificar si fechaalta es una instancia de Date
+    if (fechaalta instanceof Date) {
+      // Comparar las fechas
+      return fechaalta.getFullYear() === fechaFiltro.getFullYear() &&
+        fechaalta.getMonth() === fechaFiltro.getMonth() &&
+        fechaalta.getDate() === fechaFiltro.getDate();
+    }
+  
+    // Si fechaalta no es una fecha válida, retornar false
+    return false;
   }
   aplicarFiltroRepetidos() {
     if (this.aplicarFiltroduplicated) {
@@ -781,7 +760,7 @@ export class ValorCeroComponent {
   onCancelAsset() {
     this.confirmado = null;
   }
-  updateAsset(assetId: string, updatedAsset: Asset) {
+  updateAsset(assetId: string, updatedAsset: AssetLIST) {
     const index = this.assets.findIndex(asset => asset._id === assetId);
     if (index !== -1) {
       this.assets[index] = { ...this.assets[index], ...updatedAsset };

@@ -52,8 +52,7 @@
         display: flex;
         width: 10.05cm;
         height: 8.25cm;
-        /* background-image: url(../../assets/img/sticker.png);
-   background-size: 100% 100%; */
+
         background-repeat: no-repeat;
 
         position: relative;
@@ -112,12 +111,12 @@
 
     .sticker h6 {
         font-family: "Atkinson Hyperlegible", sans-serif;
-        color: white !important;
-        font-weight: 400;
-        font-size: 10px !important;
+        color: black !important;
+        font-weight: 600;
+        font-size: 10px ;
 
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin: 3px;
@@ -358,7 +357,10 @@
 
     }
    
-    
+    h6.inventarionumero{
+    font-size: 12px!important;
+    letter-spacing: 1px;
+}
 </style>
 
 
@@ -397,9 +399,9 @@
                         <div class="content">
                             <h6>{{ asset.areapresupuestal }}</h6>
                             <br>
-                            <h6>{{asset.arearesponsable}}</h6>
+                            <h6>{{asset.desc}}</h6>
                             <br>
-                            <h6>{{asset.noinventario}} </h6>
+                            <h6 class="inventarionumero">{{asset.noinventario}} </h6>
 
                         </div>
                     </div>
@@ -410,7 +412,7 @@
                 <button (click)="downloadAsImage()" class="button is-rounded" [disabled]="!downloadedCheck"
                     *ngIf='identity'><span>Descargar etiqueta</span></button>
                     <br>
-                    <span>Si la etiqueta se ve recortada, intenta descargarla desde una computadora.</span>
+                    <span style="text-align: center;">Si la etiqueta se ve recortada, intenta descargarla desde una computadora. <br> Es recomendable acceder a desde Google Chrome.</span>
 
 
 
@@ -449,11 +451,11 @@
                     <div class="TitAsset">
 
                         <h2>No. Inventario: {{asset.noinventario}} &nbsp; &nbsp;| &nbsp; &nbsp;</h2><span
-                            *ngIf='asset.estado == "Nuevo"' class="tag is-primary is-light">Nuevo</span>
-                        <span *ngIf='asset.estado == "Regular"' class="tag is-info is-light">Regular</span>
-                        <span *ngIf='asset.estado == "Bueno"' class="tag is-success is-light">Bueno</span>
-                        <span *ngIf='asset.estado == "Malo"' class="tag is-warning is-light">Malo</span>
-                        <span *ngIf='asset.estado == "Inservible"' class="tag is-danger is-light">Inservible</span>
+                            *ngIf='asset.estado == "N"' class="tag is-primary ">Nuevo</span>
+                        <span *ngIf='asset.estado == "RE"' class="tag is-info ">Regular</span>
+                        <span *ngIf='asset.estado == "B"' class="tag is-success ">Bueno</span>
+                        <span *ngIf='asset.estado == "M"' class="tag is-warning">Malo</span>
+                        <span *ngIf='asset.estado == "I"' class="tag is-danger is-light">Inservible</span>
                     </div>
                     <p>{{asset.desc}}</p>
                 </div>
@@ -486,8 +488,16 @@
                 </div>
                 <hr>
 
-                <h3><i class="fa-sharp fa-regular fa-location-dot"></i> &nbsp;Localización del bien</h3>
+                <h3><i class="fa-sharp fa-regular fa-location-dot"></i> &nbsp;Localización del bien || <span *ngIf='asset.localizado === "localizado"' class="tag is-primary"> {{asset.localizado}} </span></h3> 
+
+                <span *ngIf='asset.localizado === "no localizado"' class="tag is-danger is-light">{{asset.localizado}} </span>
+             
+    
                 <br>
+                <div class="fieldsAsset largeElement">
+                    <h5>Ubicacion Física: </h5>
+                    <h5>{{asset.ubicacionfisica}}</h5>
+                </div>
                 <div class="fieldsAsset largeElement">
                     <h5>Área responsable: </h5>
                     <h5>{{asset.arearesponsable}}</h5>
@@ -496,6 +506,7 @@
                     <h5>Área presupuestal: </h5>
                     <h5>{{asset.areapresupuestal}}</h5>
                 </div>
+
 
 
                 <ng-container *ngIf='identity'>

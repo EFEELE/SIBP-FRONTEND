@@ -1,5 +1,5 @@
 
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation, Inject} from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { AdminService } from '../services/admin.service';
@@ -14,14 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-asset-edit',
   standalone: true,
-  imports: [NgIf, CommonModule, RouterOutlet, CommonModule, NgIf, RouterModule, FormsModule, MatDialogModule ],
+  imports: [NgIf, CommonModule, RouterOutlet, CommonModule, NgIf, RouterModule, FormsModule, MatDialogModule],
   templateUrl: './asset-edit.component.html',
   styleUrl: './asset-edit.component.css',
-  providers: [AdminService, AssetService,  ],
+  providers: [AdminService, AssetService,],
   encapsulation: ViewEncapsulation.None,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  
-  
+
+
 })
 
 
@@ -49,7 +49,10 @@ export class AssetEditComponent implements OnInit {
   itemelDAB: any;
   public id;
   areaPresElected: string;
+  UbiSelected: string;
   isOtherSelectedpres: boolean = false;
+  isOtherSelectedUbi: boolean = false;
+  otherOptionUbi: string;
   otherOptionpres: string;
   constructor(
     public dialogRef: MatDialogRef<AssetEditComponent>,
@@ -57,7 +60,7 @@ export class AssetEditComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _adminService: AdminService,
-     private toastr: ToastrService,
+    private toastr: ToastrService,
     private _assetService: AssetService
   ) {
     this.titulo = 'Editar Bien';
@@ -75,35 +78,35 @@ export class AssetEditComponent implements OnInit {
       '', // modelo
       '', // noserie
       '', // estado
-      '', // foto
+      undefined, // foto
       '', // arearesponsable
       '', // areapresupuestal
       '', // costo
       '', // depreciacion
       '', // valorenlibros
       '', // poliza
-      new Date(), // fechapoliza
+      null, // fechapoliza
       '', // DAPB
-      new Date(), // fechaDAPB
-      new Date(), // fechaalta
+      null, // fechaDAPB
+      null, // fechaalta
       '', // tipoalta
       '', // RFC
       '', // nombrecompleto
-      new Date(), // fecharesguardo
-      new Date(), // fechabaja
+      null, // fecharesguardo
+      null, // fechabaja
       '', // tipobaja
       '', // DAB
       false, // validated
-      '', // legend
+     // '', // legend
       '', // elDAB
       '', // elDAPB
-      new Date(), // polizanobaja
-      new Date(), // fechapolizabaja
+      null, // polizanobaja
+      null, // fechapolizabaja
       '', // _id
-      '', // status_report
-      ''  // usrxgene
+      '', // ubicación física DPMTH-511-01-001
+      '' //  Localizado
     );
-    
+
     this.is_edit = true;
     this.id = data.id;
   }
@@ -114,36 +117,47 @@ export class AssetEditComponent implements OnInit {
     this.getAsset();
 
   }
+  transformDates(asset: any): any {
+    const dateFields = ['fechapoliza', 'fechaDAPB', 'fechaalta', 'fecharesguardo', 'fechabaja'];
+    dateFields.forEach(field => {
+      if (asset[field]) {
+        asset[field] = this.formatDate(asset[field]);
+      }
+    });
+    return asset;
+  }
 
-  getAsset() {
-
+  
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+  getAsset(): void {
     this._assetService.getAsset(this.id).subscribe(
       (response) => {
-        this.asset = response.asset;
-
         if (!response.asset) {
-          this.errorMessage = 'error en el servidor';
+          this.errorMessage = 'Error en el servidor';
           this._router.navigate(['/']);
         } else {
+          this.asset = this.transformDates(response.asset);
           this.errorMessage = 'El bien se ha obtenido correctamente';
-          this.asset = response.asset;
-
         }
       },
       (error) => {
-        var errorMessage = <any>error;
-
-        return errorMessage;
+        this.errorMessage = <any>error;
       }
-  );
+    );
   }
 
 
   onSubmit() {
 
-    if (this.identity.role == 'ROLE_editor'){
+    if (this.identity.role == 'ROLE_editor') {
       this.asset.validated = true
-    }else{
+    } else {
       this.asset.validated = false
     }
 
@@ -153,92 +167,97 @@ export class AssetEditComponent implements OnInit {
     if (this.areaResElected === 'OTRO') {
       this.areaResElected = this.otherOption;
     }
-    this.asset.arearesponsable =  this.areaResElected
-    
+    this.asset.arearesponsable = this.areaResElected
+
 
 
     if (this.areaPresElected === 'OTRO') {
       this.areaPresElected = this.otherOptionpres;
     }
-    this.asset.areapresupuestal =  this.areaPresElected
+    this.asset.areapresupuestal = this.areaPresElected
+
+
+    if (this.UbiSelected === 'OTRO') {
+      this.UbiSelected = this.otherOptionUbi;
+    }
+    this.asset.ubicacionfisica = this.UbiSelected
+
+
     
-console.log("Prueba 1")
-   
-    this.asset.foto = this.itempic
-    
-     
 
-      this._assetService
-        .editAsset(this.token, this.id, this.asset)
-        .subscribe(
 
-          (response) => {
-            console.log("Prueba 2")
-            if (!response.asset) {
-              this.errorMessage = 'error en el servidor';
-            } else {
-              this.errorMessage = 'El bien se ha actualizado correctamente';
 
-              this.toastr.success('Bien actualizado correctamente', 'Actualizado' , {
-                progressBar: true,
-                toastClass: 'toast ngx-toastr',
-                closeButton: true
-              });
+    this._assetService
+      .editAsset(this.token, this.id, this.asset)
+      .subscribe(
 
-             
-             this.closeDialog();
-            }
+        (response) => {
+         
+          if (!response.asset) {
+            this.errorMessage = 'error en el servidor';
+          } else {
+            this.errorMessage = 'El bien se ha actualizado correctamente';
 
-          },
-          (error) => {
-            var errorMessage = <any>error;
-            if (errorMessage != null) {
-              this.errorMessage = error.error.message;
-            }
+            this.toastr.success('Bien actualizado correctamente', 'Actualizado', {
+              progressBar: true,
+              toastClass: 'toast ngx-toastr',
+              closeButton: true
+            });
+
+
+            this.closeDialog();
           }
-        );
-   
-    console.log("Prueba 3")
+
+        },
+        (error) => {
+          var errorMessage = <any>error;
+          if (errorMessage != null) {
+            this.errorMessage = error.error.message;
+          }
+        }
+      );
+
+  
   }
-  backPage(){
+  backPage() {
     window.history.back();
   }
   closeDialog(): void {
     this.dialogRef.close();
   }
-  async UpPhoto(e:any){
+  async UpPhoto(e: any) {
     const originalFileName = e.target.files[0].name;
     this.fotoname = this.sanitizeFileName(originalFileName);
 
     this.file = e.target.files[0];
-    await this._assetService.Toolformat64(this.file).then(resp =>{
+    await this._assetService.Toolformat64(this.file).then(resp => {
 
       this.itempic = resp;
-      
+      this.asset.foto = this.itempic.base
     });
   }
 
 
-  async UpELDAPB(e:any){
+  async UpELDAPB(e: any) {
     const originalFileName = e.target.files[0].name;
     this.DAPBname = this.sanitizeFileName(originalFileName);
 
     this.file = e.target.files[0];
-    await this._assetService.Toolformat64(this.file).then(resp =>{
+    await this._assetService.Toolformat64(this.file).then(resp => {
 
-        this.itemelDAPB = resp;
-      
+      this.itemelDAPB = resp;
+
     });
   }
-  async UpELDAB(e:any){
+  async UpELDAB(e: any) {
     const originalFileName = e.target.files[0].name;
     this.DABname = this.sanitizeFileName(originalFileName);
 
     this.file = e.target.files[0];
-    await this._assetService.Toolformat64(this.file).then(resp =>{
+    await this._assetService.Toolformat64(this.file).then(resp => {
 
-        this.itemelDAB = resp;
-      
+      this.itemelDAB = resp;
+
     });
   }
   sanitizeFileName(fileName: string): string {
@@ -262,6 +281,14 @@ console.log("Prueba 1")
       this.isOtherSelectedpres = true;
     } else {
       this.isOtherSelectedpres = false;
+    }
+  }
+
+  checkIfOtherSelectedUbi() {
+    if (this.UbiSelected === 'OTRO') {
+      this.isOtherSelectedUbi = true;
+    } else {
+      this.isOtherSelectedUbi = false;
     }
   }
 }
