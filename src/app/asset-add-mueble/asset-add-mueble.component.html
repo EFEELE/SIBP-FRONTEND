@@ -275,6 +275,141 @@
                            
 
                         </div> 
+                      
+                        
+
+
+                    </div>
+
+
+                    <div class="column">
+
+
+
+
+                        <h6>DATOS FINANCIEROS</h6>
+
+                        <div class="field">
+                            <label class="label">Costo de Adquisición</label>
+                            <div class="control">
+                                <input class="input" type="number" #costo="ngModel" name="costo"
+                                    [(ngModel)]="asset.costo">
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Depreciación acumulada</label>
+                            <div class="control">
+                                <input class="input" type="number" #depreciacion="ngModel" name="depreciacion"
+                                    [(ngModel)]="asset.depreciacion">
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Valor en libros</label>
+                            <div class="control">
+                                <input class="input" type="number" #valorenlibros="ngModel" name="valorenlibros"
+                                    [(ngModel)]="asset.valorenlibros">
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Póliza No.</label>
+                            <div class="control">
+                                <input class="input" type="number" #poliza="ngModel" name="poliza"
+                                    [(ngModel)]="asset.poliza">
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Fecha de Poliza</label>
+                            
+                            <div class="control">
+                                <input class="input" type="date" #fechapoliza="ngModel" name="fechapoliza"
+                                    [(ngModel)]="asset.fechapoliza">
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Documento que ampara la propiedad del bien</label>
+
+                            <div class="select">
+                                <select #DAPB="ngModel" name="DAPB" [(ngModel)]="asset.DAPB">
+                                    <option>CO</option>
+                                    <option>CD</option>
+                                    <option>CFDI</option>
+
+
+
+                                </select>
+                            </div>
+
+
+
+                        </div>
+
+                        <!-- <div class="field">
+                            <label class="label"><span class="requiredField">*</span>Subir documento</label>
+                            <div class="control">
+
+                                
+                                <input class="input" name="UpELDAPB" type="file" (change)="UpELDAPB($event)" required>
+                               
+                            </div>
+
+
+                        </div> -->
+
+                        <div class="field">
+                            <label class="label">Fecha del Documento</label>
+                            
+                            <div class="control">
+                                <input class="input" type="date" #fechaDAPB="ngModel" name="fechaDAPB"
+                                    [(ngModel)]="asset.fechaDAPB">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="column">
+
+                        <h6>DATOS ADQUISICIÓN O ALTA</h6>
+
+
+                        <div class="field">
+                            <label class="label">Fecha de Adquisición o Alta</label>
+                           
+                            <div class="control">
+                                <input class="input" type="date" #fechaalta="ngModel" name="fechaalta"
+                                    [(ngModel)]="asset.fechaalta">
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+                            <label class="label">Tipo de alta</label>
+
+                            <div class="select">
+                                <select #tipoalta="ngModel" name="tipoalta" [(ngModel)]="asset.tipoalta">
+                                    <option>CM</option>
+                                    <option>DN</option>
+                                    <option>CO</option>
+
+
+                                </select>
+                            </div>
+
+
+
+                        </div>
+
                         <br>
                         <h6>LOCALIZACIÓN DEL BIEN</h6>
                         <div class="field">
@@ -300,16 +435,7 @@
                             </span> -->
 
                         </div>
-                        <!-- <div class="field">
-                            <label class="label">Área responsable</label>
-                            <div class="control">
-                                <input class="input" type="text" #arearesponsable="ngModel" name="arearesponsable"
-                                    [(ngModel)]="asset.arearesponsable" required>
-                            </div>
-                            <span class="alertForm" *ngIf="!arearesponsable.valid && arearesponsable.touched">
-                                El Área responsable es obligatoria
-                            </span>
-                        </div> -->
+                       
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Área responsable</label>
                            
@@ -637,139 +763,6 @@
                                 La ubicación física es obligatoria
                             </span>
                         </div>
-
-
-                    </div>
-
-
-                    <div class="column">
-
-
-
-
-                        <h6>DATOS FINANCIEROS</h6>
-
-                        <div class="field">
-                            <label class="label">Costo de Adquisición</label>
-                            <div class="control">
-                                <input class="input" type="number" #costo="ngModel" name="costo"
-                                    [(ngModel)]="asset.costo">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Depreciación acumulada</label>
-                            <div class="control">
-                                <input class="input" type="number" #depreciacion="ngModel" name="depreciacion"
-                                    [(ngModel)]="asset.depreciacion">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Valor en libros</label>
-                            <div class="control">
-                                <input class="input" type="number" #valorenlibros="ngModel" name="valorenlibros"
-                                    [(ngModel)]="asset.valorenlibros">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Póliza No.</label>
-                            <div class="control">
-                                <input class="input" type="number" #poliza="ngModel" name="poliza"
-                                    [(ngModel)]="asset.poliza">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Fecha de Poliza</label>
-                            
-                            <div class="control">
-                                <input class="input" type="date" #fechapoliza="ngModel" name="fechapoliza"
-                                    [(ngModel)]="asset.fechapoliza">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Documento que ampara la propiedad del bien</label>
-
-                            <div class="select">
-                                <select #DAPB="ngModel" name="DAPB" [(ngModel)]="asset.DAPB">
-                                    <option>CO</option>
-                                    <option>CD</option>
-                                    <option>CFDI</option>
-
-
-
-                                </select>
-                            </div>
-
-
-
-                        </div>
-
-                        <!-- <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Subir documento</label>
-                            <div class="control">
-
-                                
-                                <input class="input" name="UpELDAPB" type="file" (change)="UpELDAPB($event)" required>
-                               
-                            </div>
-
-
-                        </div> -->
-
-                        <div class="field">
-                            <label class="label">Fecha del Documento</label>
-                            
-                            <div class="control">
-                                <input class="input" type="date" #fechaDAPB="ngModel" name="fechaDAPB"
-                                    [(ngModel)]="asset.fechaDAPB">
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="column">
-
-                        <h6>DATOS ADQUISICIÓN O ALTA</h6>
-
-
-                        <div class="field">
-                            <label class="label">Fecha de Adquisición o Alta</label>
-                           
-                            <div class="control">
-                                <input class="input" type="date" #fechaalta="ngModel" name="fechaalta"
-                                    [(ngModel)]="asset.fechaalta">
-                            </div>
-
-                        </div>
-
-
-                        <div class="field">
-                            <label class="label">Tipo de alta</label>
-
-                            <div class="select">
-                                <select #tipoalta="ngModel" name="tipoalta" [(ngModel)]="asset.tipoalta">
-                                    <option>CM</option>
-                                    <option>DN</option>
-                                    <option>CO</option>
-
-
-                                </select>
-                            </div>
-
-
-
-                        </div>
-
                         <br>
                         <h6>DATOS DEL RESGUARDANTE</h6>
 
