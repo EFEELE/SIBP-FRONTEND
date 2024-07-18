@@ -234,7 +234,7 @@
     <div class="p-1">
         <div class="columns" style="margin: 0;">
             <div class="column is-3">
-                <form accept-charset="UTF-8" style="margin: 0;" class="search-field-efe">
+                <form *ngIf="rows" accept-charset="UTF-8" style="margin: 0;" class="search-field-efe">
                     <div class="columns inner-form">
                         <div class="column is-four-fifths" style="padding-right: 0rem!important;">
                             <div class="control input-column">
@@ -344,7 +344,20 @@
 
 
         </div>
-        <div class="columns" style="margin: 0 auto;">
+        br
+        <div class="columns">
+            <div class="column is-2 select-efe">
+                <p class="subtitle is-label-efe">UBICACIÓN FÍSICA</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByUbicacion($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueUbicacionOptions()" [value]="option">
+                            {{ option }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="columns" *ngIf="rows" style="margin: 0 auto;">
 
             <div class="column is-2" style="text-align: center;">
                 <label class="checkbox" *ngIf="!aplicarFiltroSiniNV  && !aplicarFiltroCostoCero && !aplicarFiltroInt">

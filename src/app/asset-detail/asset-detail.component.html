@@ -47,104 +47,6 @@
         background: #F9F9F9;
     }
 
-    .sticker {
-        font-weight: 400;
-        display: flex;
-        width: 10.05cm;
-        height: 8.25cm;
-        /* background-image: url(../../assets/img/sticker.png);
-   background-size: 100% 100%; */
-        background-repeat: no-repeat;
-
-        position: relative;
-    }
-
-    .backSticker {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .backSticker img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .qrleft {
-        width: 4.1cm;
-        display: block;
-        margin: 0 auto;
-        margin-bottom: 10px;
-        z-index: 2;
-        position: absolute;
-        bottom: 0;
-        margin-left: 13px;
-        box-sizing: border-box;
-    }
-
-    .sticker .right {
-        text-align: center;
-        width: 5.9cm;
-        padding: 9px;
-        z-index: 99;
-        margin-left: 4.5cm;
-    }
-
-    .sticker hr {
-        margin: 5px;
-    }
-
-    .sticker .content {
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 0 !important;
-        margin-top: 3cm;
-        width: 5cm;
-        position: absolute;
-        height: 3cm;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .sticker h6 {
-        font-family: "Atkinson Hyperlegible", sans-serif;
-        color: black !important;
-        font-weight: 600;
-        font-size: 10px;
-
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin: 3px;
-        /* margin-bottom: 6px; */
-        /* line-height: 7; */
-    }
-
-    .aclass {
-        width: 165px;
-        height: 165px;
-    }
-
-    .qrleft img {
-        height: 72px;
-        width: 72px;
-    }
-
-    .sticker h5 {
-        font-family: "Atkinson Hyperlegible", sans-serif;
-        font-size: 12px;
-    }
-
-    .sticker .right .logo img {
-        width: 100px;
-        padding-top: 10px;
-        padding-bottom: 5px;
-    }
 
     .breadcrumb a {
         -webkit-box-align: center;
@@ -439,7 +341,7 @@
                         <!--  <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass"
                             errorCorrectionLevel="L">
                         </ngx-qrcode> -->
-                        <qr-code [value]="value" size="140" cssClass="aclass" errorCorrectionLevel="L" />
+                        <qr-code [value]="value" size="105" cssClass="aclass" errorCorrectionLevel="L" />
                     </div>
                     <div class="right">
 

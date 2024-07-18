@@ -447,43 +447,58 @@ export class ValorCeroComponent {
     if (!this.rows) {
       return ["Sin Asignar"];
     }
-    const uniqueOptions: Set<string> = new Set(
-      this.rows.map(asset => asset.arearesponsable && this.normalizeString(asset.arearesponsable))
-    );
+  
+    const uniqueOptions: Set<string> = new Set();
+  
+    this.rows.forEach(asset => {
+      if (asset.arearesponsable) {
+        const normalizedArea = this.normalizeString(asset.arearesponsable);
+        if (normalizedArea) {
+          uniqueOptions.add(normalizedArea);
+        }
+      }
+    });
+  
     if (this.rows.some(asset => !asset.arearesponsable)) {
       uniqueOptions.add("Sin Asignar");
     }
-    // Convertir el conjunto a un array y ordenarlo
+  
     const optionsArray = Array.from(uniqueOptions).sort((a, b) => {
       if (a === "Sin Asignar") {
-        return -1; // "Sin Asignar" va primero
+        return -1;
       } else if (b === "Sin Asignar") {
-        return 1; // "Sin Asignar" va primero
+        return 1;
       } else {
-        return a.localeCompare(b, 'es', { ignorePunctuation: true }); // Orden alfabético para el resto de opciones
+        return a.localeCompare(b, 'es', { ignorePunctuation: true });
       }
     });
+  
     return optionsArray;
   }
+  
 
-  normalizeString(str: string): string {
+  normalizeString(str: string | undefined): string {
+    if (!str) {
+      return "";
+    }
     return str.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   filterByAreares(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const option = selectElement.value;
+  
     if (option === "") {
       // Si se selecciona la opción "Todos", muestra todos los datos
       this.rows = this.tempData;
     } else {
       // Normalizar la opción seleccionada
       const normalizedOption = this.normalizeString(option);
-
+  
       // Filtrar los datos para mostrar solo los que coinciden con la opción seleccionada (después de normalizar)
       this.rows = this.tempData.filter(asset => {
-        if (normalizedOption === "sin asignar") {
-          // Mostrar solo los elementos cuyo arearesponsable sea undefined o vacío
+        if (normalizedOption === "SIN ASIGNAR") {
+          // Mostrar solo los elementos cuyo arearesponsable sea undefined, null o vacío
           return !asset.arearesponsable || this.normalizeString(asset.arearesponsable) === "";
         } else {
           // Mostrar solo los elementos cuyo arearesponsable coincida con la opción seleccionada (después de normalizar)
@@ -491,55 +506,73 @@ export class ValorCeroComponent {
         }
       });
     }
+  
+    // Mostrar mensaje de "no hay coincidencias" si no hay resultados
+    if (this.rows.length === 0) {
+      console.log("Parece que no hay coincidencias con tu búsqueda...");
+    }
   }
+  
 
 
   getUniqueAreaPresOptions(): string[] {
     if (!this.rows) {
       return ["Sin Asignar"];
     }
-    const uniqueOptions: Set<string> = new Set(
-      this.rows.map(asset => asset.areapresupuestal && this.normalizeString(asset.areapresupuestal))
-    );
+  
+    const uniqueOptions: Set<string> = new Set();
+  
+    this.rows.forEach(asset => {
+      if (asset.areapresupuestal) {
+        const normalizedArea = this.normalizeString(asset.areapresupuestal);
+        if (normalizedArea) {
+          uniqueOptions.add(normalizedArea);
+        }
+      }
+    });
+  
     if (this.rows.some(asset => !asset.areapresupuestal)) {
       uniqueOptions.add("Sin Asignar");
     }
-    // Convertir el conjunto a un array y ordenarlo
+  
     const optionsArray = Array.from(uniqueOptions).sort((a, b) => {
       if (a === "Sin Asignar") {
-        return -1; // "Sin Asignar" va primero
+        return -1;
       } else if (b === "Sin Asignar") {
-        return 1; // "Sin Asignar" va primero
+        return 1;
       } else {
-        return a.localeCompare(b, 'es', { ignorePunctuation: true }); // Orden alfabético para el resto de opciones
+        return a.localeCompare(b, 'es', { ignorePunctuation: true });
       }
     });
+  
     return optionsArray;
   }
+  
 
   filterByAreaPres(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const option = selectElement.value;
-
+  
     if (option === "") {
-      // Si se selecciona la opción "Todos", muestra todos los datos
       this.rows = this.tempData;
     } else {
-      // Normalizar la opción seleccionada
       const normalizedOption = this.normalizeString(option);
-
-      // Filtrar los datos para mostrar solo los que coinciden con la opción seleccionada (después de normalizar)
+  
       this.rows = this.tempData.filter(asset => {
-        if (normalizedOption === "sin asignar") {
-          // Mostrar solo los elementos cuyo areapresupuestal sea undefined o vacío
+        if (normalizedOption === "SIN ASIGNAR") {
           return !asset.areapresupuestal || this.normalizeString(asset.areapresupuestal) === "";
         } else {
-          // Mostrar solo los elementos cuyo areapresupuestal coincida con la opción seleccionada (después de normalizar)
           return asset.areapresupuestal && this.normalizeString(asset.areapresupuestal) === normalizedOption;
         }
       });
     }
+  
+    // Mostrar mensaje de "no hay coincidencias" si no hay resultados
+    if (this.rows.length === 0) {
+      console.log("Parece que no hay coincidencias con tu búsqueda...");
+    }
   }
+  
 
 
 
@@ -856,7 +889,68 @@ export class ValorCeroComponent {
     );
   }
 
+  
+  getUniqueUbicacionOptions(): string[] {
+    if (!this.rows) {
+      return ["Sin Asignar"];
+    }
+  
+    const uniqueOptions: Set<string> = new Set();
+  
+    this.rows.forEach(asset => {
+      if (asset.ubicacionfisica) {
+        const normalizedUbicacion = this.normalizeString(asset.ubicacionfisica);
+        if (normalizedUbicacion) {
+          uniqueOptions.add(normalizedUbicacion);
+        }
+      }
+    });
+  
+    if (this.rows.some(asset => !asset.ubicacionfisica)) {
+      uniqueOptions.add("Sin Asignar");
+    }
+  
+    const optionsArray = Array.from(uniqueOptions).sort((a, b) => {
+      if (a === "Sin Asignar") {
+        return -1;
+      } else if (b === "Sin Asignar") {
+        return 1;
+      } else {
+        return a.localeCompare(b, 'es', { ignorePunctuation: true });
+      }
+    });
+  
+    return optionsArray;
+  }
+  
 
+  filterByUbicacion(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const option = selectElement.value;
+  
+    console.log('Opción seleccionada:', option);
+    console.log('Datos originales:', this.tempData);
+  
+    if (option === "") {
+      this.rows = this.tempData;
+    } else {
+      const normalizedOption = this.normalizeString(option);
+  
+      this.rows = this.tempData.filter(asset => {
+        if (normalizedOption === "SIN ASIGNAR") {
+          return !asset.ubicacionfisica || this.normalizeString(asset.ubicacionfisica) === "";
+        } else {
+          return asset.ubicacionfisica && this.normalizeString(asset.ubicacionfisica) === normalizedOption;
+        }
+      });
+    }
+  
+    console.log('Filas filtradas:', this.rows);
+  
+    if (this.rows.length === 0) {
+      console.log("Parece que no hay coincidencias con tu búsqueda...");
+    }
+  }
 
   /*  borrar() {
      const deleteButtons = document.querySelectorAll('.notification .delete') as NodeListOf<Element>;

@@ -237,8 +237,8 @@
     <div class="p-1">
         <div class="columns" style="margin: 0;">
             <div class="column is-3">
-                <form accept-charset="UTF-8" style="margin: 0;" class="search-field-efe">
-                    <div class="columns inner-form">
+                <form *ngIf="rows" accept-charset="UTF-8" style="margin: 0;" class="search-field-efe">
+                    <div class="columns inner-form" >
                         <div class="column is-four-fifths" style="padding-right: 0rem!important;">
                             <div class="control input-column">
                                 <input spellcheck="false" aria-autocomplete="none" class="input is-small is-rounded"
@@ -249,7 +249,7 @@
                         </div>
 
                         <div class="column button-column" style="margin-left: -34px;">
-                            <div class="control">
+                            <div class="control" >
 
                                 <button aria-label="BUSCAR" name="buscar"
                                     class="button is-small cta-button is-primary is-rounded search-button" id="search"
@@ -347,8 +347,21 @@
 
 
         </div>
-        <div class="columns" style="margin: 0 auto;">
-
+        <br>
+        <div class="columns">
+            <div class="column is-2 select-efe">
+                <p class="subtitle is-label-efe">UBICACIÓN FÍSICA</p>
+                <div class="select is-rounded is-small">
+                    <select (change)="filterByUbicacion($event)">
+                        <option value="">Todos</option>
+                        <option *ngFor="let option of getUniqueUbicacionOptions()" [value]="option">
+                            {{ option }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="rows" class="columns" style="margin: 0 auto;">
+           
             <div class="column is-2" style="text-align: center;">
                 <label class="checkbox" *ngIf="!aplicarFiltroSiniNV  && !aplicarFiltroCostoCero && !aplicarFiltroInt">
                     <input type="checkbox" [(ngModel)]="aplicarFiltroduplicated" (change)="aplicarFiltroRepetidos()" />
@@ -401,7 +414,7 @@
 
 </mat-expansion-panel>
 <br>
-<br>
+<br>    
             <ngx-datatable [columnMode]="ColumnMode.standard" [rows]="rows" [rowHeight]="50"
                 [loadingIndicator]="loadingIndicator" class="striped efeTableInv" [headerHeight]="50"
                 [footerHeight]="50" [scrollbarH]="true" [scrollbarV]="true" [class.dark]="darkMode"
@@ -751,21 +764,3 @@
 
     
 </div>
-
-<footer class="footer" >
-    <div class="content has-text-centered">
-        <div class="lIte">
-            <a [routerLink]="['/']" style="display: flex;
-            align-items: center; ">
-               <img src="../assets/img/logoSIBP.png" alt="" style="max-height: 40px;"> 
-
-            </a>
-        </div>
-        <br>
-        <p>
-            <strong style="color: #2c281f; font-weight: 800;">SIBP</strong> by <a style="color: #7D99CF;"
-                [routerLink]="['https://devs.tizayuca.gob.mx']">Devs_Tiza</a>. SISTEMA DE INVENTARIO DE BIENES PÚBLICOS.
-        </p>
-    </div>
-
-</footer>

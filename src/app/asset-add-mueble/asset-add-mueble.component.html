@@ -43,8 +43,8 @@
 <section class="container p-5" style="scrollbar-color: grey white;
         scrollbar-width: thin; margin-top: 0rem; margin: 0 auto!important; overflow: auto; ">
     <a *ngIf='identity' [mat-dialog-close] class="mb-5"
-    style="display: block; font-size:.9rem; color: #494949; font-weight: 600;"><i
-        class="fa-regular fa-circle-xmark" style="color: #9e9e9e; font-size: .8rem;"></i>&nbsp; CERRAR</a>
+        style="display: block; font-size:.9rem; color: #494949; font-weight: 600;"><i class="fa-regular fa-circle-xmark"
+            style="color: #9e9e9e; font-size: .8rem;"></i>&nbsp; CERRAR</a>
     <p class="subtitle is-5 has-text-centered" style="color: #2c281f; font-weight: 800;">{{titulo}}</p>
     <div class="consulta">
         <div class="content">
@@ -56,7 +56,7 @@
                     <div class="column">
                         <h6>DATOS</h6>
                         <!-- <h6>{{inmueble.arearesponsable.homoclave}}-{{inmueble.clasOG}}-001</h6> -->
-                      
+
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Subcuenta Armonizada</label>
 
@@ -111,59 +111,60 @@
 
                         </div>
                         <div class="field">
-                            <label class="label"><span class="requiredField">*</span>CÓDIGO DE LA PARTIDA ESPECIFICA</label>
+                            <label class="label"><span class="requiredField">*</span>CÓDIGO DE LA PARTIDA
+                                ESPECIFICA</label>
 
                             <div class="select">
                                 <select #codigo="ngModel" name="codigo" [(ngModel)]="asset.codigo">
                                     <option value="5100">5100</option>
-                                                <option value="511">511</option>
-                                                <option value="512">512</option>
-                                                <option value="515">515</option>
-                                                <option value="519">519</option>
-                                                <option value="5200">5200</option>
-                                                <option value="521">521</option>
-                                                <option value="522">522</option>
-                                                <option value="523">523</option>
-                                                <option value="529">529</option>
-                                                <option value="5300">5300</option>
-                                                <option value="531">531</option>
-                                                <option value="532">532</option>
-                                                <option value="5400">5400</option>
-                                                <option value="541">541</option>
-                                                <option value="542">542</option>
-                                                <option value="543">543</option>
-                                                <option value="544">544</option>
-                                                <option value="545">545</option>
-                                                <option value="549">549</option>
-                                                <option value="551">551</option>
-                                                <option value="5600">5600</option>
-                                                <option value="561">561</option>
-                                                <option value="562">562</option>
-                                                <option value="563">563</option>
-                                                <option value="564">564</option>
-                                                <option value="565">565</option>
-                                                <option value="566">566</option>
-                                                <option value="567">567</option>
-                                                <option value="569">569</option>
-                                                <option value="513">513</option>
-                                                <option value="514">514</option>
-                                                <option value="5700">5700</option>
-                                                <option value="571">571</option>
-                                                <option value="572">572</option>
-                                                <option value="573">573</option>
-                                                <option value="574">574</option>
-                                                <option value="575">575</option>
-                                                <option value="576">576</option>
-                                                <option value="577">577</option>
-                                                <option value="578">578</option>
-                                                <option value="579">579</option>
+                                    <option value="511">511</option>
+                                    <option value="512">512</option>
+                                    <option value="515">515</option>
+                                    <option value="519">519</option>
+                                    <option value="5200">5200</option>
+                                    <option value="521">521</option>
+                                    <option value="522">522</option>
+                                    <option value="523">523</option>
+                                    <option value="529">529</option>
+                                    <option value="5300">5300</option>
+                                    <option value="531">531</option>
+                                    <option value="532">532</option>
+                                    <option value="5400">5400</option>
+                                    <option value="541">541</option>
+                                    <option value="542">542</option>
+                                    <option value="543">543</option>
+                                    <option value="544">544</option>
+                                    <option value="545">545</option>
+                                    <option value="549">549</option>
+                                    <option value="551">551</option>
+                                    <option value="5600">5600</option>
+                                    <option value="561">561</option>
+                                    <option value="562">562</option>
+                                    <option value="563">563</option>
+                                    <option value="564">564</option>
+                                    <option value="565">565</option>
+                                    <option value="566">566</option>
+                                    <option value="567">567</option>
+                                    <option value="569">569</option>
+                                    <option value="513">513</option>
+                                    <option value="514">514</option>
+                                    <option value="5700">5700</option>
+                                    <option value="571">571</option>
+                                    <option value="572">572</option>
+                                    <option value="573">573</option>
+                                    <option value="574">574</option>
+                                    <option value="575">575</option>
+                                    <option value="576">576</option>
+                                    <option value="577">577</option>
+                                    <option value="578">578</option>
+                                    <option value="579">579</option>
 
                                 </select>
                             </div>
 
                         </div>
-                        
-                       
+
+
                         <br>
                         <h6>CARACTERISTICAS</h6>
 
@@ -238,7 +239,7 @@
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Estado del Bien</label>
 
-                           
+
 
                             <div class="select">
                                 <select #estado="ngModel" name="estado" [(ngModel)]="asset.estado">
@@ -262,21 +263,21 @@
                         </div>
 
                         <div class="field photoadd">
-                            <div *ngIf="itempic" class="previewfoto"  [ngStyle]="{'background-image': 'url(' + itempic.base + ')'}">
-                               
+                            <div *ngIf="itempic" class="previewfoto"
+                                [ngStyle]="{'background-image': 'url(' + itempic.base + ')'}">
+
                             </div>
                             <label class="label"><span class="requiredField">*</span>Fotografía</label>
                             <div class="control">
 
-                                <input class="input" name="foto" type="file" (change)="UpPhoto($event)"
-                                    required>
-                                 
-                            </div>
-                           
+                                <input class="input" name="foto" type="file" (change)="UpPhoto($event)" required>
 
-                        </div> 
-                      
-                        
+                            </div>
+
+
+                        </div>
+
+
 
 
                     </div>
@@ -327,7 +328,7 @@
 
                         <div class="field">
                             <label class="label">Fecha de Poliza</label>
-                            
+
                             <div class="control">
                                 <input class="input" type="date" #fechapoliza="ngModel" name="fechapoliza"
                                     [(ngModel)]="asset.fechapoliza">
@@ -367,7 +368,7 @@
 
                         <div class="field">
                             <label class="label">Fecha del Documento</label>
-                            
+
                             <div class="control">
                                 <input class="input" type="date" #fechaDAPB="ngModel" name="fechaDAPB"
                                     [(ngModel)]="asset.fechaDAPB">
@@ -384,7 +385,7 @@
 
                         <div class="field">
                             <label class="label">Fecha de Adquisición o Alta</label>
-                           
+
                             <div class="control">
                                 <input class="input" type="date" #fechaalta="ngModel" name="fechaalta"
                                     [(ngModel)]="asset.fechaalta">
@@ -415,13 +416,13 @@
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>¿Localizado?</label>
 
-                         
+
 
                             <div class="select">
                                 <select #localizado="ngModel" name="localizado" [(ngModel)]="asset.localizado">
                                     <option value="no localizado">NO LOCALIZADO</option>
                                     <option value="localizado">LOCALIZADO</option>
-                                
+
 
 
 
@@ -435,72 +436,110 @@
                             </span> -->
 
                         </div>
-                       
+
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Área responsable</label>
-                           
+
 
                             <div class="select">
                                 <select (change)="checkIfOtherSelected()" #arearesponsableselect="ngModel"
-                                    name="arearesponsableselect" [(ngModel)]="areaResElected">                        
+                                    name="arearesponsableselect" [(ngModel)]="areaResElected">
                                     <option value="CENTRO DE JUSTICIA CIVICA">CENTRO DE JUSTICIA CIVICA</option>
-                                    <option value="DESPACHO DE LA PRESIDENCIA MUNICIPAL">DESPACHO DE LA PRESIDENCIA MUNICIPAL</option>
+                                    <option value="DESPACHO DE LA PRESIDENCIA MUNICIPAL">DESPACHO DE LA PRESIDENCIA
+                                        MUNICIPAL</option>
                                     <option value="DIRECCION DE ADMINISTRACION">DIRECCION DE ADMINISTRACION</option>
-                                    <option value="DIRECCION DE ADMINISTRACION DE LA SSC">DIRECCION DE ADMINISTRACION DE LA SSC</option>
+                                    <option value="DIRECCION DE ADMINISTRACION DE LA SSC">DIRECCION DE ADMINISTRACION DE
+                                        LA SSC</option>
                                     <option value="DIRECCION DE ANALISIS">DIRECCION DE ANALISIS</option>
-                                    <option value="DIRECCION DE ARCHIVO MUNICIPAL">DIRECCION DE ARCHIVO MUNICIPAL</option>
-                                    <option value="DIRECCION DE ATENCION A VIOLENCIA FAMILIAR Y DE GENERO">DIRECCION DE ATENCION A VIOLENCIA FAMILIAR Y DE GENERO</option>
+                                    <option value="DIRECCION DE ARCHIVO MUNICIPAL">DIRECCION DE ARCHIVO MUNICIPAL
+                                    </option>
+                                    <option value="DIRECCION DE ATENCION A VIOLENCIA FAMILIAR Y DE GENERO">DIRECCION DE
+                                        ATENCION A VIOLENCIA FAMILIAR Y DE GENERO</option>
                                     <option value="DIRECCION DE AUDITORIA">DIRECCION DE AUDITORIA</option>
-                                    <option value="DIRECCION DE CATASTRO Y RECAUDACION FISCAL">DIRECCION DE CATASTRO Y RECAUDACION FISCAL</option>
-                                    <option value="DIRECCION DE COMUNICACION SOCIAL E IMAGEN INSTITUCIONAL">DIRECCION DE COMUNICACION SOCIAL E IMAGEN INSTITUCIONAL</option>
-                                    <option value="DIRECCION DE COMPETITIVIDAD ECONOMICA">DIRECCION DE COMPETITIVIDAD ECONOMICA</option>
+                                    <option value="DIRECCION DE CATASTRO Y RECAUDACION FISCAL">DIRECCION DE CATASTRO Y
+                                        RECAUDACION FISCAL</option>
+                                    <option value="DIRECCION DE COMUNICACION SOCIAL E IMAGEN INSTITUCIONAL">DIRECCION DE
+                                        COMUNICACION SOCIAL E IMAGEN INSTITUCIONAL</option>
+                                    <option value="DIRECCION DE COMPETITIVIDAD ECONOMICA">DIRECCION DE COMPETITIVIDAD
+                                        ECONOMICA</option>
                                     <option value="DIRECCION DE CUENTA PUBLICA">DIRECCION DE CUENTA PUBLICA</option>
                                     <option value="DIRECCION DE CULTURA Y ARTES">DIRECCION DE CULTURA Y ARTES</option>
-                                    <option value="DIRECCION DE ECOLOGIA Y PROTECCION AL MEDIO AMBIENTE">DIRECCION DE ECOLOGIA Y PROTECCION AL MEDIO AMBIENTE</option>
+                                    <option value="DIRECCION DE ECOLOGIA Y PROTECCION AL MEDIO AMBIENTE">DIRECCION DE
+                                        ECOLOGIA Y PROTECCION AL MEDIO AMBIENTE</option>
                                     <option value="DIRECCION DE EDUCACION">DIRECCION DE EDUCACION</option>
                                     <option value="DIRECCION DE EGRESOS">DIRECCION DE EGRESOS</option>
-                                    <option value="DIRECCION DE FOMENTO AGROPECUARIO">DIRECCION DE FOMENTO AGROPECUARIO</option>
+                                    <option value="DIRECCION DE FOMENTO AGROPECUARIO">DIRECCION DE FOMENTO AGROPECUARIO
+                                    </option>
                                     <option value="DIRECCION DE GOBERNACION">DIRECCION DE GOBERNACION</option>
-                                    <option value="DIRECCION DE IMDIS (INSTITUTO MUNICIPAL DE PERSONAS CON DISCAPACIDAD)">DIRECCION DE IMDIS (INSTITUTO MUNICIPAL DE PERSONAS CON DISCAPACIDAD)</option>
+                                    <option
+                                        value="DIRECCION DE IMDIS (INSTITUTO MUNICIPAL DE PERSONAS CON DISCAPACIDAD)">
+                                        DIRECCION DE IMDIS (INSTITUTO MUNICIPAL DE PERSONAS CON DISCAPACIDAD)</option>
                                     <option value="DIRECCION DE INGRESOS">DIRECCION DE INGRESOS</option>
-                                    <option value="DIRECCION DE INNOVACION Y MODERNIZACIÓN GUBERNAMENTAL">DIRECCION DE INNOVACION Y MODERNIZACIÓN GUBERNAMENTAL</option>
+                                    <option value="DIRECCION DE INNOVACION Y MODERNIZACIÓN GUBERNAMENTAL">DIRECCION DE
+                                        INNOVACION Y MODERNIZACIÓN GUBERNAMENTAL</option>
                                     <option value="DIRECCION DE INVESTIGACION">DIRECCION DE INVESTIGACION</option>
-                                    <option value="DIRECCION DE LICENCIAS DE CONSTRUCCION">DIRECCION DE LICENCIAS DE CONSTRUCCION</option>
+                                    <option value="DIRECCION DE LICENCIAS DE CONSTRUCCION">DIRECCION DE LICENCIAS DE
+                                        CONSTRUCCION</option>
                                     <option value="DIRECCION DE OBRAS PUBLICAS">DIRECCION DE OBRAS PUBLICAS</option>
-                                    <option value="DIRECCION DE OPERADORA MUNICIPAL DE PROYECTOS ESTRATEGICOS">DIRECCION DE OPERADORA MUNICIPAL DE PROYECTOS ESTRATEGICOS</option>
-                                    <option value="DIRECCION DE PARTICIPACION CIUDADANA">DIRECCION DE PARTICIPACION CIUDADANA</option>
-                                    <option value="DIRECCION DE PLANEACION Y ADMINISTRACION">DIRECCION DE PLANEACION Y ADMINISTRACION</option>
-                                    <option value="DIRECCION DE PLANEACION Y EVALUACION">DIRECCION DE PLANEACION Y EVALUACION</option>
-                                    <option value="DIRECCION DE PROTECCION CIVIL Y BOMBEROS">DIRECCION DE PROTECCION CIVIL Y BOMBEROS</option>
+                                    <option value="DIRECCION DE OPERADORA MUNICIPAL DE PROYECTOS ESTRATEGICOS">DIRECCION
+                                        DE OPERADORA MUNICIPAL DE PROYECTOS ESTRATEGICOS</option>
+                                    <option value="DIRECCION DE PARTICIPACION CIUDADANA">DIRECCION DE PARTICIPACION
+                                        CIUDADANA</option>
+                                    <option value="DIRECCION DE PLANEACION Y ADMINISTRACION">DIRECCION DE PLANEACION Y
+                                        ADMINISTRACION</option>
+                                    <option value="DIRECCION DE PLANEACION Y EVALUACION">DIRECCION DE PLANEACION Y
+                                        EVALUACION</option>
+                                    <option value="DIRECCION DE PROTECCION CIVIL Y BOMBEROS">DIRECCION DE PROTECCION
+                                        CIVIL Y BOMBEROS</option>
                                     <option value="DIRECCION DE RECURSOS HUMANOS">DIRECCION DE RECURSOS HUMANOS</option>
                                     <option value="DIRECCION DE REGLAMENTOS">DIRECCION DE REGLAMENTOS</option>
                                     <option value="DIRECCION DE SALUD MUNICIPAL">DIRECCION DE SALUD MUNICIPAL</option>
-                                    <option value="DIRECCION DE SEGURIDAD PUBLICA">DIRECCION DE SEGURIDAD PUBLICA</option>
-                                    <option value="DIRECCION DE SERVICIOS PUBLICOS MUNICIPALES">DIRECCION DE SERVICIOS PUBLICOS MUNICIPALES</option>
-                                    <option value="DIRECCION DE TRANSITO Y VIALIDAD">DIRECCION DE TRANSITO Y VIALIDAD</option>
-                                    <option value="DIRECCION DE TRANSPARENCIA, ACCESO A LA INFORMACION PUBLICA Y PROTECCION DE DATOS PERSONALES">DIRECCION DE TRANSPARENCIA, ACCESO A LA INFORMACION PUBLICA Y PROTECCION DE DATOS PERSONALES</option>
-                                    <option value="DIRECCION DE TURISMO, COMERCIO Y SERVICIOS">DIRECCION DE TURISMO, COMERCIO Y SERVICIOS</option>
-                                    <option value="DIRECCION DEL CENTRO DE ATENCION PSICOLOGICA">DIRECCION DEL CENTRO DE ATENCION PSICOLOGICA</option>
-                                    <option value="DIRECCION GENERAL DE LA CONSEJERIA JURIDICA">DIRECCION GENERAL DE LA CONSEJERIA JURIDICA</option>
-                                    <option value="DIRECCION JURIDICA DE LA CONSEJERIA JURIDICA">DIRECCION JURIDICA DE LA CONSEJERIA JURIDICA</option>
+                                    <option value="DIRECCION DE SEGURIDAD PUBLICA">DIRECCION DE SEGURIDAD PUBLICA
+                                    </option>
+                                    <option value="DIRECCION DE SERVICIOS PUBLICOS MUNICIPALES">DIRECCION DE SERVICIOS
+                                        PUBLICOS MUNICIPALES</option>
+                                    <option value="DIRECCION DE TRANSITO Y VIALIDAD">DIRECCION DE TRANSITO Y VIALIDAD
+                                    </option>
+                                    <option
+                                        value="DIRECCION DE TRANSPARENCIA, ACCESO A LA INFORMACION PUBLICA Y PROTECCION DE DATOS PERSONALES">
+                                        DIRECCION DE TRANSPARENCIA, ACCESO A LA INFORMACION PUBLICA Y PROTECCION DE
+                                        DATOS PERSONALES</option>
+                                    <option value="DIRECCION DE TURISMO, COMERCIO Y SERVICIOS">DIRECCION DE TURISMO,
+                                        COMERCIO Y SERVICIOS</option>
+                                    <option value="DIRECCION DEL CENTRO DE ATENCION PSICOLOGICA">DIRECCION DEL CENTRO DE
+                                        ATENCION PSICOLOGICA</option>
+                                    <option value="DIRECCION GENERAL DE LA CONSEJERIA JURIDICA">DIRECCION GENERAL DE LA
+                                        CONSEJERIA JURIDICA</option>
+                                    <option value="DIRECCION JURIDICA DE LA CONSEJERIA JURIDICA">DIRECCION JURIDICA DE
+                                        LA CONSEJERIA JURIDICA</option>
                                     <option value="DIRECCION JURIDICA DE LA SSC">DIRECCION JURIDICA DE LA SSC</option>
-                                    <option value="DIRECTOR DE PREVENCION SOCIAL DEL DELITO">DIRECTOR DE PREVENCION SOCIAL DEL DELITO</option>
-                                    <option value="INSTITUTO MUNICIPAL DE LAS MUJERES">INSTITUTO MUNICIPAL DE LAS MUJERES</option>
-                                    <option value="INSTITUTO MUNICIPAL DEL DEPORTE Y ACTIVACION FISICA">INSTITUTO MUNICIPAL DEL DEPORTE Y ACTIVACION FISICA</option>
-                                    <option value="INSTITUTO TIZAYUQUENSE DE LA JUVENTUD">INSTITUTO TIZAYUQUENSE DE LA JUVENTUD</option>
+                                    <option value="DIRECTOR DE PREVENCION SOCIAL DEL DELITO">DIRECTOR DE PREVENCION
+                                        SOCIAL DEL DELITO</option>
+                                    <option value="INSTITUTO MUNICIPAL DE LAS MUJERES">INSTITUTO MUNICIPAL DE LAS
+                                        MUJERES</option>
+                                    <option value="INSTITUTO MUNICIPAL DEL DEPORTE Y ACTIVACION FISICA">INSTITUTO
+                                        MUNICIPAL DEL DEPORTE Y ACTIVACION FISICA</option>
+                                    <option value="INSTITUTO TIZAYUQUENSE DE LA JUVENTUD">INSTITUTO TIZAYUQUENSE DE LA
+                                        JUVENTUD</option>
                                     <option value="OFICIALIA MAYOR H. ASAMBLEA">OFICIALIA MAYOR H. ASAMBLEA</option>
                                     <option value="RASTRO MUNICIPAL">RASTRO MUNICIPAL</option>
                                     <option value="REGISTRO DEL ESTADO FAMILIAR">REGISTRO DEL ESTADO FAMILIAR</option>
-                                    <option value="SECRETARIA DE BIENESTAR SOCIAL">SECRETARIA DE BIENESTAR SOCIAL</option>
-                                    <option value="SECRETARIA DE DESARROLLO ECONOMICO">SECRETARIA DE DESARROLLO ECONOMICO</option>
+                                    <option value="SECRETARIA DE BIENESTAR SOCIAL">SECRETARIA DE BIENESTAR SOCIAL
+                                    </option>
+                                    <option value="SECRETARIA DE DESARROLLO ECONOMICO">SECRETARIA DE DESARROLLO
+                                        ECONOMICO</option>
                                     <option value="SECRETARIA DE FINANZAS">SECRETARIA DE FINANZAS</option>
-                                    <option value="SECRETARIA DE LA CONTRALORIA MUNICIPAL">SECRETARIA DE LA CONTRALORIA MUNICIPAL</option>
+                                    <option value="SECRETARIA DE LA CONTRALORIA MUNICIPAL">SECRETARIA DE LA CONTRALORIA
+                                        MUNICIPAL</option>
                                     <option value="SECRETARIA DE OBRAS PUBLICAS">SECRETARIA DE OBRAS PUBLICAS</option>
-                                    <option value="SECRETARIA DE SEGURIDAD CIUDADANA">SECRETARIA DE SEGURIDAD CIUDADANA</option>
-                                    <option value="SECRETARIA DE SECRETARIA TECNICA DE LA SCC">SECRETARIA DE SECRETARIA TECNICA DE LA SCC</option>
-                                    <option value="SECRETARIA EJECUTIVA DE SIPINNA">SECRETARIA EJECUTIVA DE SIPINNA</option>
+                                    <option value="SECRETARIA DE SEGURIDAD CIUDADANA">SECRETARIA DE SEGURIDAD CIUDADANA
+                                    </option>
+                                    <option value="SECRETARIA DE SECRETARIA TECNICA DE LA SCC">SECRETARIA DE SECRETARIA
+                                        TECNICA DE LA SCC</option>
+                                    <option value="SECRETARIA EJECUTIVA DE SIPINNA">SECRETARIA EJECUTIVA DE SIPINNA
+                                    </option>
                                     <option value="SECRETARIA GENERAL MUNICIPAL">SECRETARIA GENERAL MUNICIPAL</option>
-                                    <option value="UNIDAD DE ASUNTOS INTERNOS">UNIDAD DE ASUNTOS INTERNOS</option>   
+                                    <option value="UNIDAD DE ASUNTOS INTERNOS">UNIDAD DE ASUNTOS INTERNOS</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                             </div>
@@ -522,7 +561,7 @@
                         <br>
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Área presupuestal</label>
-                           
+
                             <div class="select">
                                 <select (change)="checkIfOtherSelectedPres()" #areapresupuestalselect="ngModel"
                                     name="areapresupuestalselect" [(ngModel)]="areaPresElected">
@@ -645,7 +684,7 @@
                         <br>
                         <div class="field">
                             <label class="label"><span class="requiredField">*</span>Ubicación Física</label>
-                           
+
                             <div class="select">
                                 <select (change)="checkIfOtherSelectedUbi()" #ubicacionselect="ngModel"
                                     name="ubicacionselect" [(ngModel)]="UbiSelected">
@@ -790,7 +829,7 @@
 
                         <div class="field">
                             <label class="label">Fecha del resguardo</label>
-                           
+
                             <div class="control">
                                 <input class="input" type="date" #fecharesguardo="ngModel" name="fecharesguardo"
                                     [(ngModel)]="asset.fecharesguardo">
@@ -800,7 +839,7 @@
 
                         <div class="field">
                             <label class="label">Fecha del baja</label>
-                           
+
                             <div class="control">
                                 <input class="input" type="date" #fechabaja="ngModel" name="fechabaja"
                                     [(ngModel)]="asset.fechabaja">
@@ -860,10 +899,19 @@
 
 
 
-                        <input class="button is-success" type="submit" value="{{titulo}}" [disabled]="!formAsset.valid"
-                            style="color: white;">
+                        <input *ngIf="!loadingADD" class="button is-success" type="submit" value="{{titulo}}"
+                            [disabled]="!formAsset.valid" style="color: white;">
+                      
+                        
 
+                        <input *ngIf="loadingADD" class="button is-success" type="submit" value="Guardando bien..."
+                            disabled style="color: white;">
 
+                           
+                            <div  *ngIf="uploadedADD" style="text-align: center; margin-top: 1rem;" class="notification is-primary is-light">
+                                <h4>Agregado correctamente</h4>
+                                <p>Espera un momento.</p>
+                            </div>
 
 
 

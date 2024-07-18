@@ -36,7 +36,8 @@ export class AssetEditComponent implements OnInit {
   public errorMessage;
   public is_edit;
   otherOption: string;
-
+  loadingADD = false;
+  uploadedADD = false;
   areaResElected: string;
   isOtherSelected: boolean = false;
   DAPBname: any;
@@ -97,7 +98,7 @@ export class AssetEditComponent implements OnInit {
       '', // tipobaja
       '', // DAB
       false, // validated
-     // '', // legend
+      // '', // legend
       '', // elDAB
       '', // elDAPB
       null, // polizanobaja
@@ -127,7 +128,7 @@ export class AssetEditComponent implements OnInit {
     return asset;
   }
 
-  
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -169,7 +170,7 @@ export class AssetEditComponent implements OnInit {
     }
     this.asset.arearesponsable = this.areaResElected
 
-
+    this.loadingADD = true;
 
     if (this.areaPresElected === 'OTRO') {
       this.areaPresElected = this.otherOptionpres;
@@ -183,7 +184,7 @@ export class AssetEditComponent implements OnInit {
     this.asset.ubicacionfisica = this.UbiSelected
 
 
-    
+
 
 
 
@@ -192,20 +193,22 @@ export class AssetEditComponent implements OnInit {
       .subscribe(
 
         (response) => {
-         
+
           if (!response.asset) {
             this.errorMessage = 'error en el servidor';
           } else {
-            this.errorMessage = 'El bien se ha actualizado correctamente';
-
-            this.toastr.success('Bien actualizado correctamente', 'Actualizado', {
-              progressBar: true,
-              toastClass: 'toast ngx-toastr',
-              closeButton: true
-            });
+            this.uploadedADD = true;
 
 
-            this.closeDialog();
+
+
+
+            setTimeout(() => {
+              this.loadingADD = false;
+              this.closeDialog();
+              this.uploadedADD = false;
+            }, 2500); 
+  
           }
 
         },
@@ -217,7 +220,7 @@ export class AssetEditComponent implements OnInit {
         }
       );
 
-  
+
   }
   backPage() {
     window.history.back();

@@ -35,7 +35,8 @@ export class AssetAddMuebleComponent implements OnInit {
   public errorMessage;
   public is_edit;
   otherOption: string;
-
+  loadingADD = false;
+  uploadedADD = false;
   areaResElected: string;
   isOtherSelected: boolean = false;
   DAPBname: any;
@@ -107,25 +108,25 @@ export class AssetAddMuebleComponent implements OnInit {
     );
 
     this.is_edit = true;
-   
+
   }
 
   ngOnInit() {
 
     //lamar al metodo de la api para sacar un artista en base a su id getAsset
-  
+
 
   }
 
- 
+
 
   onSubmit() {
-
-  /*   if (this.identity.role == 'ROLE_editor'){
-      this.asset.validated = true
-    }else{
-      this.asset.validated = false
-    } */
+    this.loadingADD = true;
+    /*   if (this.identity.role == 'ROLE_editor'){
+        this.asset.validated = true
+      }else{
+        this.asset.validated = false
+      } */
 
     this.asset.elDAPB = this.itemelDAPB
     this.asset.elDAB = this.itemelDAB
@@ -133,26 +134,26 @@ export class AssetAddMuebleComponent implements OnInit {
     if (this.areaResElected === 'OTRO') {
       this.areaResElected = this.otherOption;
     }
-    this.asset.arearesponsable =  this.areaResElected
-    
+    this.asset.arearesponsable = this.areaResElected
 
- 
+
+
 
     if (this.areaPresElected === 'OTRO') {
       this.areaPresElected = this.otherOptionpres;
     }
-    this.asset.areapresupuestal =  this.areaPresElected
-    
-    this.asset.ubicacionfisica = this.UbiSelected
-   
+    this.asset.areapresupuestal = this.areaPresElected
 
-    
+    this.asset.ubicacionfisica = this.UbiSelected
+
+
+
 
 
 
     this._assetService.addAsset(this.token, this.asset).subscribe(
       (response) => {
-       
+
 
 
 
@@ -160,20 +161,22 @@ export class AssetAddMuebleComponent implements OnInit {
           this.errorMessage = 'error en el servidor';
         } else {
 
-          this.errorMessage = 'El bien se ha registrado correctamente';
-          this.asset = response.asset;
-          this.toastr.success('Bien registrado correctamente', 'Registrado' , {
-                progressBar: true,
-                toastClass: 'toast ngx-toastr',
-                closeButton: true
-              });
-              this.closeDialog();
+          this.uploadedADD = true;
 
-             
-              // Agregar un retraso de 2 segundos antes de navegar
-        setTimeout(() => {
-          this._router.navigate(['/bien-mueble', response.asset._id]);
-        }, 2500);
+         
+          
+
+
+          setTimeout(() => {
+            this.loadingADD = false;
+            this.closeDialog();
+            this.uploadedADD = false;
+          }, 2500); 
+
+         /*  // Agregar un retraso de 2 segundos antes de navegar
+          setTimeout(() => {
+            this._router.navigate(['/bien-mueble', response.asset._id]);
+          }, 2500); */
 
 
         }
@@ -204,7 +207,7 @@ export class AssetAddMuebleComponent implements OnInit {
     await this._assetService.Toolformat64(this.file).then(resp => {
 
       this.itempic = resp;
-      
+
       this.asset.foto = this.itempic.base
 
     });
