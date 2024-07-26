@@ -535,7 +535,18 @@
                         <h5 [ngClass]="{'missingData': !asset.DAB}">Documento que ampara la baja: </h5>
                         <h5>{{asset.DAB}}</h5>
                     </div>
-
+                    <br>
+                    <ng-container *ngIf="asset.notes && asset.notes.length  > 0">
+                        <h3><i class="fa-regular fa-circle-xmark"></i> &nbsp;Notas</h3>
+                        <br>
+                        <div class="note-element-list">
+                            <li class="note-element" *ngFor="let note of asset.notes">
+                                <q>{{ note.content }}</q>
+                                <hr>
+                                <p style="font-weight: bold;">Fecha: {{ note.date | date:'dd/MM/yyyy' }}</p>
+                            </li>
+                        </div>
+                    </ng-container>
 
                 </ng-container>
 

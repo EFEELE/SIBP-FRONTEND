@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
   darkMode: boolean = false;
   hasMaterialClass: boolean = true;
   showMode: boolean = true;
-
+  areafilter;
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -84,8 +84,10 @@ export class HomeComponent implements OnInit {
     this.baseUrl = environment.baseUrl;
     this.next_page = 1;
     this.prev_page = 1;
-    this.admin = new Admin('', '', '', '', '', '', 'ROLE_admin');
+    this.admin = new Admin('', '', '', '', '', '', '');
+   
   }
+
 
   loginForm = this.formBuilder.group({
     email: [''],
@@ -98,6 +100,7 @@ export class HomeComponent implements OnInit {
     this.step.set(index);
   }
 
+ 
   nextStep() {
     this.step.update(i => i + 1);
   }
@@ -248,9 +251,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.identity = this._adminService.getIdentity();
     this.token = this._adminService.getToken();
+
+
+    if (this.identity) {
+      this.areafilter = this.identity.areafilter;
+    }
     // Redirigir según el rol
     // Reemplaza con la ruta deseada
-    if (this.identity.role === 'ROLE_V0') {
+    if (this.identity && this.identity.role === 'ROLE_V0') {
       this._router.navigate(['/valor-cero']); // O la ruta para usuarios normales
     }
 
@@ -262,7 +270,7 @@ export class HomeComponent implements OnInit {
   getAssets() {
     this._route.params.forEach((params: Params) => {
       let page = +params['page'];
-
+      
       if (!page) {
         page = 1;
       } else {
@@ -273,7 +281,7 @@ export class HomeComponent implements OnInit {
           this.prev_page = 1;
         }
       }
-      this._assetService.getAssets(this.token, page).subscribe(
+      this._assetService.getAssets(this.token, page, this.areafilter).subscribe(
         (response) => {
           if (!response.assets) {
             this._router.navigate(['/']);

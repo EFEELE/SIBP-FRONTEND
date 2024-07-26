@@ -82,7 +82,7 @@ export class ValorCeroComponent {
     this.baseUrl = environment.baseUrl;
     this.next_page = 1;
     this.prev_page = 1;
-    this.admin = new Admin('', '', '', '', '', '', 'ROLE_admin');
+    this.admin = new Admin('', '', '', '', '', '', '');
   }
 
   loginForm = this.formBuilder.group({

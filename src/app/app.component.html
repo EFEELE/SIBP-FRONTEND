@@ -60,11 +60,11 @@
 
   <div [ngClass]="{'is-active': isMenuOpen}" id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a  *ngIf="identity && identity.role === 'ROLE_admin'" [routerLink]="['/']" class="navbar-item">
-        TODOS
+      <a  *ngIf="identity && identity.role !== 'ROLE_V0'" [routerLink]="['/']" class="navbar-item">
+        INICIO
       </a>
 
-      <a [routerLink]="['/valor-cero/']" class="navbar-item">
+      <a [routerLink]="['/valor-cero/']" class="navbar-item" *ngIf="identity && identity.role !== 'ROLE_editor'">
         VALOR CERO
       </a>
 

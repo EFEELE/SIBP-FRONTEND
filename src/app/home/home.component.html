@@ -428,7 +428,7 @@
                     <ng-template let-row="row" ngx-datatable-cell-template>
                         <button class="tag is-dark" (click)="openDialogPreView(row._id)">VER</button>&nbsp;
                         <button class="tag is-dark" (click)="onOpenClick(row._id)">ABRIR</button>&nbsp;
-                        <button *ngIf="identity && identity.role == 'ROLE_admin'" class="tag is-black" (click)="openDialogEdit(row._id)">EDITAR</button>
+                        <button *ngIf="identity && ( identity.role == 'ROLE_admin' || identity.role === 'ROLE_editor') " class="tag is-black" (click)="openDialogEdit(row._id)">EDITAR</button>
                         
                       
                     </ng-template>

@@ -17,7 +17,7 @@ export class AssetService {
 
   }
 
-  getAsset( id: string): Observable<any> {
+  getAsset(id: string): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers
       .set('Content-Type', 'application/json');
@@ -25,8 +25,8 @@ export class AssetService {
       headers: headers
     }
 
-    return this._http.get(this.baseUrl+'bien/'+id, options)
-    .pipe(map((res) => res));
+    return this._http.get(this.baseUrl + 'bien/' + id, options)
+      .pipe(map((res) => res));
 
 
   }
@@ -36,23 +36,8 @@ export class AssetService {
 
 
 
-  // getAssets(token, page): Observable<any> {
-  //   let headers = new HttpHeaders();
-  //   headers = headers
-  //     .set('Content-Type', 'application/json')
-  //     .set('Authorization', token);
-  //   let options = {
-  //     headers: headers
-  //   }
 
-  //   return this._http.get(this.baseUrl+'bienes/'+ '1', options)
-  //   .pipe(map((res) => res));
-
-
-  // }
-
-  
-  getAssets(token?: string, page: number = 1): Observable<any> {
+  getAssets(token?: string, page: number = 1, areafilter?: string): Observable<any> {
     let headers = new HttpHeaders();
 
     if (token) {
@@ -61,14 +46,22 @@ export class AssetService {
 
     let options = { headers: headers };
 
-    return this._http.get(`${this.baseUrl}bienes/${page}`, options).pipe(map((res) => res));
+    // Construir la URL con parámetros de consulta
+    let url = `${this.baseUrl}bienes?page=${page}`;
+    if (areafilter) {
+      url += `&areafilter=${areafilter}`;
+    }
+
+    return this._http.get(url, options).pipe(map((res) => res));
   }
+
+
 
 
 
   getAssetsCero(token?: string, page: number = 1): Observable<any> {
     let headers = new HttpHeaders();
-    
+
     // Si se proporciona un token, configurar el encabezado de autorización
     if (token) {
       headers = headers.set('Authorization', token);
@@ -96,9 +89,9 @@ export class AssetService {
       .post(this.baseUrl + 'bien', params, { headers: headers })
       .pipe(map((res) => res));
   }
-  
 
-  editAsset(token, id:string, asset: Asset): Observable<any> {
+
+  editAsset(token, id: string, asset: Asset): Observable<any> {
     let json = JSON.stringify(asset);
     let params = json;
     let headers = new HttpHeaders();
@@ -107,7 +100,7 @@ export class AssetService {
       .set('Authorization', token);
 
     return this._http
-      .put(this.baseUrl + 'bien/'+ id, params, { headers: headers })
+      .put(this.baseUrl + 'bien/' + id, params, { headers: headers })
       .pipe(map((res) => res));
   }
 
@@ -125,22 +118,22 @@ export class AssetService {
   }
 
 
-  async Toolformat64(event:any){
+  async Toolformat64(event: any) {
 
-    const proccess = await new Promise((resolve,reject)=>{
+    const proccess = await new Promise((resolve, reject) => {
 
       const render = new FileReader();
 
       // Manejo de error si no llega img
       render.readAsDataURL(event);
 
-      render.onload = () =>{
+      render.onload = () => {
 
         resolve({
-          base:render.result
+          base: render.result
         })
       };
-      render.onerror = () =>{
+      render.onerror = () => {
         reject({
           base: null
         })
@@ -149,5 +142,33 @@ export class AssetService {
     }).then(e => e);
     return proccess;
   }
+
+  // Método para agregar una nota a un asset
+  // Método para agregar una nota a un asset
+  addNoteToAsset(token: string, assetId: string, content: string): Observable<any> {
+    const params = { content }; // Usa 'content' para coincidir con el backend
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this._http
+      .post(this.baseUrl + `bien/${assetId}/note`, params, { headers })
+      .pipe(map((res) => res));
+  }
+
+
+  // Método para eliminar una nota de un asset
+  deleteNoteFromAsset(token, assetId: string, noteId: string): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers
+      .set('Content-Type', 'application/json')
+      .set('Authorization', token);
+
+    return this._http
+      .delete(this.baseUrl + `bien/${assetId}/note/${noteId}`, { headers: headers })
+      .pipe(map((res) => res));
+  }
+
+
 }
 

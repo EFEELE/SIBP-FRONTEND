@@ -36,7 +36,7 @@ export class Asset {
     public _id: string,
     public ubicacionfisica: string,
     public localizado: string,
-
+    public notes?: Note[]
   ) { }
 }
 
@@ -79,6 +79,14 @@ export class AssetLIST {
     public _id: string,
     public ubicacionfisica: string,
     public localizado: string,
+    public notes?: Note[]
+  ) { }
+}
 
+// Define la clase Note si no existe
+export class Note {
+  constructor(
+    public content: string,
+    public date: Date
   ) { }
 }

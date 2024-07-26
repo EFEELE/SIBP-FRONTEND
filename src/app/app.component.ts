@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
     private _adminService: AdminService,
     private formBuilder: FormBuilder
   ) {
-    this.admin = new Admin('', '', '', '', '', '', 'ROLE_admin');
+    this.admin = new Admin('', '', '', '', '', '', '');
   }
 
   loginForm = this.formBuilder.group({

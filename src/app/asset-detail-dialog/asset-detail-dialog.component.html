@@ -258,11 +258,11 @@
         }
 
     }
-   
-    h6.inventarionumero{
-    font-size: 12px!important;
-    letter-spacing: 1px;
-}
+
+    h6.inventarionumero {
+        font-size: 12px !important;
+        letter-spacing: 1px;
+    }
 </style>
 
 
@@ -270,7 +270,7 @@
 
 
     <section class="container p-5" style="scrollbar-color: grey white;
-        scrollbar-width: thin; margin-top: 0rem; margin: 0 auto!important; overflow: auto; " >
+        scrollbar-width: thin; margin-top: 0rem; margin: 0 auto!important; overflow: auto; ">
 
 
         <a *ngIf='identity' [mat-dialog-close] class="mb-5"
@@ -280,7 +280,7 @@
 
         <div class="columns" style="
     align-items: center;">
-           
+
             <div class="column is-12 is-narrow" style="display: flex;
         align-items: center;
         justify-content: center;
@@ -294,7 +294,7 @@
                         <!--  <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass"
                             errorCorrectionLevel="L">
                         </ngx-qrcode> -->
-                        <qr-code [value]="value" size="105"  cssClass="aclass" errorCorrectionLevel="L" />
+                        <qr-code [value]="value" size="105" cssClass="aclass" errorCorrectionLevel="L" />
                     </div>
                     <div class="right">
 
@@ -313,8 +313,9 @@
                 <br>
                 <button (click)="downloadAsImage()" class="button is-rounded" [disabled]="!downloadedCheck"
                     *ngIf='identity'><span>Descargar etiqueta</span></button>
-                    <br>
-                    <span style="text-align: center;">Si la etiqueta se ve recortada, intenta descargarla desde una computadora. <br> Es recomendable acceder a desde Google Chrome.</span>
+                <br>
+                <span style="text-align: center;">Si la etiqueta se ve recortada, intenta descargarla desde una
+                    computadora. <br> Es recomendable acceder a desde Google Chrome.</span>
 
 
 
@@ -324,7 +325,7 @@
             </div>
             <div class="column is-half-desktop is-full-mobile is-full-tablet">
 
-                
+
                 <div *ngIf="asset.foto" class="imagenBien" style="background-image: url({{asset.foto}});">
                     <div class="zoomInpic" (click)="showLightBox()">
                         <a><i class="fa-regular fa-magnifying-glass-plus"></i></a>
@@ -332,11 +333,11 @@
                 </div>
 
                 <div *ngIf="!asset.foto" class="imagenBien"
-                style="background-image: url('../../assets/img/default.webp');">
-                <div class="zoomInpic" (click)="showLightBox()">
+                    style="background-image: url('../../assets/img/default.webp');">
+                    <div class="zoomInpic" (click)="showLightBox()">
 
+                    </div>
                 </div>
-            </div>
 
 
 
@@ -346,7 +347,7 @@
         <br>
         <hr>
         <br>
-        <div class="columns" >
+        <div class="columns">
 
             <div class="column is-full">
                 <div class="headerAsset">
@@ -390,11 +391,14 @@
                 </div>
                 <hr>
 
-                <h3><i class="fa-sharp fa-regular fa-location-dot"></i> &nbsp;Localización del bien || <span *ngIf='asset.localizado === "localizado"' class="tag is-primary"> {{asset.localizado}} </span></h3> 
+                <h3><i class="fa-sharp fa-regular fa-location-dot"></i> &nbsp;Localización del bien || <span
+                        *ngIf='asset.localizado === "localizado"' class="tag is-primary"> {{asset.localizado}} </span>
+                </h3>
 
-                <span *ngIf='asset.localizado === "no localizado"' class="tag is-danger is-light">{{asset.localizado}} </span>
-             
-    
+                <span *ngIf='asset.localizado === "no localizado"' class="tag is-danger is-light">{{asset.localizado}}
+                </span>
+
+
                 <br>
                 <div class="fieldsAsset largeElement">
                     <h5>Ubicacion Física: </h5>
@@ -506,6 +510,18 @@
                         <h5>{{asset.DAB}}</h5>
                     </div>
 
+                    <br>
+                    <ng-container *ngIf="asset.notes && asset.notes.length  > 0">
+                        <h3><i class="fa-regular fa-circle-xmark"></i> &nbsp;Notas</h3>
+                        <br>
+                        <div class="note-element-list">
+                            <li class="note-element" *ngFor="let note of asset.notes">
+                                <q>{{ note.content }}</q>
+                                <br>
+                                <p style="font-weight: bold;">Fecha: {{ note.date | date:'dd/MM/yyyy' }}</p>
+                            </li>
+                        </div>
+                    </ng-container>
 
                 </ng-container>
 
