@@ -308,23 +308,26 @@
                         </div>
 
                         <div class="field">
-                            <label class="label">Documento que ampara la propiedad del bien</label>
+                            <label class="label"><span class="requiredField">*</span>Documento que ampara la propiedad del bien</label>
 
                             <div class="select">
-                                <select #DAPB="ngModel" name="DAPB" [(ngModel)]="asset.DAPB">
-                                    <option>CO</option>
-                                    <option>CD</option>
-                                    <option>CFDI</option>
-
-
-
-                                </select>
+                                <mat-select (selectionChange)="checkIfCFDISelected()"  [(ngModel)]="cfdiSElected"  [placeholder]="cfdiSElected" name="DAPB" class="input" #DAPB="ngModel" >
+                                    <ngx-mat-select-search  [formControl]="filtereddapbelementsFilterCtrl"    
+                                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"  placeholderLabel="Busca una opción..." ></ngx-mat-select-search >
+                                    <mat-option *ngFor="let option of filtereddapbelements | async" [value]="option">{{option}}</mat-option>
+                                  </mat-select>
                             </div>
+                         
 
-
-
+                            <div class="control" *ngIf="iscfdiSelected">
+                                <br>
+                                <input class="input" type="text" #DAPB="ngModel"
+                                    name="DAPB" [(ngModel)]="CFDIvalue"
+                                    [value]="cfdiSElected">
+                            </div>
+                            <br>
+                            
                         </div>
-
                         <!-- <div class="field">
                             <label class="label"><span class="requiredField">*</span>Subir documento</label>
                             <div class="control">

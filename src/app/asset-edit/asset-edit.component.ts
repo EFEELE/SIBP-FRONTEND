@@ -57,6 +57,7 @@ export class AssetEditComponent implements OnInit {
     return this.subcuentas.filter(subcuenta => subcuenta.toLowerCase().includes(filterValue));
   }
 
+  filtereddapbelementsFilterCtrl = new FormControl();
 
   /* area responsables */
   areaResponsableControl = new FormControl([Validators.required]);
@@ -123,12 +124,23 @@ export class AssetEditComponent implements OnInit {
     "OTRO"
   ];
 
+  dapbelements: string[] = [
+    "CO",
+    "CD",
+    "CFDI"
+  ];
+
   filteredAreasResponsables: Observable<string[]>;
+  filtereddapbelements: Observable<string[]>;
 
 
   private _filteredAreasResponsables(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.areasresponsables.filter(areasresponsable => areasresponsable.toLowerCase().includes(filterValue));
+  }
+  private _filtereddapbelements(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.dapbelements.filter(dapbelement => dapbelement.toLowerCase().includes(filterValue));
   }
 
   /* area presupuestal */
@@ -293,9 +305,12 @@ export class AssetEditComponent implements OnInit {
   public is_edit;
   otherOption: string;
   loadingADD = false;
+  CFDIvalue: string;
   uploadedADD = false;
   areaResElected: string;
   isOtherSelected: boolean = false;
+  cfdiSElected: string;
+  iscfdiSelected: boolean = false;
   DAPBname: any;
   DABname: any;
   file: any;
@@ -363,7 +378,15 @@ export class AssetEditComponent implements OnInit {
       null, // fechapolizabaja
       '', // _id
       '', // ubicación física DPMTH-511-01-001
-      '' //  Localizado
+      '', //  Localizado
+      '', //cfdi
+      false, //confirmexist
+      '', //clasification
+      '', //MPfILE
+      false,
+      '', //arearesguardo
+      '', //valeResguardo
+      undefined,
     );
   
     this.is_edit = true;
@@ -387,6 +410,13 @@ export class AssetEditComponent implements OnInit {
       .pipe(
         startWith(''),
         map(arearesponsable => arearesponsable ? this._filteredAreasResponsables(arearesponsable) : this.areasresponsables.slice())
+      );
+
+
+      this.filtereddapbelements = this.filtereddapbelementsFilterCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(dapbelement => dapbelement ? this._filtereddapbelements(dapbelement) : this.dapbelements.slice())
       );
 
 
@@ -453,6 +483,20 @@ export class AssetEditComponent implements OnInit {
           if(this.asset.arearesponsable){
             this.areaResElected = this.asset.arearesponsable;
           }
+          if(this.asset.DAPB){
+            console.log('recive', this.asset.DAPB)
+            this.cfdiSElected = this.asset.DAPB;
+            console.log('cfdiSElected', this.cfdiSElected)
+            if (this.cfdiSElected === 'CFDI') {
+              this.CFDIvalue = this.asset.cfdi;
+              console.log('CFDIvalue', this.cfdiSElected)
+              this.iscfdiSelected = true;
+            }else {
+              this.iscfdiSelected = false;
+            }
+          }
+          
+          
           if(this.asset.areapresupuestal){
             this.areaPresElected = this.asset.areapresupuestal;
           }
@@ -488,6 +532,14 @@ export class AssetEditComponent implements OnInit {
       this.areaResElected = this.otherOption;
     }
     this.asset.arearesponsable = this.areaResElected
+
+    /*  VERIFICAR SI SE SELECCIONO CFDI Y REASIGNARLA */
+
+
+    if (this.cfdiSElected === 'CFDI') {
+      this.asset.cfdi = this.CFDIvalue;
+    }
+    this.asset.DAPB = this.cfdiSElected
 
     /*  VERIFICAR SI SE SELECCIONO OTRA AREA PRESUPUESTAL Y REASIGNARLA */
     if (this.areaPresElected === 'OTRO') {
@@ -614,6 +666,16 @@ export class AssetEditComponent implements OnInit {
       this.isOtherSelected = true;
     } else {
       this.isOtherSelected = false;
+    }
+  }
+  checkIfCFDISelected() {
+    this.cfdiSElected = this.asset.DAPB;
+    console.log('formcfdrti',this.cfdiSElected)
+    console.log(this.cfdiSElected)
+    if (this.cfdiSElected === 'CFDI') {
+      this.iscfdiSelected = true;
+    } else {
+      this.iscfdiSelected = false;
     }
   }
   checkIfOtherSelectedPres() {

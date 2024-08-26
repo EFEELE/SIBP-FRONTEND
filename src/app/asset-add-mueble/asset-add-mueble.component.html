@@ -1,317 +1,424 @@
 <style>
-    select {
-        width: 100% !important;
-    }
+  select {
+    width: 100% !important;
+  }
 
-    .select {
-        width: 100%;
-    }
+  .select {
+    width: 100%;
+  }
 
-    .consulta h6 {
-        color: #2c281f !important;
-        font-weight: 900;
-    }
+  .consulta h6 {
+    color: #2c281f !important;
+    font-weight: 900;
+  }
 
-    .label {
-        color: #2c281f !important;
-        display: block;
-        font-size: 1rem;
-        font-weight: 700;
-    }
+  .label {
+    color: #2c281f !important;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+  }
 
-    span.requiredField {
-        color: red;
-        font-weight: 800;
-        font-size: 1.2rem;
-        margin-right: 3px;
+  span.requiredField {
+    color: red;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-right: 3px;
 
-        margin-top: 5;
-    }
+    margin-top: 5;
+  }
 
-    input.button.is-success {
-        background-color: #2c281f !important;
-    }
+  input.button.is-success {
+    background-color: #2c281f !important;
+  }
 
-    label.label {
-        line-height: 1;
-    }
+  label.label {
+    line-height: 1;
+  }
 </style>
 
+<section
+  class="container p-5"
+  style="
+    scrollbar-color: grey white;
+    scrollbar-width: thin;
+    margin-top: 0rem;
+    margin: 0 auto !important;
+    overflow: auto;
+  "
+>
+  <a
+    *ngIf="identity"
+    [mat-dialog-close]
+    class="mb-5"
+    style="display: block; font-size: 0.9rem; color: #494949; font-weight: 600"
+    ><i
+      class="fa-regular fa-circle-xmark"
+      style="color: #9e9e9e; font-size: 0.8rem"
+    ></i
+    >&nbsp; CERRAR</a
+  >
+  <p
+    class="subtitle is-5 has-text-centered"
+    style="color: #2c281f; font-weight: 800"
+  >
+    {{ titulo }}
+  </p>
+  <div class="consulta">
+    <div class="content">
+      <form #formAsset="ngForm" (ngSubmit)="onSubmit()">
+        <div class="columns">
+          <div class="column">
+            <h6>DATOS</h6>
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Subcuenta Armonizada</label
+              >
+              <div class="select">
+                <mat-select
+                  [(ngModel)]="asset.subcuenta"
+                  name="subcuenta"
+                  class="input"
+                >
+                  <ngx-mat-select-search
+                    [formControl]="subcuentaFilterCtrl"
+                    placeholderLabel="Busca una opción..."
+                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                  ></ngx-mat-select-search>
+                  <mat-option
+                    *ngFor="let option of filteredSubcuentas | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-select>
+              </div>
+            </div>
 
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>CÓDIGO DE LA PARTIDA
+                ESPECIFICA</label
+              >
 
+              <div class="select">
+                <select
+                  #codigo="ngModel"
+                  name="codigo"
+                  [(ngModel)]="asset.codigo"
+                >
+                  <option value="5100">5100</option>
+                  <option value="511">511</option>
+                  <option value="512">512</option>
+                  <option value="515">515</option>
+                  <option value="519">519</option>
+                  <option value="5200">5200</option>
+                  <option value="521">521</option>
+                  <option value="522">522</option>
+                  <option value="523">523</option>
+                  <option value="529">529</option>
+                  <option value="5300">5300</option>
+                  <option value="531">531</option>
+                  <option value="532">532</option>
+                  <option value="5400">5400</option>
+                  <option value="541">541</option>
+                  <option value="542">542</option>
+                  <option value="543">543</option>
+                  <option value="544">544</option>
+                  <option value="545">545</option>
+                  <option value="549">549</option>
+                  <option value="551">551</option>
+                  <option value="5600">5600</option>
+                  <option value="561">561</option>
+                  <option value="562">562</option>
+                  <option value="563">563</option>
+                  <option value="564">564</option>
+                  <option value="565">565</option>
+                  <option value="566">566</option>
+                  <option value="567">567</option>
+                  <option value="569">569</option>
+                  <option value="513">513</option>
+                  <option value="514">514</option>
+                  <option value="5700">5700</option>
+                  <option value="571">571</option>
+                  <option value="572">572</option>
+                  <option value="573">573</option>
+                  <option value="574">574</option>
+                  <option value="575">575</option>
+                  <option value="576">576</option>
+                  <option value="577">577</option>
+                  <option value="578">578</option>
+                  <option value="579">579</option>
+                </select>
+              </div>
+            </div>
 
-<section class="container p-5" style="scrollbar-color: grey white;
-        scrollbar-width: thin; margin-top: 0rem; margin: 0 auto!important; overflow: auto; ">
-    <a *ngIf='identity' [mat-dialog-close] class="mb-5"
-        style="display: block; font-size:.9rem; color: #494949; font-weight: 600;"><i class="fa-regular fa-circle-xmark"
-            style="color: #9e9e9e; font-size: .8rem;"></i>&nbsp; CERRAR</a>
-    <p class="subtitle is-5 has-text-centered" style="color: #2c281f; font-weight: 800;">{{titulo}}</p>
-    <div class="consulta">
-        <div class="content">
+            <br />
+            <h6>CARACTERISTICAS</h6>
 
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Número de Inventario</label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #noinventario="ngModel"
+                  name="noinventario"
+                  [(ngModel)]="asset.noinventario"
+                />
+              </div>
+              <span
+                class="alertForm"
+                *ngIf="!noinventario.valid && noinventario.touched"
+              >
+                El No. de inventario es obligatorio
+              </span>
+            </div>
 
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Tipo de posesión</label
+              >
 
-            <form #formAsset="ngForm" (ngSubmit)="onSubmit()">
-                <div class="columns">
-                    <div class="column">
-                        <h6>DATOS</h6>
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Subcuenta Armonizada</label>
-                            <div class="select">
-                                <mat-select [(ngModel)]="asset.subcuenta" name="subcuenta" class="input" >
-                                    <ngx-mat-select-search  [formControl]="subcuentaFilterCtrl"  placeholderLabel="Busca una opción..." 
-                                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"></ngx-mat-select-search>
-                                    <mat-option *ngFor="let option of filteredSubcuentas | async" [value]="option">{{option}}</mat-option>
-                                  </mat-select>
-                            </div>
-                          </div>
-                      
+              <div class="select">
+                <select #tipo="ngModel" name="tipo" [(ngModel)]="asset.tipo">
+                  <option>I</option>
+                  <option>CO</option>
+                </select>
+              </div>
+            </div>
 
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>CÓDIGO DE LA PARTIDA
-                                ESPECIFICA</label>
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Descripción
+              </label>
+              <div class="control">
+                <textarea
+                  class="input"
+                  rows="5"
+                  type="text"
+                  #desc="ngModel"
+                  name="desc"
+                  [(ngModel)]="asset.desc"
+                ></textarea>
+              </div>
+              <span class="alertForm" *ngIf="!desc.valid && desc.touched">
+                La Descripción obligatoria
+              </span>
+            </div>
 
-                            <div class="select">
-                                <select #codigo="ngModel" name="codigo" [(ngModel)]="asset.codigo">
-                                    <option value="5100">5100</option>
-                                    <option value="511">511</option>
-                                    <option value="512">512</option>
-                                    <option value="515">515</option>
-                                    <option value="519">519</option>
-                                    <option value="5200">5200</option>
-                                    <option value="521">521</option>
-                                    <option value="522">522</option>
-                                    <option value="523">523</option>
-                                    <option value="529">529</option>
-                                    <option value="5300">5300</option>
-                                    <option value="531">531</option>
-                                    <option value="532">532</option>
-                                    <option value="5400">5400</option>
-                                    <option value="541">541</option>
-                                    <option value="542">542</option>
-                                    <option value="543">543</option>
-                                    <option value="544">544</option>
-                                    <option value="545">545</option>
-                                    <option value="549">549</option>
-                                    <option value="551">551</option>
-                                    <option value="5600">5600</option>
-                                    <option value="561">561</option>
-                                    <option value="562">562</option>
-                                    <option value="563">563</option>
-                                    <option value="564">564</option>
-                                    <option value="565">565</option>
-                                    <option value="566">566</option>
-                                    <option value="567">567</option>
-                                    <option value="569">569</option>
-                                    <option value="513">513</option>
-                                    <option value="514">514</option>
-                                    <option value="5700">5700</option>
-                                    <option value="571">571</option>
-                                    <option value="572">572</option>
-                                    <option value="573">573</option>
-                                    <option value="574">574</option>
-                                    <option value="575">575</option>
-                                    <option value="576">576</option>
-                                    <option value="577">577</option>
-                                    <option value="578">578</option>
-                                    <option value="579">579</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-
-
-                        <br>
-                        <h6>CARACTERISTICAS</h6>
-
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Número de Inventario</label>
-                            <div class="control">
-                                <input class="input" type="text" #noinventario="ngModel" name="noinventario"
-                                    [(ngModel)]="asset.noinventario">
-                            </div>
-                            <span class="alertForm" *ngIf="!noinventario.valid && noinventario.touched">
-                                El No. de inventario es obligatorio
-                            </span>
-                        </div>
-
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Tipo de posesión</label>
-
-                            <div class="select">
-                                <select #tipo="ngModel" name="tipo" [(ngModel)]="asset.tipo">
-                                    <option>I</option>
-                                    <option>CO</option>
-
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Descripción </label>
-                            <div class="control">
-                                <textarea class="input" rows="5" type="text" #desc="ngModel" name="desc"
-                                    [(ngModel)]="asset.desc"></textarea>
-                            </div>
-                            <span class="alertForm" *ngIf="!desc.valid && desc.touched">
-                                La Descripción obligatoria
-                            </span>
-                        </div>
-
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Marca</label>
-                            <div class="control">
-                                <input class="input" type="text" #marca="ngModel" name="marca"
-                                    [(ngModel)]="asset.marca">
-                            </div>
-                            <!--  <span class="alertForm" *ngIf="!marca.valid && marca.touched">
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Marca</label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #marca="ngModel"
+                  name="marca"
+                  [(ngModel)]="asset.marca"
+                />
+              </div>
+              <!--  <span class="alertForm" *ngIf="!marca.valid && marca.touched">
                                 La marca es obligatoria
                             </span> -->
-                        </div>
+            </div>
 
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Modelo</label>
-                            <div class="control">
-                                <input class="input" type="text" #modelo="ngModel" name="modelo"
-                                    [(ngModel)]="asset.modelo">
-                            </div>
-                            <!--  <span class="alertForm" *ngIf="!modelo.valid && modelo.touched">
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Modelo</label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #modelo="ngModel"
+                  name="modelo"
+                  [(ngModel)]="asset.modelo"
+                />
+              </div>
+              <!--  <span class="alertForm" *ngIf="!modelo.valid && modelo.touched">
                                 El Modelo es obligatorio
                             </span> -->
-                        </div>
+            </div>
 
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>No. Serie</label>
-                            <div class="control">
-                                <input class="input" type="text" #noserie="ngModel" name="noserie"
-                                    [(ngModel)]="asset.noserie">
-                            </div>
-                            <!-- <span class="alertForm" *ngIf="!noserie.valid && noserie.touched">
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>No. Serie</label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #noserie="ngModel"
+                  name="noserie"
+                  [(ngModel)]="asset.noserie"
+                />
+              </div>
+              <!-- <span class="alertForm" *ngIf="!noserie.valid && noserie.touched">
                                 El número de serie es obligatorio
                             </span> -->
-                        </div>
+            </div>
 
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Estado del Bien</label>
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Estado del Bien</label
+              >
 
+              <div class="select">
+                <select
+                  #estado="ngModel"
+                  name="estado"
+                  [(ngModel)]="asset.estado"
+                >
+                  <option value="N">Nuevo</option>
+                  <option value="B">Bueno</option>
+                  <option value="RE">Regular</option>
+                  <option value="M">Malo</option>
+                  <option value="I">Inservible</option>
+                </select>
+              </div>
 
-
-                            <div class="select">
-                                <select #estado="ngModel" name="estado" [(ngModel)]="asset.estado">
-                                    <option value="N">Nuevo</option>
-                                    <option value="B">Bueno</option>
-                                    <option value="RE">Regular</option>
-                                    <option value="M">Malo</option>
-                                    <option value="I">Inservible</option>
-
-
-
-                                </select>
-                            </div>
-
-
-                            <!-- 
+              <!-- 
                             <span class="alertForm" *ngIf="!estado.valid && estado.touched">
                                 El Estado del bien es obligatorio
                             </span> -->
+            </div>
 
-                        </div>
+            <div class="field photoadd">
+              <div
+                *ngIf="itempic"
+                class="previewfoto"
+                [ngStyle]="{ 'background-image': 'url(' + itempic.base + ')' }"
+              ></div>
+              <label class="label"
+                ><span class="requiredField">*</span>Fotografía</label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  name="foto"
+                  type="file"
+                  (change)="UpPhoto($event)"
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
-                        <div class="field photoadd">
-                            <div *ngIf="itempic" class="previewfoto"
-                                [ngStyle]="{'background-image': 'url(' + itempic.base + ')'}">
+          <div class="column">
+            <h6>DATOS FINANCIEROS</h6>
 
-                            </div>
-                            <label class="label"><span class="requiredField">*</span>Fotografía</label>
-                            <div class="control">
+            <div class="field">
+              <label class="label">Costo de Adquisición</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  #costo="ngModel"
+                  name="costo"
+                  [(ngModel)]="asset.costo"
+                />
+              </div>
+            </div>
 
-                                <input class="input" name="foto" type="file" (change)="UpPhoto($event)" required>
+            <div class="field">
+              <label class="label">Depreciación acumulada</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  #depreciacion="ngModel"
+                  name="depreciacion"
+                  [(ngModel)]="asset.depreciacion"
+                />
+              </div>
+            </div>
 
-                            </div>
+            <div class="field">
+              <label class="label">Valor en libros</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  #valorenlibros="ngModel"
+                  name="valorenlibros"
+                  [(ngModel)]="asset.valorenlibros"
+                />
+              </div>
+            </div>
 
+            <div class="field">
+              <label class="label">Póliza No.</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="number"
+                  #poliza="ngModel"
+                  name="poliza"
+                  [(ngModel)]="asset.poliza"
+                />
+              </div>
+            </div>
 
-                        </div>
+            <div class="field">
+              <label class="label">Fecha de Poliza</label>
 
+              <div class="control">
+                <input
+                  class="input"
+                  type="date"
+                  #fechapoliza="ngModel"
+                  name="fechapoliza"
+                  [(ngModel)]="asset.fechapoliza"
+                />
+              </div>
+            </div>
 
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Documento que ampara la
+                propiedad del bien</label
+              >
 
+              <div class="select">
+                <mat-select
+                  (selectionChange)="checkIfCFDISelected()"
+                  [(ngModel)]="cfdiSElected"
+                  name="DAPB"
+                  class="input"
+                  #DAPB="ngModel"
+                >
+                  <ngx-mat-select-search
+                    [formControl]="filtereddapbelementsFilterCtrl"
+                    placeholderLabel="Busca una opción..."
+                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                  ></ngx-mat-select-search>
+                  <mat-option
+                    *ngFor="let option of filtereddapbelements | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-select>
+              </div>
+              <br />
 
-                    </div>
+              <div class="control" *ngIf="iscfdiSelected">
+                <br />
+                <input
+                  class="input"
+                  type="text"
+                  #arearesponsableinput="ngModel"
+                  name="arearesponsableinput"
+                  [(ngModel)]="CFDIvalue"
+                  placeholder="Escribe el CFDI"
+                />
+              </div>
+            </div>
 
-
-                    <div class="column">
-
-
-
-
-                        <h6>DATOS FINANCIEROS</h6>
-
-                        <div class="field">
-                            <label class="label">Costo de Adquisición</label>
-                            <div class="control">
-                                <input class="input" type="number" #costo="ngModel" name="costo"
-                                    [(ngModel)]="asset.costo">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Depreciación acumulada</label>
-                            <div class="control">
-                                <input class="input" type="number" #depreciacion="ngModel" name="depreciacion"
-                                    [(ngModel)]="asset.depreciacion">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Valor en libros</label>
-                            <div class="control">
-                                <input class="input" type="number" #valorenlibros="ngModel" name="valorenlibros"
-                                    [(ngModel)]="asset.valorenlibros">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Póliza No.</label>
-                            <div class="control">
-                                <input class="input" type="number" #poliza="ngModel" name="poliza"
-                                    [(ngModel)]="asset.poliza">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Fecha de Poliza</label>
-
-                            <div class="control">
-                                <input class="input" type="date" #fechapoliza="ngModel" name="fechapoliza"
-                                    [(ngModel)]="asset.fechapoliza">
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label class="label">Documento que ampara la propiedad del bien</label>
-
-                            <div class="select">
-                                <select #DAPB="ngModel" name="DAPB" [(ngModel)]="asset.DAPB">
-                                    <option>CO</option>
-                                    <option>CD</option>
-                                    <option>CFDI</option>
-
-
-
-                                </select>
-                            </div>
-
-
-
-                        </div>
-
-                        <!-- <div class="field">
+            <!-- <div class="field">
                             <label class="label"><span class="requiredField">*</span>Subir documento</label>
                             <div class="control">
 
@@ -323,274 +430,506 @@
 
                         </div> -->
 
-                        <div class="field">
-                            <label class="label">Fecha del Documento</label>
+            <div class="field">
+              <label class="label">Fecha del Documento</label>
 
-                            <div class="control">
-                                <input class="input" type="date" #fechaDAPB="ngModel" name="fechaDAPB"
-                                    [(ngModel)]="asset.fechaDAPB">
-                            </div>
+              <div class="control">
+                <input
+                  class="input"
+                  type="date"
+                  #fechaDAPB="ngModel"
+                  name="fechaDAPB"
+                  [(ngModel)]="asset.fechaDAPB"
+                />
+              </div>
+            </div>
+            <br>
+            <h6>DATOS ADQUISICIÓN O ALTA</h6>
 
-                        </div>
-                    </div>
+            <div class="field">
+              <label class="label">Fecha de Adquisición o Alta</label>
 
+              <div class="control">
+                <input
+                  class="input"
+                  type="date"
+                  #fechaalta="ngModel"
+                  name="fechaalta"
+                  [(ngModel)]="asset.fechaalta"
+                />
+              </div>
+            </div>
 
-                    <div class="column">
+            <div class="field">
+              <label class="label">Tipo de alta</label>
 
-                        <h6>DATOS ADQUISICIÓN O ALTA</h6>
+              <div class="select">
+                <select
+                  #tipoalta="ngModel"
+                  name="tipoalta"
+                  [(ngModel)]="asset.tipoalta"
+                >
+                  <option>CM</option>
+                  <option>DN</option>
+                  <option>CO</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
+          <div class="column">
+           
 
-                        <div class="field">
-                            <label class="label">Fecha de Adquisición o Alta</label>
+           
+            <h6>LOCALIZACIÓN DEL BIEN</h6>
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>¿Localizado?</label
+              >
 
-                            <div class="control">
-                                <input class="input" type="date" #fechaalta="ngModel" name="fechaalta"
-                                    [(ngModel)]="asset.fechaalta">
-                            </div>
+              <div class="select">
+                <select
+                  #localizado="ngModel"
+                  name="localizado"
+                  [(ngModel)]="asset.localizado"
+                >
+                  <option value="no localizado">NO LOCALIZADO</option>
+                  <option value="localizado">LOCALIZADO</option>
+                </select>
+              </div>
 
-                        </div>
-
-
-                        <div class="field">
-                            <label class="label">Tipo de alta</label>
-
-                            <div class="select">
-                                <select #tipoalta="ngModel" name="tipoalta" [(ngModel)]="asset.tipoalta">
-                                    <option>CM</option>
-                                    <option>DN</option>
-                                    <option>CO</option>
-
-
-                                </select>
-                            </div>
-
-
-
-                        </div>
-
-                        <br>
-                        <h6>LOCALIZACIÓN DEL BIEN</h6>
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>¿Localizado?</label>
-
-
-
-                            <div class="select">
-                                <select #localizado="ngModel" name="localizado" [(ngModel)]="asset.localizado">
-                                    <option value="no localizado">NO LOCALIZADO</option>
-                                    <option value="localizado">LOCALIZADO</option>
-
-
-
-
-                                </select>
-                            </div>
-
-
-                            <!-- 
+              <!-- 
                             <span class="alertForm" *ngIf="!estado.valid && estado.touched">
                                 El Estado del bien es obligatorio
                             </span> -->
+            </div>
 
-                        </div>
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Área responsable</label
+              >
 
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Área responsable</label>
+              <div class="select">
+                <mat-select
+                  (selectionChange)="checkIfOtherSelected()"
+                  [(ngModel)]="areaResElected"
+                  name="arearesponsableselect"
+                  class="input"
+                  #arearesponsableselect="ngModel"
+                >
+                  <ngx-mat-select-search
+                    [formControl]="areaResponsableFilterCtrl"
+                    placeholderLabel="Busca una opción..."
+                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                  ></ngx-mat-select-search>
+                  <mat-option
+                    *ngFor="let option of filteredAreasResponsables | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-select>
+              </div>
+              <br />
 
-                            <div class="select">
-                                <mat-select (selectionChange)="checkIfOtherSelected()"  [(ngModel)]="areaResElected" name="arearesponsableselect" class="input" #arearesponsableselect="ngModel" >
-                                    <ngx-mat-select-search  [formControl]="areaResponsableFilterCtrl"  placeholderLabel="Busca una opción..." 
-                                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"></ngx-mat-select-search>
-                                    <mat-option *ngFor="let option of filteredAreasResponsables | async" [value]="option">{{option}}</mat-option>
-                                  </mat-select>
-                            </div>
-                          <br>
+              <div class="control" *ngIf="isOtherSelected">
+                <br />
+                <input
+                  class="input"
+                  type="text"
+                  #arearesponsableinput="ngModel"
+                  name="arearesponsableinput"
+                  [(ngModel)]="otherOption"
+                  placeholder="Escribe otra opción"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Área presupuestal</label
+              >
 
-                            <div class="control" *ngIf="isOtherSelected">
-                                <br>
-                                <input class="input" type="text" #arearesponsableinput="ngModel"
-                                    name="arearesponsableinput" [(ngModel)]="otherOption"
-                                    placeholder="Escribe otra opción">
-                            </div>
+              <div class="select">
+                <mat-select
+                  (selectionChange)="checkIfOtherSelectedPres()"
+                  [(ngModel)]="areaPresElected"
+                  name="areapresupuestalselect"
+                  class="input"
+                  #areapresupuestalselect="ngModel"
+                >
+                  <ngx-mat-select-search
+                    [formControl]="areaPresupuestalFilterCtrl"
+                    placeholderLabel="Busca una opción..."
+                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                  ></ngx-mat-select-search>
+                  <mat-option
+                    *ngFor="let option of filteredAreasPresupuestales | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-select>
+              </div>
 
-                            
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Área presupuestal</label>
+              <br />
 
-                            <div class="select">
-                                <mat-select (selectionChange)="checkIfOtherSelectedPres()"  [(ngModel)]="areaPresElected" name="areapresupuestalselect" class="input" #areapresupuestalselect="ngModel" >
-                                    <ngx-mat-select-search  [formControl]="areaPresupuestalFilterCtrl"  placeholderLabel="Busca una opción..." 
-                                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"></ngx-mat-select-search>
-                                    <mat-option *ngFor="let option of filteredAreasPresupuestales | async" [value]="option">{{option}}</mat-option>
-                                  </mat-select>
-                                
-                              </div>
+              <div class="control" *ngIf="isOtherSelectedpres">
+                <br />
+                <input
+                  class="input"
+                  type="text"
+                  #areapresupuestalinput="ngModel"
+                  name="areapresupuestalinput"
+                  [(ngModel)]="otherOptionpres"
+                  placeholder="Escribe otra opción"
+                />
+              </div>
 
-                            <br>
+              <span
+                class="alertForm"
+                *ngIf="
+                  !areapresupuestalselect.valid &&
+                  areapresupuestalselect.touched
+                "
+              >
+                El Área presupuestal es obligatoria
+              </span>
+            </div>
+            <br />
+            <div class="field">
+              <label class="label"
+                ><span class="requiredField">*</span>Ubicación Física</label
+              >
 
-                            <div class="control" *ngIf="isOtherSelectedpres">
-                                <br>
-                                <input class="input" type="text" #areapresupuestalinput="ngModel"
-                                    name="areapresupuestalinput" [(ngModel)]="otherOptionpres"
-                                    placeholder="Escribe otra opción">
-                            </div>
+              <div class="select">
+                <mat-select
+                  (selectionChange)="checkIfOtherSelectedUbi()"
+                  [(ngModel)]="UbiSelected"
+                  name="ubicacionselect"
+                  class="input"
+                  #ubicacionselect="ngModel"
+                >
+                  <ngx-mat-select-search
+                    [formControl]="areaFisicaFilterCtrl"
+                    placeholderLabel="Busca una opción..."
+                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                  ></ngx-mat-select-search>
+                  <mat-option
+                    *ngFor="let option of filteredAreasFisicas | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-select>
+              </div>
 
-                            <span class="alertForm"
-                                *ngIf="!areapresupuestalselect.valid && areapresupuestalselect.touched">
-                                El Área presupuestal es obligatoria
-                            </span>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label class="label"><span class="requiredField">*</span>Ubicación Física</label>
+              <br />
 
-                            <div class="select">
-                                <mat-select (selectionChange)="checkIfOtherSelectedUbi()"  [(ngModel)]="UbiSelected" name="ubicacionselect" class="input"  #ubicacionselect="ngModel" >
-                                    <ngx-mat-select-search  [formControl]="areaFisicaFilterCtrl"  placeholderLabel="Busca una opción..." 
-                                    noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"></ngx-mat-select-search>
-                                    <mat-option *ngFor="let option of filteredAreasFisicas | async" [value]="option">{{option}}</mat-option>
-                                  </mat-select>
-                                
-                                </div>
+              <div class="control" *ngIf="isOtherSelectedUbi">
+                <br />
+                <input
+                  class="input"
+                  type="text"
+                  #areapresupuestalinput="ngModel"
+                  name="ubicacionfisicainput"
+                  [(ngModel)]="otherOptionUbi"
+                  placeholder="Escribe otra opción"
+                />
+              </div>
 
-                            <br>
+              <span
+                class="alertForm"
+                *ngIf="!ubicacionselect.valid && ubicacionselect.touched"
+              >
+                La ubicación física es obligatoria
+              </span>
+            </div>
+            <br />
+            <h6>DATOS DEL RESGUARDANTE</h6>
 
-                            <div class="control" *ngIf="isOtherSelectedUbi">
-                                <br>
-                                <input class="input" type="text" #areapresupuestalinput="ngModel"
-                                    name="ubicacionfisicainput" [(ngModel)]="otherOptionUbi"
-                                    placeholder="Escribe otra opción">
-                            </div>
+            <div class="field">
+              <label class="label">RFC</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #RFC="ngModel"
+                  name="RFC"
+                  [(ngModel)]="asset.RFC"
+                  maxlength="18"
+                  style="text-transform: uppercase"
+                  onkeyup="javascript:this.value=this.value.toUpperCase();"
+                />
+              </div>
+            </div>
 
-                            <span class="alertForm" *ngIf="!ubicacionselect.valid && ubicacionselect.touched">
-                                La ubicación física es obligatoria
-                            </span>
-                        </div>
-                        <br>
-                        <h6>DATOS DEL RESGUARDANTE</h6>
+            <div class="field">
+              <label class="label">Nombre completo</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #nombrecompleto="ngModel"
+                  name="nombrecompleto"
+                  [(ngModel)]="asset.nombrecompleto"
+                />
+              </div>
+            </div>
+            <br />
+            <h6>DATOS DE LA BAJA</h6>
 
+            <div class="field">
+              <label class="label">Fecha del resguardo</label>
 
-                        <div class="field">
-                            <label class="label">RFC</label>
-                            <div class="control">
-                                <input class="input" type="text" #RFC="ngModel" name="RFC" [(ngModel)]="asset.RFC"
-                                    maxlength="18" style="text-transform:uppercase;"
-                                    onkeyup="javascript:this.value=this.value.toUpperCase();">
-                            </div>
+              <div class="control">
+                <input
+                  class="input"
+                  type="date"
+                  #fecharesguardo="ngModel"
+                  name="fecharesguardo"
+                  [(ngModel)]="asset.fecharesguardo"
+                />
+              </div>
+            </div>
 
-                        </div>
+            <div class="field">
+              <label class="label">Fecha del baja</label>
 
-                        <div class="field">
-                            <label class="label">Nombre completo</label>
-                            <div class="control">
-                                <input class="input" type="text" #nombrecompleto="ngModel" name="nombrecompleto"
-                                    [(ngModel)]="asset.nombrecompleto">
-                            </div>
+              <div class="control">
+                <input
+                  class="input"
+                  type="date"
+                  #fechabaja="ngModel"
+                  name="fechabaja"
+                  [(ngModel)]="asset.fechabaja"
+                />
+              </div>
+            </div>
 
-                        </div>
-                        <br>
-                        <h6>DATOS DE LA BAJA</h6>
+            <div class="field">
+              <label class="label">Tipo de baja</label>
 
-                        <div class="field">
-                            <label class="label">Fecha del resguardo</label>
+              <div class="select">
+                <select
+                  #tipobaja="ngModel"
+                  name="tipobaja"
+                  [(ngModel)]="asset.tipobaja"
+                >
+                  <option value="RO">ROBO</option>
+                  <option value="S">SINIESTRO</option>
+                  <option value="P">PERDIDA</option>
+                  <option value="O">OBSOLECENCIA</option>
+                  <option value="V">VENTA</option>
+                  <option value="DO">DONACIÓN</option>
+                  <option value="TC">TERMINÓ DE COMODATO</option>
+                </select>
+              </div>
+            </div>
 
-                            <div class="control">
-                                <input class="input" type="date" #fecharesguardo="ngModel" name="fecharesguardo"
-                                    [(ngModel)]="asset.fecharesguardo">
-                            </div>
+            <div class="field">
+              <label class="label">Documento que ampara la baja</label>
 
-                        </div>
+              <div class="control">
+                <input
+                  style="text-transform: uppercase"
+                  onkeyup="javascript:this.value=this.value.toUpperCase();"
+                  class="input"
+                  type="text"
+                  #DAB="ngModel"
+                  name="DAB"
+                  [(ngModel)]="asset.DAB"
+                />
+              </div>
+            </div>
 
-                        <div class="field">
-                            <label class="label">Fecha del baja</label>
+            <br />
+            <h6>NOTAS</h6>
+            <div class="field">
+              <label class="label">Nota Inicial</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  #nota="ngModel"
+                  name="nota"
+                  [(ngModel)]="firstnote"
+                  placeholder="Escribe la primera nota aquí"
+                />
+              </div>
+            </div>
 
-                            <div class="control">
-                                <input class="input" type="date" #fechabaja="ngModel" name="fechabaja"
-                                    [(ngModel)]="asset.fechabaja">
-                            </div>
+            <br />
 
-                        </div>
+            <div class="field">
+              <label class="label">¿Tengo el bien?</label>
 
-                        <div class="field">
-                            <label class="label">Tipo de baja</label>
+              <div class="select">
+                <select
+                  #existebien="ngModel"
+                  name="existebien"
+                  [(ngModel)]="existeBien"
+                >
+                  <option value="SI">SI</option>
+                  <option value="NO">NO</option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <ng-container *ngIf="existeBien == 'NO'">
+              <div class="field">
+                <label class="label">Clasificación</label>
 
-                            <div class="select">
-                                <select #tipobaja="ngModel" name="tipobaja" [(ngModel)]="asset.tipobaja">
-                                    <option value="RO">ROBO</option>
-                                    <option value="S">SINIESTRO</option>
-                                    <option value="P">PERDIDA</option>
-                                    <option value="O">OBSOLECENCIA</option>
-                                    <option value="V">VENTA</option>
-                                    <option value="DO">DONACIÓN</option>
-                                    <option value="TC">TERMINÓ DE COMODATO</option>
-
-                                </select>
-                            </div>
-
-
-                        </div>
-
-                        <div class="field">
-
-                            <label class="label">Documento que ampara la baja</label>
-
-                            <div class="control">
-                                <input style="text-transform:uppercase;"
-                                    onkeyup="javascript:this.value=this.value.toUpperCase();" class="input" type="text"
-                                    #DAB="ngModel" name="DAB" [(ngModel)]="asset.DAB">
-                            </div>
-
-                        </div>
-
-                        <br>
-                        <h6>NOTAS</h6>
-                        <div class="field">
-                            <label class="label">Nota Inicial</label>
-                            <div class="control">
-                                <input class="input" type="text" #nota="ngModel" name="nota" [(ngModel)]="firstnote" placeholder="Escribe la primera nota aquí">
-                            </div>
-                        </div>
-
-                       <br>
-
-
-                        <input *ngIf="!loadingADD" class="button is-success" type="submit" value="{{titulo}}"
-                            [disabled]="!formAsset.valid" style="color: white;">
-                      
-                        
-
-                        <input *ngIf="loadingADD" class="button is-success" type="submit" value="Guardando bien..."
-                            disabled style="color: white;">
-
-                           
-                            <div  *ngIf="uploadedADD" style="text-align: center; margin-top: 1rem;" class="notification is-primary is-light">
-                                <h4>Agregado correctamente</h4>
-                                <p>Espera un momento.</p>
-                            </div>
-
-
-
-
-
-                    </div>
-
+                <div class="select">
+                  <select
+                    #clasification="ngModel"
+                    name="clasification"
+                    [(ngModel)]="asset.calasification"
+                  >
+                    <option value="Prestamo">Préstamo</option>
+                    <option value="Extravio">Extravío</option>
+                    <option value="Desechado">Desechados insrevibles</option>
+                    <option value="Robado">Robado</option>
+                  </select>
                 </div>
+              </div>
+              <br>
+              <div class="field" *ngIf="asset.calasification === 'Prestamo'">
+                <label class="label">¿Vale de resguardo?</label>
+  
+                <div class="select">
+                  <select
+                    #existeresguardo="ngModel"
+                    name="existeresguardo"
+                    [(ngModel)]="existeResguardo"
+                  >
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+                  </select>
+                </div>
+              </div>
 
 
-            </form>
+              <div class="field" *ngIf="existeResguardo === 'SI'">
+                <label class="label"
+                  ><span class="requiredField">*</span>Área resguardante</label
+                >
+  
+                <div class="select">
+                  <mat-select
+                    (selectionChange)="checkIfOtherSelected()"
+                    [(ngModel)]="areaResguSelected"
+                    name="arearesguardanteselect"
+                    class="input"
+                    #arearesguardanteselect="ngModel"
+                  >
+                    <ngx-mat-select-search
+                      [formControl]="areaResguardanteFilterCtrl"
+                      placeholderLabel="Busca una opción..."
+                      noEntriesFoundLabel="NO HAY RESULTADOS QUE COINCIDAN"
+                    ></ngx-mat-select-search>
+                    <mat-option
+                      *ngFor="let option of filteredAreasResguardantes | async"
+                      [value]="option"
+                      >{{ option }}</mat-option
+                    >
+                  </mat-select>
+                </div>
+                <br />
+  
+               
+              </div>
+
+              <div class="field photoadd" *ngIf="existeResguardo === 'SI'">
+                <div
+                  *ngIf="itempic"
+                  class="previewfoto"
+                  [ngStyle]="{ 'background-image': 'url(' + itempic.base + ')' }"
+                ></div>
+                <label class="label"
+                  ><span class="requiredField">*</span>Vale de resguardo</label
+                >
+                <div class="control">
+                  <input
+                    class="input"
+                    name="foto"
+                    type="file"
+                    (change)="UpPhoto($event)"
+                    required
+                  />
+                </div>
+              </div>
 
 
+              <div
+              *ngIf="existeResguardo === 'NO'"
+              style="text-align: center; margin-top: 1rem"
+              class="notification is-warning is-light"
+            >
+              <h5>
+                Se requiere elaborar vale de resguardo.
+              </h5>
+            </div>
 
+              <div
+                *ngIf="asset.calasification === 'Extravio'"
+                style="text-align: center; margin-top: 1rem"
+                class="notification is-warning is-light"
+              >
+                <h5>
+                  Es necesario reponer dicho bien a tráves de la Contraloría.
+                </h5>
+              </div>
+              <div class="field photoadd" *ngIf="asset.calasification === 'Robado'">
+                <div
+                  *ngIf="itempic"
+                  class="previewfoto"
+                  [ngStyle]="{ 'background-image': 'url(' + itempic.base + ')' }"
+                ></div>
+                <label class="label"
+                  ><span class="requiredField">*</span>Denuncia del M.P.</label
+                >
+                <div class="control">
+                  <input
+                    class="input"
+                    name="foto"
+                    type="file"
+                    (change)="UpPhoto($event)"
+                    required
+                  />
+                </div>
+              </div>
+
+            </ng-container>
+
+            <br />
+
+            <input
+              *ngIf="!loadingADD"
+              class="button is-success"
+              type="submit"
+              value="{{ titulo }}"
+              [disabled]="!formAsset.valid"
+              style="color: white"
+            />
+
+            <input
+              *ngIf="loadingADD"
+              class="button is-success"
+              type="submit"
+              value="Guardando bien..."
+              disabled
+              style="color: white"
+            />
+
+            <div
+              *ngIf="uploadedADD"
+              style="text-align: center; margin-top: 1rem"
+              class="notification is-primary is-light"
+            >
+              <h4>Agregado correctamente</h4>
+              <p>Espera un momento.</p>
+            </div>
+          </div>
         </div>
-
-
-
-
+      </form>
     </div>
-
-
+  </div>
 </section>
-
-

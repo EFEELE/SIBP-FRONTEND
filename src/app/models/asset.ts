@@ -36,7 +36,15 @@ export class Asset {
     public _id: string,
     public ubicacionfisica: string,
     public localizado: string,
-    public notes?: Note[]
+    public cfdi: string,
+    public confirmexist: Boolean,
+    public calasification: String,
+    public MPfile: String,
+    public existresguardo: Boolean,
+    public arearesguardo: String,
+    public valeResguardo: String,
+    public notes?: Note[],
+    
   ) { }
 }
 
@@ -79,7 +87,15 @@ export class AssetLIST {
     public _id: string,
     public ubicacionfisica: string,
     public localizado: string,
-    public notes?: Note[]
+    public cfdi: string,
+    public confirmexist: Boolean,
+    public calasification: String,
+    public MPfile: String,
+    public existresguardo: Boolean,
+    public arearesguardo: String,
+    public valeResguardo: String,
+    public notes?: Note[],
+   
   ) { }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef , CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params, RouterOutlet, RouterModule, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { AdminService } from '../services/admin.service';
@@ -15,12 +15,14 @@ import { MatSelectModule, } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
+import { MatRadioModule } from '@angular/material/radio';
+
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 @Component({
   selector: 'app-asset-add-mueble',
   standalone: true,
-  imports: [NgIf, CommonModule, RouterOutlet, ReactiveFormsModule, RouterModule, FormsModule, MatDialogModule, MatSelectModule, NgxMatSelectSearchModule, MatFormFieldModule],
+  imports: [NgIf, CommonModule, RouterOutlet, ReactiveFormsModule, RouterModule, FormsModule, MatDialogModule, MatSelectModule, NgxMatSelectSearchModule, MatFormFieldModule, MatRadioModule],
   templateUrl: './asset-add-mueble.component.html',
   styleUrl: './asset-add-mueble.component.css',
   providers: [AdminService, AssetService,],
@@ -32,6 +34,8 @@ import { startWith, map } from 'rxjs/operators';
 
 
 export class AssetAddMuebleComponent implements OnInit {
+  public existeBien: string;
+  public existeResguardo: string;
   public titulo: string;
   public asset: Asset;
   public identity;
@@ -44,7 +48,10 @@ export class AssetAddMuebleComponent implements OnInit {
   otherOption: string;
   loadingADD = false;
   uploadedADD = false;
+  cfdiSElected: string;
+  iscfdiSelected: boolean = false;
   areaResElected: string;
+  areaResguSelected: string;
   isOtherSelected: boolean = false;
   DAPBname: any;
   DABname: any;
@@ -60,6 +67,7 @@ export class AssetAddMuebleComponent implements OnInit {
   UbiSelected: string;
   isOtherSelectedpres: boolean = false;
   isOtherSelectedUbi: boolean = false;
+  CFDIvalue: string;
   otherOptionUbi: string;
   otherOptionpres: string;
   constructor(
@@ -69,7 +77,8 @@ export class AssetAddMuebleComponent implements OnInit {
     private _router: Router,
     private _adminService: AdminService,
     private toastr: ToastrService,
-    private _assetService: AssetService
+    private _assetService: AssetService,
+    private cdr: ChangeDetectorRef
   ) {
     this.titulo = 'Agregar Bien';
     this.identity = this._adminService.getIdentity();
@@ -113,16 +122,23 @@ export class AssetAddMuebleComponent implements OnInit {
       '', // _id
       '', // ubicación física DPMTH-511-01-001
       '', //  Localizado,
-      undefined
+      '', //cfdi,
+      false, //confirmexist
+      '', //clasification
+      '', //MPfILE
+      false,
+      '', //arearesguardo
+      '', //valeResguardo
+      undefined,
+   
     );
 
     this.is_edit = true;
 
   }
 
-
-
-
+  
+ 
 
   onSubmit() {
     if (this.identity.role == 'ROLE_editor') {
@@ -143,6 +159,16 @@ export class AssetAddMuebleComponent implements OnInit {
     }
     this.asset.arearesponsable = this.areaResElected
 
+
+    /*  VERIFICAR SI SE SELECCIONO CFDI Y REASIGNARLA */
+
+
+    if (this.cfdiSElected === 'CFDI') {
+      this.asset.cfdi = this.CFDIvalue;
+    }
+    this.asset.DAPB = this.cfdiSElected
+   
+
     /*  VERIFICAR SI SE SELECCIONO OTRA AREA PRESUPUESTAL Y REASIGNARLA */
     if (this.areaPresElected === 'OTRO') {
       this.areaPresElected = this.otherOptionpres;
@@ -155,7 +181,7 @@ export class AssetAddMuebleComponent implements OnInit {
     }
     this.asset.ubicacionfisica = this.UbiSelected
 
-   
+
 
 
     this._assetService.addAsset(this.token, this.asset).subscribe(
@@ -169,26 +195,26 @@ export class AssetAddMuebleComponent implements OnInit {
         } else {
 
           this.uploadedADD = true;
-          if(this.firstnote){
+          if (this.firstnote) {
             console.log(this.firstnote)
 
-           setTimeout(() => {
-            this._assetService.addNoteToAsset(this.token, response.asset._id, this.firstnote).subscribe(
-              (response) => {
-                console.log('Nota añadida exitosamente');
-                // Puedes manejar la respuesta aquí si es necesario
-              },
-              (error) => {
-                this.errorMessage = 'Ocurrió un error al añadir la nota'; // Mensaje genérico
-                if (error && error.error && error.error.message) {
-                  this.errorMessage = error.error.message;
+            setTimeout(() => {
+              this._assetService.addNoteToAsset(this.token, response.asset._id, this.firstnote).subscribe(
+                (response) => {
+                  console.log('Nota añadida exitosamente');
+                  // Puedes manejar la respuesta aquí si es necesario
+                },
+                (error) => {
+                  this.errorMessage = 'Ocurrió un error al añadir la nota'; // Mensaje genérico
+                  if (error && error.error && error.error.message) {
+                    this.errorMessage = error.error.message;
+                  }
+                  console.error('Error al añadir la nota:', error);
                 }
-                console.error('Error al añadir la nota:', error);
-              }
-            );
-           },1000)
+              );
+            }, 1000)
           }
-          
+
 
 
 
@@ -214,10 +240,12 @@ export class AssetAddMuebleComponent implements OnInit {
         } //if
       }
     );
-
-
-
+   
   }
+
+
+
+
   backPage() {
     window.history.back();
   }
@@ -270,6 +298,14 @@ export class AssetAddMuebleComponent implements OnInit {
 
     return sanitizedFileName;
   }
+  checkIfCFDISelected() {
+    console.log(this.cfdiSElected)
+    if (this.cfdiSElected === 'CFDI') {
+      this.iscfdiSelected = true;
+    } else {
+      this.iscfdiSelected = false;
+    }
+  }
   checkIfOtherSelected() {
     console.log(this.areaResElected)
     if (this.areaResElected === 'OTRO') {
@@ -308,6 +344,20 @@ export class AssetAddMuebleComponent implements OnInit {
         startWith(''),
         map(arearesponsable => arearesponsable ? this._filteredAreasResponsables(arearesponsable) : this.areasresponsables.slice())
       );
+
+      this.filteredAreasResguardantes = this.areaResguardanteFilterCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(arearesguardante => arearesguardante ? this._filteredAreasResguardantes(arearesguardante) : this.areasresguardantes.slice())
+      );
+
+
+    this.filtereddapbelements = this.filtereddapbelementsFilterCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(dapbelement => dapbelement ? this._filtereddapbelements(dapbelement) : this.dapbelements.slice())
+      );
+
 
 
     this.filteredAreasPresupuestales = this.areaPresupuestalFilterCtrl.valueChanges
@@ -349,10 +399,12 @@ export class AssetAddMuebleComponent implements OnInit {
     return this.subcuentas.filter(subcuenta => subcuenta.toLowerCase().includes(filterValue));
   }
 
-
+  filtereddapbelementsFilterCtrl = new FormControl();
   /* area responsables */
   areaResponsableControl = new FormControl([Validators.required]);
+  
   areaResponsableFilterCtrl = new FormControl();
+  areaResguardanteFilterCtrl = new FormControl();
   areasresponsables: string[] = [
     "CENTRO DE JUSTICIA CIVICA",
     "DESPACHO DE LA PRESIDENCIA MUNICIPAL",
@@ -415,12 +467,91 @@ export class AssetAddMuebleComponent implements OnInit {
     "OTRO"
   ];
 
-  filteredAreasResponsables: Observable<string[]>;
+  areasresguardantes: string[] = [
+    "CENTRO DE JUSTICIA CIVICA",
+    "DESPACHO DE LA PRESIDENCIA MUNICIPAL",
+    "DIRECCION DE ADMINISTRACION",
+    "DIRECCION DE ADMINISTRACION DE LA SSC",
+    "DIRECCION DE ANALISIS",
+    "DIRECCION DE ARCHIVO MUNICIPAL",
+    "DIRECCION DE ATENCION A VIOLENCIA FAMILIAR Y DE GENERO",
+    "DIRECCION DE AUDITORIA",
+    "DIRECCION DE CATASTRO Y RECAUDACION FISCAL",
+    "DIRECCION DE COMUNICACION SOCIAL E IMAGEN INSTITUCIONAL",
+    "DIRECCION DE COMPETITIVIDAD ECONOMICA",
+    "DIRECCION DE CUENTA PUBLICA",
+    "DIRECCION DE CULTURA Y ARTES",
+    "DIRECCION DE ECOLOGIA Y PROTECCION AL MEDIO AMBIENTE",
+    "DIRECCION DE EDUCACION",
+    "DIRECCION DE EGRESOS",
+    "DIRECCION DE FOMENTO AGROPECUARIO",
+    "DIRECCION DE GOBERNACION",
+    "DIRECCION DE IMDIS (INSTITUTO MUNICIPAL DE PERSONAS CON DISCAPACIDAD)",
+    "DIRECCION DE INGRESOS",
+    "DIRECCION DE INNOVACION Y MODERNIZACIÓN GUBERNAMENTAL",
+    "DIRECCION DE INVESTIGACION",
+    "DIRECCION DE LICENCIAS DE CONSTRUCCION",
+    "DIRECCION DE OBRAS PUBLICAS",
+    "DIRECCION DE OPERADORA MUNICIPAL DE PROYECTOS ESTRATEGICOS",
+    "DIRECCION DE PARTICIPACION CIUDADANA",
+    "DIRECCION DE PLANEACION Y ADMINISTRACION",
+    "DIRECCION DE PLANEACION Y EVALUACION",
+    "DIRECCION DE PROTECCION CIVIL Y BOMBEROS",
+    "DIRECCION DE RECURSOS HUMANOS",
+    "DIRECCION DE REGLAMENTOS",
+    "DIRECCION DE SALUD MUNICIPAL",
+    "DIRECCION DE SEGURIDAD PUBLICA",
+    "DIRECCION DE SERVICIOS PUBLICOS MUNICIPALES",
+    "DIRECCION DE TRANSITO Y VIALIDAD",
+    "DIRECCION DE TRANSPARENCIA, ACCESO A LA INFORMACION PUBLICA Y PROTECCION DE DATOS PERSONALES",
+    "DIRECCION DE TURISMO, COMERCIO Y SERVICIOS",
+    "DIRECCION DEL CENTRO DE ATENCION PSICOLOGICA",
+    "DIRECCION GENERAL DE LA CONSEJERIA JURIDICA",
+    "DIRECCION JURIDICA DE LA CONSEJERIA JURIDICA",
+    "DIRECCION JURIDICA DE LA SSC",
+    "DIRECTOR DE PREVENCION SOCIAL DEL DELITO",
+    "INSTITUTO MUNICIPAL DE LAS MUJERES",
+    "INSTITUTO MUNICIPAL DEL DEPORTE Y ACTIVACION FISICA",
+    "INSTITUTO TIZAYUQUENSE DE LA JUVENTUD",
+    "OFICIALIA MAYOR H. ASAMBLEA",
+    "RASTRO MUNICIPAL",
+    "REGISTRO DEL ESTADO FAMILIAR",
+    "SECRETARIA DE BIENESTAR SOCIAL",
+    "SECRETARIA DE DESARROLLO ECONOMICO",
+    "SECRETARIA DE FINANZAS",
+    "SECRETARIA DE LA CONTRALORIA MUNICIPAL",
+    "SECRETARIA DE OBRAS PUBLICAS",
+    "SECRETARIA DE SEGURIDAD CIUDADANA",
+    "SECRETARIA DE SECRETARIA TECNICA DE LA SCC",
+    "SECRETARIA EJECUTIVA DE SIPINNA",
+    "SECRETARIA GENERAL MUNICIPAL",
+    "UNIDAD DE ASUNTOS INTERNOS",
+    "OTRO"
+  ];
 
+  dapbelements: string[] = [
+    "CO",
+    "CD",
+    "CFDI"
+  ];
+
+  filteredAreasResguardantes: Observable<string[]>;
+  filteredAreasResponsables: Observable<string[]>;
+  filtereddapbelements: Observable<string[]>;
 
   private _filteredAreasResponsables(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.areasresponsables.filter(areasresponsable => areasresponsable.toLowerCase().includes(filterValue));
+  }
+
+  private _filteredAreasResguardantes(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.areasresguardantes.filter(arearesguardante => arearesguardante.toLowerCase().includes(filterValue));
+  }
+
+  private _filtereddapbelements(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.dapbelements.filter(dapbelement => dapbelement.toLowerCase().includes(filterValue));
   }
 
   /* area presupuestal */
@@ -573,4 +704,10 @@ export class AssetAddMuebleComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.areasfisicas.filter(areafisica => areafisica.toLowerCase().includes(filterValue));
   }
+
+
+
+  
+
+
 }

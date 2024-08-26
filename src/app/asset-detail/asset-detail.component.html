@@ -474,7 +474,7 @@
                             </h5>
                             <h5 *ngIf='asset.DAPB == "CO"'>Contrato de comodato (CO)</h5>
                             <h5 *ngIf='asset.DAPB == "CD"'>Contrato de donación (CD)</h5>
-                            <h5 *ngIf='asset.DAPB == "CFDI"'>CFDI</h5>
+                            <h5 *ngIf='asset.DAPB == "CFDI"'>CFDI: <h5 *ngIf='asset.cfdi'>{{asset.cfdi}}</h5></h5>
                         </div>
                         <div>
                             <h5 [ngClass]="{'missingData': !asset.fechaDAPB}">Fecha del Documento: </h5>
